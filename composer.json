@@ -1,0 +1,132 @@
+{
+  "name": "phoneburner/salt-lite",
+  "description": "Salt-Lite Common Library",
+  "type": "library",
+  "license": "proprietary",
+  "config": {
+    "platform": {
+      "php": "8.4"
+    },
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpstan/extension-installer": true,
+      "sllh/composer-lint": true
+    }
+  },
+  "repositories": [
+    {
+      "type": "github",
+      "url": "https://github.com/PhoneBurnerOpenSource/composer-replacements"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/PhoneBurnerOpenSource/php-coding-standard"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/phoneburner/salt-lite-phpstan"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/PhoneBurnerOpenSource/http-tortilla"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/PhoneBurnerOpenSource/link-tortilla"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "src/functions.php"
+    ],
+    "psr-4": {
+      "PhoneBurner\\SaltLite\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PhoneBurner\\SaltLite\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^8.4",
+    "ext-bcmath": "*",
+    "ext-ctype": "*",
+    "ext-curl": "*",
+    "ext-exif": "*",
+    "ext-gmp": "*",
+    "ext-iconv": "*",
+    "ext-igbinary": "*",
+    "ext-intl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "ext-random": "*",
+    "ext-sodium": "*",
+    "ext-zip": "*",
+    "ext-zlib": "*",
+    "composer/composer": "^2.8",
+    "crell/api-problem": "^3.7",
+    "crell/attributeutils": "^1.2",
+    "laminas/laminas-diactoros": "^3.5.0",
+    "nesbot/carbon": "^3.8.4",
+    "phoneburner/composer-replacements": "dev-main",
+    "phoneburner/http-tortilla": "dev-develop",
+    "phoneburner/link-tortilla": "dev-main",
+    "psr/cache": "^3.0.0",
+    "psr/clock": "^1.0.0",
+    "psr/container": "^1.1.2 || ^2.0.2",
+    "psr/event-dispatcher": "^1.0.0",
+    "psr/http-client": "^1.0.3",
+    "psr/http-factory": "^1.1.0",
+    "psr/http-message": "^2.0.0",
+    "psr/http-server-handler": "^1.0.2",
+    "psr/http-server-middleware": "^1.0.2",
+    "psr/link": "^2.0.1",
+    "psr/log": "^3.0.2",
+    "psr/simple-cache": "^3.0.0",
+    "ramsey/uuid": "^4.7.6",
+    "symfony/var-exporter": "^7.2.3"
+  },
+  "require-dev": {
+    "brianium/paratest": "^7.7",
+    "phoneburner/coding-standard": "dev-main",
+    "phoneburner/salt-lite-phpstan": "dev-main",
+    "php-parallel-lint/php-parallel-lint": "^1.4",
+    "phpunit/phpunit": "^11.5.6",
+    "rector/rector": "^2.0.7",
+    "roave/security-advisories": "dev-latest",
+    "symfony/var-dumper": "^7.2.3"
+  },
+  "scripts": {
+    "lint": "@php vendor/bin/parallel-lint -j $(nproc --ignore=2) --show-deprecated --exclude vendor --exclude build .",
+    "phpcbf": "@php vendor/bin/phpcbf --parallel=$(nproc --ignore=2) --report=full",
+    "phpcs": "@php vendor/bin/phpcs --parallel=$(nproc --ignore=2) --report=full",
+    "phpstan": "@php vendor/bin/phpstan analyze --memory-limit=-1 --verbose",
+    "test": [
+      "@putenv XDEBUG_MODE=off",
+      "@php vendor/bin/phpunit"
+    ],
+    "test-coverage": [
+      "@putenv XDEBUG_MODE=coverage",
+      "@php vendor/bin/phpunit --coverage-html=build/phpunit"
+    ],
+    "test-parallel": [
+      "@php vendor/bin/paratest"
+    ],
+    "rector": "@php vendor/bin/rector process",
+    "rector-dry-run": "@php vendor/bin/rector process --dry-run",
+    "ci": [
+      "@lint",
+      "@phpcs",
+      "@phpstan",
+      "@test",
+      "@php vendor/bin/rector process --dry-run --clear-cache"
+    ]
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "1.0.x"
+    }
+  }
+}
