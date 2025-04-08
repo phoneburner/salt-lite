@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Filesystem;
 
+use PhoneBurner\SaltLite\Filesystem\Exception\UnableToReadFile;
+use PhoneBurner\SaltLite\Filesystem\Exception\UnableToWriteFile;
 use PhoneBurner\SaltLite\Filesystem\FileMode;
 use PhoneBurner\SaltLite\Filesystem\FileStream;
 use PhoneBurner\SaltLite\Trait\HasNonInstantiableBehavior;
@@ -18,12 +20,14 @@ final readonly class File
 
     public static function read(\Stringable|string $filename): string
     {
-        return \file_get_contents(self::filename($filename)) ?: throw new \RuntimeException('Could Not Read File');
+        return @\file_get_contents(self::filename($filename))
+            ?: throw UnableToReadFile::atLocation((string)$filename);
     }
 
     public static function write(\Stringable|string $filename, string $content): int
     {
-        return \file_put_contents(self::filename($filename), $content) ?: throw new \RuntimeException('Could Not Write File');
+        return \file_put_contents(self::filename($filename), $content)
+            ?: throw UnableToWriteFile::atLocation((string)$filename);
     }
 
     public static function stream(\Stringable|string $filename, FileMode $mode = FileMode::Read): FileStream
@@ -45,7 +49,7 @@ final readonly class File
             default => throw new \InvalidArgumentException('context must be null or stream-context resource'),
         };
 
-        $stream = \fopen(self::filename($filename), $mode->value, false, $context);
+        $stream = @\fopen(self::filename($filename), $mode->value, false, $context);
         if ($stream === false) {
             throw new \RuntimeException('Could Not Create Stream');
         }

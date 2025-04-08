@@ -41,14 +41,14 @@ final class MapWrapperTest extends TestCase
     public function it_can_get_and_find_values(): void
     {
         $map = self::getMockMap(['key1' => 'value1', 'key2' => 'value2']);
-        $this->assertSame('value1', $map->get('key1'));
-        $this->assertSame('value2', $map->get('key2'));
-        $this->assertTrue($map->has('key1'));
-        $this->assertFalse($map->has('key3'));
-        $this->assertNull($map->find('invalid_key'));
+        self::assertSame('value1', $map->get('key1'));
+        self::assertSame('value2', $map->get('key2'));
+        self::assertTrue($map->has('key1'));
+        self::assertFalse($map->has('key3'));
+        self::assertNull($map->find('invalid_key'));
 
         $this->expectException(NotFound::class);
-        $this->assertNull($map->get('invalid_key'));
+        self::assertNull($map->get('invalid_key'));
     }
 
     #[Test]
@@ -57,10 +57,10 @@ final class MapWrapperTest extends TestCase
         $map = self::getMockMap();
         $map->set('key1', 'value1');
 
-        $this->assertSame('value1', $map->get('key1'));
+        self::assertSame('value1', $map->get('key1'));
         $map->set('key2', 'value2');
 
-        $this->assertSame('value2', $map->get('key2'));
+        self::assertSame('value2', $map->get('key2'));
     }
 
     #[Test]
@@ -69,8 +69,8 @@ final class MapWrapperTest extends TestCase
         $map = self::getMockMap(['key1' => 'value1', 'key2' => 'value2']);
         $map->unset('key1');
 
-        $this->assertNull($map->find('key1'));
-        $this->assertSame('value2', $map->get('key2'));
+        self::assertNull($map->find('key1'));
+        self::assertSame('value2', $map->get('key2'));
     }
 
     #[Test]
@@ -79,9 +79,9 @@ final class MapWrapperTest extends TestCase
         $map = self::getMockMap(['key1' => 'value1', 'key2' => 'value2']);
         $map->clear();
 
-        $this->assertFalse($map->has('key1'));
-        $this->assertFalse($map->has('key2'));
-        $this->assertSame([], $map->toArray());
+        self::assertFalse($map->has('key1'));
+        self::assertFalse($map->has('key2'));
+        self::assertSame([], $map->toArray());
     }
 
     #[Test]
@@ -90,7 +90,7 @@ final class MapWrapperTest extends TestCase
         $array = ['key1' => 'value1', 'key2' => 'value2'];
         $map = self::getMockMap(['key1' => 'value1', 'key2' => 'value2']);
 
-        $this->assertSame($array, $map->toArray());
+        self::assertSame($array, $map->toArray());
     }
 
     #[Test]
@@ -99,6 +99,6 @@ final class MapWrapperTest extends TestCase
         $map = self::getMockMap(['key1' => 'value1', 'key2' => 'value2']);
         $map->replace(['key3' => 'value3']);
 
-        $this->assertSame(['key3' => 'value3'], $map->toArray());
+        self::assertSame(['key3' => 'value3'], $map->toArray());
     }
 }

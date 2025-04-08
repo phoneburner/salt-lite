@@ -100,7 +100,11 @@ final class FileStream implements StreamInterface, \Stringable
 
     public function seek(int $offset, int $whence = \SEEK_SET): void
     {
-        $this->isSeekable() && \fseek($this->stream(), $offset, $whence);
+        if (! $this->isSeekable()) {
+            throw new \RuntimeException('Stream is not seekable');
+        }
+
+        \fseek($this->stream(), $offset, $whence);
     }
 
     public function rewind(): void

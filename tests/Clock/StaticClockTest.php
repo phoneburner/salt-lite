@@ -18,8 +18,8 @@ final class StaticClockTest extends TestCase
 
         $clock = new StaticClock($now);
 
-        $this->assertSame($now, $clock->now());
+        self::assertSame($now, $clock->now());
         \sleep(1);
-        $this->assertSame($now, $clock->now());
+        self::assertSame($now, $clock->now());
     }
 }

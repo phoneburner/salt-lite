@@ -11,7 +11,7 @@ use PhoneBurner\SaltLite\Type\Cast\NullableCast;
 /**
  * Creates a PSR-6/PSR-16 safe cache key "namespaced" by the passed in parts
  *
- * eg. (string)CacheKey::make('user', 1, 'FooBarProfile') would return 'user.1.foo_bar_profile'
+ * e.g. (string)CacheKey::make('user', 1, 'FooBarProfile') would return 'user.1.foo_bar_profile'
  */
 #[Contract]
 readonly class CacheKey implements \Stringable
