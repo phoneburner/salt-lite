@@ -1,0 +1,54 @@
+<?php
+
+declare(strict_types=1);
+
+namespace PhoneBurner\SaltLite\Tests\Http\Event;
+
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ServerRequest;
+use PhoneBurner\SaltLite\Http\Event\FallbackHandlerHandlingComplete;
+use PhoneBurner\SaltLite\Logging\LogEntry;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
+use Psr\Http\Server\RequestHandlerInterface;
+
+final class FallbackHandlerHandlingCompleteTest extends TestCase
+{
+    #[Test]
+    public function constructor_sets_public_properties(): void
+    {
+        $request = new ServerRequest();
+        $response = new Response();
+        $request_handler = $this->createMock(RequestHandlerInterface::class);
+
+        $event = new FallbackHandlerHandlingComplete(
+            $request_handler,
+            $request,
+            $response,
+        );
+
+        self::assertSame($request_handler, $event->request_handler);
+        self::assertSame($request, $event->request);
+        self::assertSame($response, $event->response);
+    }
+
+    #[Test]
+    public function getLogEntry_returns_log_entry_with_fallback_handler_class(): void
+    {
+        $request = new ServerRequest();
+        $response = new Response();
+        $request_handler = $this->createMock(RequestHandlerInterface::class);
+
+        $event = new FallbackHandlerHandlingComplete(
+            $request_handler,
+            $request,
+            $response,
+        );
+        $log_entry = $event->getLogEntry();
+
+        self::assertInstanceOf(LogEntry::class, $log_entry);
+        self::assertSame('Handled Request with Fallback Handler: {fallback_handler}', $log_entry->message);
+        self::assertArrayHasKey('fallback_handler', $log_entry->context);
+        self::assertSame($request_handler::class, $log_entry->context['fallback_handler']);
+    }
+}

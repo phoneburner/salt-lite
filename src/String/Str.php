@@ -184,7 +184,7 @@ final readonly class Str
             return \str_replace($search, '', $string);
         }
 
-        $result = \preg_replace((string)$search, '', $string);
+        $result = @\preg_replace((string)$search, '', $string);
         if ($result === null) {
             // https://www.php.net/manual/en/pcre.constants.php
             throw new \RuntimeException('preg_replace() returned error code ' . \preg_last_error());

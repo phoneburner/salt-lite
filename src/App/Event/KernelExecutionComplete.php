@@ -8,7 +8,7 @@ use PhoneBurner\SaltLite\App\Kernel;
 
 final readonly class KernelExecutionComplete
 {
-    public function __construct(public readonly Kernel $kernel)
+    public function __construct(public Kernel $kernel)
     {
     }
 }

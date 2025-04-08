@@ -6,6 +6,7 @@ namespace PhoneBurner\SaltLite\Tests\String;
 
 use Generator;
 use Laminas\Diactoros\StreamFactory;
+use PhoneBurner\SaltLite\Exception\NotInstantiable;
 use PhoneBurner\SaltLite\String\RegExp;
 use PhoneBurner\SaltLite\String\Str;
 use PhoneBurner\SaltLite\Tests\Fixtures\ShinyThing;
@@ -18,6 +19,13 @@ use Stringable;
 
 final class StrTest extends TestCase
 {
+    #[Test]
+    public function str_cannot_be_instantiated(): void
+    {
+        $this->expectException(NotInstantiable::class);
+        new Str();
+    }
+
     #[DataProvider('providesValidStringTestCases')]
     #[Test]
     public function stringable_will_return_true_for_strings_and_stringable_objects(
@@ -473,6 +481,13 @@ final class StrTest extends TestCase
         yield ['Aa', RegExp::make('a', 'i'), ''];
     }
 
+    #[Test]
+    public function strip_throws_exception_if_regexp_is_not_provided(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        Str::strip('foo', new RegExp('#foo/'));
+    }
+
     #[DataProvider('providesShortnameTestCases')]
     #[Test]
     public function shortname_returns_class_name_without_namespace(string $expected, string $classname): void
@@ -531,6 +546,13 @@ final class StrTest extends TestCase
         self::assertSame($expected['dot'], Str::dot($input));
     }
 
+    #[DataProvider('providesStringCaseConversionTestCases')]
+    #[Test]
+    public function ucwords_coverts_string_to_ucwords_case(array $expected, string $input): void
+    {
+        self::assertSame($expected['ucwords'], Str::ucwords($input));
+    }
+
     public static function providesStringCaseConversionTestCases(): Generator
     {
         $expected = [
@@ -540,6 +562,7 @@ final class StrTest extends TestCase
             'pascal' => 'Foo',
             'camel' => 'foo',
             'dot' => 'foo',
+            'ucwords' => 'Foo',
         ];
         foreach ($expected as $input) {
             yield [$expected, $input];
@@ -552,6 +575,7 @@ final class StrTest extends TestCase
             'pascal' => 'TheQuickBrownFoxJumpedOverTheLazyDog',
             'camel' => 'theQuickBrownFoxJumpedOverTheLazyDog',
             'dot' => 'the.quick.brown.fox.jumped.over.the.lazy.dog',
+            'ucwords' => 'The Quick Brown Fox Jumped Over The Lazy Dog',
         ];
 
         foreach ($expected as $input) {
@@ -573,6 +597,7 @@ final class StrTest extends TestCase
             'pascal' => 'Thequickbrownfoxjumpedoverthelazydog',
             'camel' => 'thequickbrownfoxjumpedoverthelazydog',
             'dot' => 'thequickbrownfoxjumpedoverthelazydog',
+            'ucwords' => 'Thequickbrownfoxjumpedoverthelazydog',
         ];
 
         yield [$expected, 'THEQUICKBROWNFOXJUMPEDOVERTHELAZYDOG'];
@@ -585,6 +610,7 @@ final class StrTest extends TestCase
             'pascal' => 'Some4Numbers234',
             'camel' => 'some4Numbers234',
             'dot' => 'some4.numbers234',
+            'ucwords' => 'Some4 Numbers234',
         ];
 
         yield [$expected, 'Some4Numbers234'];
@@ -596,6 +622,7 @@ final class StrTest extends TestCase
             'pascal' => 'Some4Numbers234',
             'camel' => 'some4Numbers234',
             'dot' => 'some.4.numbers.234',
+            'ucwords' => 'Some 4 Numbers 234',
         ];
 
         yield [$expected, 'Some 4 Numbers 234'];
@@ -607,6 +634,7 @@ final class StrTest extends TestCase
             'pascal' => 'SimpleXml',
             'camel' => 'simpleXml',
             'dot' => 'simple.xml',
+            'ucwords' => 'Simple Xml',
         ];
 
         yield [$expected, 'simpleXML'];

@@ -15,18 +15,21 @@ readonly class Attachment
         public string|null $content_type = null,
         public bool $inline = false,
     ) {
-        if ($this->path === '' && $this->content === '') {
-            throw new \InvalidArgumentException('Attachment must have a file path or content');
-        }
-
-        if ($this->path !== '' && $this->content !== '') {
-            throw new \InvalidArgumentException('Attachment cannot have both a file path and content');
-        }
-
         $this->type = match (true) {
-            $this->content !== '' => $this->inline ? AttachmentType::EmbedFromContent : AttachmentType::AttachFromContent,
-            $this->path !== '' => $this->inline ? AttachmentType::EmbedFromPath : AttachmentType::AttachFromPath,
-            default => throw new \InvalidArgumentException('Cannot Determine Attachment Type'),
+            $this->path !== '' => match (true) {
+                $this->content !== '' => throw new \InvalidArgumentException(
+                    'Attachment cannot have both a file path and content',
+                ),
+                $this->inline => AttachmentType::EmbedFromPath,
+                default => AttachmentType::AttachFromPath,
+            },
+            $this->content !== '' => match (true) {
+                $this->inline => AttachmentType::EmbedFromContent,
+                default => AttachmentType::AttachFromContent,
+            },
+            default => throw new \InvalidArgumentException(
+                'Attachment must have a file path or content',
+            ),
         };
     }
 

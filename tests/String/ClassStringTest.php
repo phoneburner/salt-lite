@@ -61,6 +61,18 @@ final class ClassStringTest extends TestCase
         self::assertFalse($sut->is(ClassStringType::Enum));
         self::assertSame(SharedKey::class, $sut->reflect()->getName());
         self::assertEquals($sut, \unserialize(\serialize($sut)));
+
+        self::assertEquals($sut, ClassString::match(SharedKey::class, SharedKey::class));
+        self::assertEquals($sut, ClassString::match(SharedKey::class, Key::class));
+        self::assertEquals($sut, ClassString::match(SharedKey::class, BinaryString::class));
+    }
+
+    #[Test]
+    public function sad_path_match(): void
+    {
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage(\sprintf("Class '%s' does not match type '%s'", Key::class, SharedKey::class));
+        ClassString::match(Key::class, SharedKey::class);
     }
 
     #[Test]

@@ -45,4 +45,82 @@ final class UuidStringTest extends TestCase
         self::assertSame($uuid->toString(), $deserialized->toString());
         self::assertSame((string)$uuid, (string)$deserialized);
     }
+
+    #[Test]
+    public function it_can_be_constructed_from_string(): void
+    {
+        $uuid_string = Uuid::random()->toString();
+        $uuid_obj = new UuidString($uuid_string);
+
+        self::assertSame($uuid_string, $uuid_obj->toString());
+        self::assertSame($uuid_string, (string)$uuid_obj);
+    }
+
+    #[Test]
+    public function it_can_be_constructed_from_stringable(): void
+    {
+        $uuid = Uuid::random();
+        $uuid_string = $uuid->toString();
+
+        $stringable = new class ($uuid_string) implements \Stringable {
+            public function __construct(private readonly string $uuid)
+            {
+            }
+
+            public function __toString(): string
+            {
+                return $this->uuid;
+            }
+        };
+
+        $uuid_obj = new UuidString($stringable);
+
+        self::assertSame($uuid_string, $uuid_obj->toString());
+        self::assertSame($uuid_string, (string)$uuid_obj);
+    }
+
+    #[Test]
+    public function it_can_be_json_serialized(): void
+    {
+        $uuid = Uuid::random();
+        $uuid_string = $uuid->toString();
+        $uuid_obj = new UuidString($uuid_string);
+
+        self::assertSame($uuid_string, $uuid_obj->jsonSerialize());
+        self::assertSame(\sprintf('"%s"', $uuid_string), \json_encode($uuid_obj));
+    }
+
+    #[Test]
+    public function it_returns_urn(): void
+    {
+        $uuid = Uuid::random();
+        $uuid_obj = new UuidString($uuid);
+
+        self::assertSame('urn:uuid:' . $uuid->toString(), $uuid_obj->getUrn());
+    }
+
+    #[Test]
+    public function it_properly_delegates_deprecated_methods(): void
+    {
+        $uuid = Uuid::random();
+        $uuid_obj = new UuidString($uuid);
+
+        /** @phpstan-ignore method.deprecated, method.deprecated */
+        self::assertSame($uuid->getFieldsHex(), $uuid_obj->getFieldsHex());
+        /** @phpstan-ignore method.deprecated, method.deprecated */
+        self::assertSame($uuid->getClockSequenceHex(), $uuid_obj->getClockSequenceHex());
+        /** @phpstan-ignore method.deprecated, method.deprecated */
+        self::assertSame($uuid->getNodeHex(), $uuid_obj->getNodeHex());
+        /** @phpstan-ignore method.deprecated, method.deprecated */
+        self::assertSame($uuid->getVariant(), $uuid_obj->getVariant());
+        /** @phpstan-ignore method.deprecated, method.deprecated */
+        self::assertSame($uuid->getVersion(), $uuid_obj->getVersion());
+
+        // Test the timestamp-related methods that are only applicable for version 1 UUIDs
+        $uuid_obj = new UuidString('376cca1c-14c4-11f0-aa82-ca307efc5917');
+        /** @phpstan-ignore method.deprecated */
+        self::assertSame('1f014c4376cca1c', $uuid_obj->getTimestampHex());
+        /** @phpstan-ignore method.deprecated */
+        self::assertEquals(new \DateTimeImmutable('2025-04-08 21:55:42.450742 +00:00'), $uuid_obj->getDateTime());
+    }
 }

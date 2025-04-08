@@ -86,56 +86,50 @@ final class LogLevelTest extends TestCase
     }
 
     /**
-     * @return array<string, array{string, LogLevel}>
+     * @return \Iterator<string, array{string, \PhoneBurner\SaltLite\Logging\LogLevel}>
      */
-    public static function instance_from_string_provider(): array
+    public static function instance_from_string_provider(): \Iterator
     {
-        return [
-            'emergency' => ['emergency', LogLevel::Emergency],
-            'alert' => ['alert', LogLevel::Alert],
-            'critical' => ['critical', LogLevel::Critical],
-            'error' => ['error', LogLevel::Error],
-            'warning' => ['warning', LogLevel::Warning],
-            'notice' => ['notice', LogLevel::Notice],
-            'info' => ['info', LogLevel::Info],
-            'debug' => ['debug', LogLevel::Debug],
-            'EMERGENCY uppercase' => ['EMERGENCY', LogLevel::Emergency],
-            'Error mixed case' => ['Error', LogLevel::Error],
-            'DEBUG uppercase' => ['DEBUG', LogLevel::Debug],
-        ];
+        yield 'emergency' => ['emergency', LogLevel::Emergency];
+        yield 'alert' => ['alert', LogLevel::Alert];
+        yield 'critical' => ['critical', LogLevel::Critical];
+        yield 'error' => ['error', LogLevel::Error];
+        yield 'warning' => ['warning', LogLevel::Warning];
+        yield 'notice' => ['notice', LogLevel::Notice];
+        yield 'info' => ['info', LogLevel::Info];
+        yield 'debug' => ['debug', LogLevel::Debug];
+        yield 'EMERGENCY uppercase' => ['EMERGENCY', LogLevel::Emergency];
+        yield 'Error mixed case' => ['Error', LogLevel::Error];
+        yield 'DEBUG uppercase' => ['DEBUG', LogLevel::Debug];
     }
 
     /**
-     * @return array<string, array{int, LogLevel}>
+     * @return \Iterator<string, array{int, \PhoneBurner\SaltLite\Logging\LogLevel}>
      */
-    public static function instance_from_int_provider(): array
+    public static function instance_from_int_provider(): \Iterator
     {
-        return [
-            'emergency (600)' => [600, LogLevel::Emergency],
-            'alert (550)' => [550, LogLevel::Alert],
-            'critical (500)' => [500, LogLevel::Critical],
-            'error (400)' => [400, LogLevel::Error],
-            'warning (300)' => [300, LogLevel::Warning],
-            'notice (250)' => [250, LogLevel::Notice],
-            'info (200)' => [200, LogLevel::Info],
-            'debug (100)' => [100, LogLevel::Debug],
-        ];
+        yield 'emergency (600)' => [600, LogLevel::Emergency];
+        yield 'alert (550)' => [550, LogLevel::Alert];
+        yield 'critical (500)' => [500, LogLevel::Critical];
+        yield 'error (400)' => [400, LogLevel::Error];
+        yield 'warning (300)' => [300, LogLevel::Warning];
+        yield 'notice (250)' => [250, LogLevel::Notice];
+        yield 'info (200)' => [200, LogLevel::Info];
+        yield 'debug (100)' => [100, LogLevel::Debug];
     }
 
     /**
-     * @return array<string, array{LogLevel, int}>
+     * @return \Iterator<string, array{\PhoneBurner\SaltLite\Logging\LogLevel, int}>
      */
-    public static function monolog_level_provider(): array
+    public static function monolog_level_provider(): \Iterator
     {
-        return [
-            'emergency' => [LogLevel::Emergency, 600],
-            'alert' => [LogLevel::Alert, 550],
-            'critical' => [LogLevel::Critical, 500],
-            'error' => [LogLevel::Error, 400],
-            'warning' => [LogLevel::Warning, 300],
-            'notice' => [LogLevel::Notice, 250],
-            'info' => [LogLevel::Info, 200],
-            'debug' => [LogLevel::Debug, 100],
-        ];
+        yield 'emergency' => [LogLevel::Emergency, 600];
+        yield 'alert' => [LogLevel::Alert, 550];
+        yield 'critical' => [LogLevel::Critical, 500];
+        yield 'error' => [LogLevel::Error, 400];
+        yield 'warning' => [LogLevel::Warning, 300];
+        yield 'notice' => [LogLevel::Notice, 250];
+        yield 'info' => [LogLevel::Info, 200];
+        yield 'debug' => [LogLevel::Debug, 100];
     }
 }

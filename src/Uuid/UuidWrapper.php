@@ -106,6 +106,7 @@ trait UuidWrapper
 
     /**
      * @deprecated
+     * @codeCoverageIgnore
      */
     public function getClockSequenceHex(): string
     {

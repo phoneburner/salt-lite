@@ -133,9 +133,9 @@ final class BufferLoggerTest extends TestCase
         $targetLogger = self::createMock(LoggerInterface::class);
         $targetLogger->expects(self::exactly(2))
             ->method('log')
-            ->willReturnCallback(function (string $level, string $message, array $context) {
+            ->willReturnCallback(function (string $level, string $message, array $context): void {
                 static $calls = 0;
-                $calls++;
+                ++$calls;
 
                 if ($calls === 1) {
                     self::assertSame('info', $level);

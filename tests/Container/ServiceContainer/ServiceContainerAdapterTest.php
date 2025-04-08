@@ -12,12 +12,11 @@ use PhoneBurner\SaltLite\Container\DeferrableServiceProvider;
 use PhoneBurner\SaltLite\Container\Exception\CircularDependency;
 use PhoneBurner\SaltLite\Container\Exception\InvalidServiceProvider;
 use PhoneBurner\SaltLite\Container\Exception\NotFound;
-use PhoneBurner\SaltLite\Container\ParameterOverride\OverrideCollection;
-use PhoneBurner\SaltLite\Container\ServiceContainer;
 use PhoneBurner\SaltLite\Container\ServiceContainer\ServiceContainerAdapter;
 use PhoneBurner\SaltLite\Container\ServiceFactory\CallableServiceFactory;
 use PhoneBurner\SaltLite\Container\ServiceProvider;
 use PhoneBurner\SaltLite\Logging\BufferLogger;
+use PhoneBurner\SaltLite\Tests\Fixtures\TestApp;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -48,7 +47,7 @@ final class ServiceContainerAdapterTest extends TestCase
     #[Test]
     public function has_returns_true_for_factories(): void
     {
-        $factory = new CallableServiceFactory(fn() => new \stdClass());
+        $factory = new CallableServiceFactory(fn(): \stdClass => new \stdClass());
         $this->container->set(LoggerInterface::class, $factory);
 
         self::assertTrue($this->container->has(LoggerInterface::class));
@@ -102,7 +101,7 @@ final class ServiceContainerAdapterTest extends TestCase
     public function get_resolves_service_from_factory(): void
     {
         $service = new \stdClass();
-        $factory = new CallableServiceFactory(fn() => $service);
+        $factory = new CallableServiceFactory(fn(): \stdClass => $service);
         $this->container->set(LoggerInterface::class, $factory);
 
         self::assertSame($service, $this->container->get(LoggerInterface::class));
@@ -143,91 +142,11 @@ final class ServiceContainerAdapterTest extends TestCase
             }
         };
 
-        $context = Context::Test;
         $environment = $this->createMock(Environment::class);
         $config = $this->createMock(Configuration::class);
+        $mock_app = new TestApp($this->container, Context::Test, $environment, $config);
 
-        $mockApp = new class ($this->container, $context, $environment, $config) implements App {
-            public ServiceContainer $services;
-            public Context $context;
-            public Environment $environment;
-            public Configuration $config;
-
-            public function __construct(
-                ServiceContainer $services,
-                Context $context,
-                Environment $environment,
-                Configuration $config,
-            ) {
-                $this->services = $services;
-                $this->context = $context;
-                $this->environment = $environment;
-                $this->config = $config;
-            }
-
-            public function get(\Stringable|string $id): mixed
-            {
-                return $this->services->get($id);
-            }
-
-            public function has(\Stringable|string $id): bool
-            {
-                return $this->services->has($id);
-            }
-
-            public function set(\Stringable|string $id, mixed $value): void
-            {
-                $this->services->set($id, $value);
-            }
-
-            public function unset(\Stringable|string $id): void
-            {
-                $this->services->unset($id);
-            }
-
-            public function call(
-                object|string $object,
-                string $method = '__invoke',
-                OverrideCollection|null $overrides = null,
-            ): mixed {
-                return $this->services->call($object, $method, $overrides);
-            }
-
-            public function __get(string $name): mixed
-            {
-                if ($name === 'services') {
-                    return $this->services;
-                }
-                throw new \RuntimeException("Property {$name} not found");
-            }
-
-            public static function booted(): bool
-            {
-                return true;
-            }
-
-            public static function instance(): App
-            {
-                throw new \RuntimeException('Not implemented');
-            }
-
-            public static function bootstrap(Context $context): App
-            {
-                throw new \RuntimeException('Not implemented');
-            }
-
-            public static function teardown(): null
-            {
-                return null;
-            }
-
-            public static function exec(Context $context, callable $callback): mixed
-            {
-                throw new \RuntimeException('Not implemented');
-            }
-        };
-
-        $this->container = new ServiceContainerAdapter($mockApp);
+        $this->container = new ServiceContainerAdapter($mock_app);
         $this->container->defer($provider);
         $this->container->set(LoggerInterface::class, $service);
 
@@ -238,8 +157,8 @@ final class ServiceContainerAdapterTest extends TestCase
     #[Test]
     public function get_detects_circular_dependencies(): void
     {
-        $this->container->set(LoggerInterface::class, fn() => $this->container->get(NullLogger::class));
-        $this->container->set(NullLogger::class, fn() => $this->container->get(LoggerInterface::class));
+        $this->container->set(LoggerInterface::class, fn(): object => $this->container->get(NullLogger::class));
+        $this->container->set(NullLogger::class, fn(): object => $this->container->get(LoggerInterface::class));
 
         $this->expectException(CircularDependency::class);
         $this->container->get(LoggerInterface::class);
@@ -248,7 +167,7 @@ final class ServiceContainerAdapterTest extends TestCase
     #[Test]
     public function set_accepts_service_factory(): void
     {
-        $factory = new CallableServiceFactory(fn() => new \stdClass());
+        $factory = new CallableServiceFactory(fn(): \stdClass => new \stdClass());
         $this->container->set(LoggerInterface::class, $factory);
 
         self::assertTrue($this->container->has(LoggerInterface::class));
@@ -257,7 +176,7 @@ final class ServiceContainerAdapterTest extends TestCase
     #[Test]
     public function set_accepts_closure_as_factory(): void
     {
-        $this->container->set(LoggerInterface::class, fn() => new \stdClass());
+        $this->container->set(LoggerInterface::class, fn(): \stdClass => new \stdClass());
 
         self::assertTrue($this->container->has(LoggerInterface::class));
     }
@@ -371,7 +290,7 @@ final class ServiceContainerAdapterTest extends TestCase
     public function call_invokes_closure(): void
     {
         $called = false;
-        $closure = function () use (&$called) {
+        $closure = function () use (&$called): string {
             $called = true;
             return 'result';
         };

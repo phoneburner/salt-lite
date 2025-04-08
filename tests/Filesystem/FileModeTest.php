@@ -108,88 +108,80 @@ final class FileModeTest extends TestCase
     }
 
     /**
-     * @return array<string, array{string, ?FileMode}>
+     * @return \Iterator<string, array{string, (FileMode | null)}>
      */
-    public static function stringCastProvider(): array
+    public static function stringCastProvider(): \Iterator
     {
-        return [
-            'r' => ['r', FileMode::Read],
-            'r+' => ['r+', FileMode::ReadWriteOverwriteExisting],
-            'w' => ['w', FileMode::WriteCreateOrTruncateExisting],
-            'w+' => ['w+', FileMode::ReadWriteCreateOrTruncateExisting],
-            'a' => ['a', FileMode::WriteCreateOrAppendExisting],
-            'a+' => ['a+', FileMode::ReadWriteCreateOrAppendExisting],
-            'x' => ['x', FileMode::WriteCreateOnly],
-            'x+' => ['x+', FileMode::ReadWriteCreateOnly],
-            'c' => ['c', FileMode::WriteCreateOrOverwriteExisting],
-            'c+' => ['c+', FileMode::ReadWriteCreateOrOverwriteExisting],
-            'uppercase R' => ['R', FileMode::Read],
-            'with b flag' => ['rb', FileMode::Read],
-            'with t flag' => ['rt', FileMode::Read],
-            'with both flags' => ['r+bt', FileMode::ReadWriteOverwriteExisting],
-            'invalid mode' => ['q', null],
-            'empty string' => ['', null],
-        ];
+        yield 'r' => ['r', FileMode::Read];
+        yield 'r+' => ['r+', FileMode::ReadWriteOverwriteExisting];
+        yield 'w' => ['w', FileMode::WriteCreateOrTruncateExisting];
+        yield 'w+' => ['w+', FileMode::ReadWriteCreateOrTruncateExisting];
+        yield 'a' => ['a', FileMode::WriteCreateOrAppendExisting];
+        yield 'a+' => ['a+', FileMode::ReadWriteCreateOrAppendExisting];
+        yield 'x' => ['x', FileMode::WriteCreateOnly];
+        yield 'x+' => ['x+', FileMode::ReadWriteCreateOnly];
+        yield 'c' => ['c', FileMode::WriteCreateOrOverwriteExisting];
+        yield 'c+' => ['c+', FileMode::ReadWriteCreateOrOverwriteExisting];
+        yield 'uppercase R' => ['R', FileMode::Read];
+        yield 'with b flag' => ['rb', FileMode::Read];
+        yield 'with t flag' => ['rt', FileMode::Read];
+        yield 'with both flags' => ['r+bt', FileMode::ReadWriteOverwriteExisting];
+        yield 'invalid mode' => ['q', null];
+        yield 'empty string' => ['', null];
     }
 
     /**
-     * @return array<string, array{string, FileMode}>
+     * @return \Iterator<string, array{string, FileMode}>
      */
-    public static function instanceStringProvider(): array
+    public static function instanceStringProvider(): \Iterator
     {
-        return [
-            'r' => ['r', FileMode::Read],
-            'r+' => ['r+', FileMode::ReadWriteOverwriteExisting],
-            'w' => ['w', FileMode::WriteCreateOrTruncateExisting],
-            'w+' => ['w+', FileMode::ReadWriteCreateOrTruncateExisting],
-            'a' => ['a', FileMode::WriteCreateOrAppendExisting],
-            'a+' => ['a+', FileMode::ReadWriteCreateOrAppendExisting],
-            'x' => ['x', FileMode::WriteCreateOnly],
-            'x+' => ['x+', FileMode::ReadWriteCreateOnly],
-            'c' => ['c', FileMode::WriteCreateOrOverwriteExisting],
-            'c+' => ['c+', FileMode::ReadWriteCreateOrOverwriteExisting],
-            'uppercase R' => ['R', FileMode::Read],
-            'with b flag' => ['rb', FileMode::Read],
-            'with t flag' => ['rt', FileMode::Read],
-            'with both flags' => ['r+bt', FileMode::ReadWriteOverwriteExisting],
-        ];
+        yield 'r' => ['r', FileMode::Read];
+        yield 'r+' => ['r+', FileMode::ReadWriteOverwriteExisting];
+        yield 'w' => ['w', FileMode::WriteCreateOrTruncateExisting];
+        yield 'w+' => ['w+', FileMode::ReadWriteCreateOrTruncateExisting];
+        yield 'a' => ['a', FileMode::WriteCreateOrAppendExisting];
+        yield 'a+' => ['a+', FileMode::ReadWriteCreateOrAppendExisting];
+        yield 'x' => ['x', FileMode::WriteCreateOnly];
+        yield 'x+' => ['x+', FileMode::ReadWriteCreateOnly];
+        yield 'c' => ['c', FileMode::WriteCreateOrOverwriteExisting];
+        yield 'c+' => ['c+', FileMode::ReadWriteCreateOrOverwriteExisting];
+        yield 'uppercase R' => ['R', FileMode::Read];
+        yield 'with b flag' => ['rb', FileMode::Read];
+        yield 'with t flag' => ['rt', FileMode::Read];
+        yield 'with both flags' => ['r+bt', FileMode::ReadWriteOverwriteExisting];
     }
 
     /**
-     * @return array<string, array{FileMode, bool}>
+     * @return \Iterator<string, array{FileMode, bool}>
      */
-    public static function readableModeProvider(): array
+    public static function readableModeProvider(): \Iterator
     {
-        return [
-            'Read' => [FileMode::Read, true],
-            'ReadWriteOverwriteExisting' => [FileMode::ReadWriteOverwriteExisting, true],
-            'WriteCreateOrTruncateExisting' => [FileMode::WriteCreateOrTruncateExisting, false],
-            'ReadWriteCreateOrTruncateExisting' => [FileMode::ReadWriteCreateOrTruncateExisting, true],
-            'WriteCreateOrAppendExisting' => [FileMode::WriteCreateOrAppendExisting, false],
-            'ReadWriteCreateOrAppendExisting' => [FileMode::ReadWriteCreateOrAppendExisting, true],
-            'WriteCreateOnly' => [FileMode::WriteCreateOnly, false],
-            'ReadWriteCreateOnly' => [FileMode::ReadWriteCreateOnly, true],
-            'WriteCreateOrOverwriteExisting' => [FileMode::WriteCreateOrOverwriteExisting, false],
-            'ReadWriteCreateOrOverwriteExisting' => [FileMode::ReadWriteCreateOrOverwriteExisting, true],
-        ];
+        yield 'Read' => [FileMode::Read, true];
+        yield 'ReadWriteOverwriteExisting' => [FileMode::ReadWriteOverwriteExisting, true];
+        yield 'WriteCreateOrTruncateExisting' => [FileMode::WriteCreateOrTruncateExisting, false];
+        yield 'ReadWriteCreateOrTruncateExisting' => [FileMode::ReadWriteCreateOrTruncateExisting, true];
+        yield 'WriteCreateOrAppendExisting' => [FileMode::WriteCreateOrAppendExisting, false];
+        yield 'ReadWriteCreateOrAppendExisting' => [FileMode::ReadWriteCreateOrAppendExisting, true];
+        yield 'WriteCreateOnly' => [FileMode::WriteCreateOnly, false];
+        yield 'ReadWriteCreateOnly' => [FileMode::ReadWriteCreateOnly, true];
+        yield 'WriteCreateOrOverwriteExisting' => [FileMode::WriteCreateOrOverwriteExisting, false];
+        yield 'ReadWriteCreateOrOverwriteExisting' => [FileMode::ReadWriteCreateOrOverwriteExisting, true];
     }
 
     /**
-     * @return array<string, array{FileMode, bool}>
+     * @return \Iterator<string, array{FileMode, bool}>
      */
-    public static function writableModeProvider(): array
+    public static function writableModeProvider(): \Iterator
     {
-        return [
-            'Read' => [FileMode::Read, false],
-            'ReadWriteOverwriteExisting' => [FileMode::ReadWriteOverwriteExisting, true],
-            'WriteCreateOrTruncateExisting' => [FileMode::WriteCreateOrTruncateExisting, true],
-            'ReadWriteCreateOrTruncateExisting' => [FileMode::ReadWriteCreateOrTruncateExisting, true],
-            'WriteCreateOrAppendExisting' => [FileMode::WriteCreateOrAppendExisting, true],
-            'ReadWriteCreateOrAppendExisting' => [FileMode::ReadWriteCreateOrAppendExisting, true],
-            'WriteCreateOnly' => [FileMode::WriteCreateOnly, true],
-            'ReadWriteCreateOnly' => [FileMode::ReadWriteCreateOnly, true],
-            'WriteCreateOrOverwriteExisting' => [FileMode::WriteCreateOrOverwriteExisting, true],
-            'ReadWriteCreateOrOverwriteExisting' => [FileMode::ReadWriteCreateOrOverwriteExisting, true],
-        ];
+        yield 'Read' => [FileMode::Read, false];
+        yield 'ReadWriteOverwriteExisting' => [FileMode::ReadWriteOverwriteExisting, true];
+        yield 'WriteCreateOrTruncateExisting' => [FileMode::WriteCreateOrTruncateExisting, true];
+        yield 'ReadWriteCreateOrTruncateExisting' => [FileMode::ReadWriteCreateOrTruncateExisting, true];
+        yield 'WriteCreateOrAppendExisting' => [FileMode::WriteCreateOrAppendExisting, true];
+        yield 'ReadWriteCreateOrAppendExisting' => [FileMode::ReadWriteCreateOrAppendExisting, true];
+        yield 'WriteCreateOnly' => [FileMode::WriteCreateOnly, true];
+        yield 'ReadWriteCreateOnly' => [FileMode::ReadWriteCreateOnly, true];
+        yield 'WriteCreateOrOverwriteExisting' => [FileMode::WriteCreateOrOverwriteExisting, true];
+        yield 'ReadWriteCreateOrOverwriteExisting' => [FileMode::ReadWriteCreateOrOverwriteExisting, true];
     }
 }

@@ -92,4 +92,69 @@ final class Psr7Test extends TestCase
 
         self::assertNull(Psr7::jsonBodyToArray($stream));
     }
+
+    #[Test]
+    public function expects_returns_true_when_content_type_matches_accept_header(): void
+    {
+        $message = $this->createMock(MessageInterface::class);
+        $message->method('getHeaderLine')
+            ->willReturnMap([
+                ['Accept', 'application/json'],
+                ['Content-Type', ''],
+            ]);
+
+        self::assertTrue(Psr7::expects($message, 'application/json'));
+    }
+
+    #[Test]
+    public function expects_returns_true_when_content_type_matches_content_type_header(): void
+    {
+        $message = $this->createMock(MessageInterface::class);
+        $message->method('getHeaderLine')
+            ->willReturnMap([
+                ['Accept', ''],
+                ['Content-Type', 'application/json'],
+            ]);
+
+        self::assertTrue(Psr7::expects($message, 'application/json'));
+    }
+
+    #[Test]
+    public function expects_returns_true_when_content_type_matches_with_structured_syntax_suffix(): void
+    {
+        $message = $this->createMock(MessageInterface::class);
+        $message->method('getHeaderLine')
+            ->willReturnMap([
+                ['Accept', 'application/vnd.api+json'],
+                ['Content-Type', ''],
+            ]);
+
+        self::assertTrue(Psr7::expects($message, 'application/json'));
+    }
+
+    #[Test]
+    public function expects_returns_false_when_no_matching_content_type(): void
+    {
+        $message = $this->createMock(MessageInterface::class);
+        $message->method('getHeaderLine')
+            ->willReturnMap([
+                ['Accept', 'text/html'],
+                ['Content-Type', 'text/plain'],
+            ]);
+
+        self::assertFalse(Psr7::expects($message, 'application/json'));
+    }
+
+    #[Test]
+    public function expects_returns_false_when_headers_are_empty(): void
+    {
+        $message = $this->createMock(MessageInterface::class);
+        $message->method('getHeaderLine')
+            ->willReturnMap([
+                ['Accept', ''],
+                ['Content-Type', ''],
+            ]);
+
+        self::assertFalse(Psr7::expects($message, 'application/json'));
+    }
 }

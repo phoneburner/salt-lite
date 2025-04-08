@@ -28,6 +28,7 @@ final class ResponseExceptionTest extends TestCase
         self::assertNull($sut->getPrevious());
         self::assertSame('', $sut->getMessage());
         self::assertSame(HttpStatus::OK, $sut->getCode());
+        self::assertSame($response, $sut->getWrapped());
     }
 
     #[Test]
@@ -44,5 +45,25 @@ final class ResponseExceptionTest extends TestCase
         self::assertSame($previous, $sut->getPrevious());
         self::assertSame('Test Message', $sut->getMessage());
         self::assertSame(444, $sut->getCode());
+        self::assertSame($response, $sut->getWrapped());
+    }
+
+    #[Test]
+    public function response_has_can_mutate(): void
+    {
+        $response = new HtmlResponse('Hello, World');
+
+        $sut = new ResponseException($response);
+
+        $sut->withAddedHeader(HttpHeader::X_RATELIMIT_LIMIT, '1000');
+
+        self::assertSame(HttpStatus::OK, $sut->getStatusCode());
+        self::assertSame('text/html; charset=utf-8', $sut->getHeaderLine(HttpHeader::CONTENT_TYPE));
+        self::assertSame('Hello, World', $sut->getBody()->getContents());
+        self::assertNull($sut->getPrevious());
+        self::assertSame('', $sut->getMessage());
+        self::assertSame(HttpStatus::OK, $sut->getCode());
+        self::assertNotSame($response, $sut->getWrapped());
+        self::assertSame('1000', $sut->getHeaderLine(HttpHeader::X_RATELIMIT_LIMIT));
     }
 }

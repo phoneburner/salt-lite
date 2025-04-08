@@ -121,4 +121,89 @@ final class ImmutableConfigurationTest extends TestCase
         yield 'leading_dot_3' => ['.....', false, null];
         yield 'leading_dot_4' => ['....deeper', false, null];
     }
+
+    #[Test]
+    public function has_returns_true_when_key_exists(): void
+    {
+        $config = new ImmutableConfiguration(['foo' => 'bar']);
+        self::assertTrue($config->has('foo'));
+    }
+
+    #[Test]
+    public function has_returns_false_when_key_does_not_exist(): void
+    {
+        $config = new ImmutableConfiguration(['foo' => 'bar']);
+        self::assertFalse($config->has('baz'));
+    }
+
+    #[Test]
+    public function get_returns_value_for_direct_key(): void
+    {
+        $config = new ImmutableConfiguration(['foo' => 'bar']);
+        self::assertSame('bar', $config->get('foo'));
+    }
+
+    #[Test]
+    public function get_returns_null_for_missing_key(): void
+    {
+        $config = new ImmutableConfiguration(['foo' => 'bar']);
+        self::assertNull($config->get('baz'));
+    }
+
+    #[Test]
+    public function get_returns_value_for_dot_notation_key(): void
+    {
+        $config = new ImmutableConfiguration([
+            'foo' => [
+                'bar' => [
+                    'baz' => 'qux',
+                ],
+            ],
+        ]);
+
+        self::assertSame('qux', $config->get('foo.bar.baz'));
+    }
+
+    #[Test]
+    public function get_returns_null_for_invalid_dot_notation_path(): void
+    {
+        $config = new ImmutableConfiguration([
+            'foo' => [
+                'bar' => 'baz',
+            ],
+        ]);
+
+        self::assertNull($config->get('foo.bar.baz'));
+    }
+
+    #[Test]
+    public function get_handles_deep_nested_arrays(): void
+    {
+        $config = new ImmutableConfiguration([
+            'foo' => [
+                'bar' => [
+                    'baz' => [
+                        'qux' => [
+                            'quux' => 'corge',
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        self::assertSame('corge', $config->get('foo.bar.baz.qux.quux'));
+    }
+
+    #[Test]
+    public function get_handles_keys_with_dots(): void
+    {
+        $config = new ImmutableConfiguration([
+            'foo.bar' => 'baz',
+            'foo' => [
+                'bar' => 'qux',
+            ],
+        ]);
+
+        self::assertSame('baz', $config->get('foo.bar'));
+    }
 }

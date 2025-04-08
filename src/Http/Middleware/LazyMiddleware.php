@@ -14,14 +14,14 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class LazyMiddleware implements TerminableMiddleware
+final class LazyMiddleware implements TerminableMiddleware
 {
     private RequestHandlerInterface|null $fallback_request_handler = null;
 
     /**
      * @param class-string<MiddlewareInterface> $middleware
      */
-    private function __construct(private readonly ContainerInterface $container, public readonly string $middleware)
+    public function __construct(private readonly ContainerInterface $container, public readonly string $middleware)
     {
         if (! Type::isClassStringOf(MiddlewareInterface::class, $middleware)) {
             throw new InvalidMiddlewareConfiguration(\sprintf(ErrorMessage::INVALID_CLASS, $middleware));
