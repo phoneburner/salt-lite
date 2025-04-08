@@ -1,4 +1,4 @@
-# Salt-Lite Common Library
+# Salt-Lite Common Components Library
 
 > Feels like home, just without the salty tears of frustration
 

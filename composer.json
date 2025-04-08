@@ -49,6 +49,10 @@
       "PhoneBurner\\SaltLite\\Tests\\": "tests/"
     }
   },
+  "provide": {
+    "psr/cache-implementation": "3.0",
+    "psr/simple-cache-implementation": "3.0"
+  },
   "require": {
     "php": "^8.4",
     "ext-bcmath": "*",
@@ -65,11 +69,10 @@
     "ext-sodium": "*",
     "ext-zip": "*",
     "ext-zlib": "*",
-    "composer/composer": "^2.8",
     "crell/api-problem": "^3.7",
     "crell/attributeutils": "^1.2",
     "laminas/laminas-diactoros": "^3.5.0",
-    "nesbot/carbon": "^3.8.4",
+    "nesbot/carbon": "^2.73.0 || ^3.8.4",
     "phoneburner/composer-replacements": "dev-main",
     "phoneburner/http-tortilla": "dev-develop",
     "phoneburner/link-tortilla": "dev-main",
@@ -89,7 +92,6 @@
     "symfony/var-exporter": "^7.2.3"
   },
   "require-dev": {
-    "brianium/paratest": "^7.7",
     "phoneburner/coding-standard": "dev-main",
     "phoneburner/salt-lite-phpstan": "dev-main",
     "php-parallel-lint/php-parallel-lint": "^1.4",
