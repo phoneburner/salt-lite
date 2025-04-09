@@ -6,10 +6,12 @@ namespace PhoneBurner\SaltLite\Tests\Iterator;
 
 use PhoneBurner\SaltLite\Iterator\Arrayable;
 use PhoneBurner\SaltLite\Iterator\Iter;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(Iter::class)]
 final class IterTest extends TestCase
 {
     /**
@@ -18,7 +20,7 @@ final class IterTest extends TestCase
      */
     #[DataProvider('providesArrayAndIteratorTestCases')]
     #[Test]
-    public function iterator_returns_an_Iterator_from_iterable(mixed $input, array $array): void
+    public function iteratorReturnsAnIteratorFromIterable(mixed $input, array $array): void
     {
         $converted = Iter::cast($input);
         self::assertInstanceOf(\Iterator::class, $converted);
@@ -129,5 +131,97 @@ final class IterTest extends TestCase
                 return $this->array;
             }
         };
+    }
+
+    #[Test]
+    #[DataProvider('providesFirstLastTestCases')]
+    public function firstReturnsFirstElement(iterable $input, mixed $expected_first): void
+    {
+        self::assertSame($expected_first, Iter::first($input));
+    }
+
+    #[Test]
+    #[DataProvider('providesFirstLastTestCases')]
+    public function lastReturnsLastElement(iterable $input, mixed $_, mixed $expected_last): void
+    {
+        self::assertSame($expected_last, Iter::last($input));
+    }
+
+    public static function providesFirstLastTestCases(): \Generator
+    {
+        yield 'empty array' => [[], null, null];
+        yield 'simple array' => [[1, 2, 3], 1, 3];
+        yield 'associative array' => [['a' => 'apple', 'b' => 'banana'], 'apple', 'banana'];
+        yield 'generator' => [(static fn() => yield from [10, 20, 30])(), 10, 30];
+        yield 'iterator' => [new \ArrayIterator(['x', 'y', 'z']), 'x', 'z'];
+    }
+
+    #[Test]
+    public function mapAppliesCallbackAndYieldsResults(): void
+    {
+        $input = ['a' => 1, 'b' => 2, 'c' => 3];
+        $callback = static fn(mixed $value, int|string $key): string => $key . '=' . ($value * 2);
+        $expected = ['a' => 'a=2', 'b' => 'b=4', 'c' => 'c=6'];
+
+        $generator = Iter::map($callback, $input);
+        self::assertInstanceOf(\Generator::class, $generator);
+        self::assertSame($expected, \iterator_to_array($generator));
+    }
+
+    #[Test]
+    public function amapAppliesCallbackAndReturnsArray(): void
+    {
+        $input = new \ArrayIterator([1, 2, 3]);
+        $callback = static fn(int $value): int => $value * $value;
+        $expected = [0 => 1, 1 => 4, 2 => 9]; // Note: ArrayIterator preserves original keys
+
+        $result = Iter::amap($callback, $input);
+        self::assertSame($expected, $result);
+    }
+
+    #[Test]
+    public function chainCombinesMultipleIterables(): void
+    {
+        $array1 = [1, 2];
+        $iter3 = new \ArrayIterator([3, 4]);
+        $array4 = [5, 6];
+
+        // iterators can repeat keys
+        $chained = Iter::chain($array1, $iter3, $array4);
+        $counter = 0;
+        foreach ($chained as $key => $value) {
+            match (++$counter) {
+                /** @phpstan-ignore match.alwaysFalse (this is a weird comparison, but it's valid) */
+                1 => self::assertSame([0, 1], [$key, $value]),
+                2 => self::assertSame([1, 2], [$key, $value]),
+                3 => self::assertSame([0, 3], [$key, $value]),
+                4 => self::assertSame([1, 4], [$key, $value]),
+                5 => self::assertSame([0, 5], [$key, $value]),
+                6 => self::assertSame([1, 6], [$key, $value]),
+                default => throw new \Exception('Unexpected value: ' . $key . ' => ' . $value),
+            };
+        }
+    }
+
+    #[Test]
+    public function chainWithSingleIterable(): void
+    {
+        $array = [1, 2, 3];
+        $chained = Iter::chain($array);
+        self::assertSame($array, \iterator_to_array($chained));
+    }
+
+    #[Test]
+    public function chainWithEmptyIterable(): void
+    {
+        $chained = Iter::chain([]);
+        self::assertSame([], \iterator_to_array($chained));
+    }
+
+    #[Test]
+    public function chainWithNoArguments(): void
+    {
+        $chained = Iter::chain();
+        self::assertSame([], \iterator_to_array($chained));
     }
 }

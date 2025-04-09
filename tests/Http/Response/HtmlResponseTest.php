@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class HtmlResponseTest extends TestCase
 {
     #[Test]
-    public function creates_html_response_with_defaults(): void
+    public function createsHtmlResponseWithDefaults(): void
     {
         $html = '<html><body><h1>Test</h1></body></html>';
         $response = new HtmlResponse($html);
@@ -25,7 +25,7 @@ final class HtmlResponseTest extends TestCase
     }
 
     #[Test]
-    public function creates_html_response_with_custom_status(): void
+    public function createsHtmlResponseWithCustomStatus(): void
     {
         $html = '<html><body><h1>Created</h1></body></html>';
         $response = new HtmlResponse($html, HttpStatus::CREATED);
@@ -36,7 +36,7 @@ final class HtmlResponseTest extends TestCase
     }
 
     #[Test]
-    public function creates_html_response_with_custom_headers(): void
+    public function createsHtmlResponseWithCustomHeaders(): void
     {
         $html = '<html><body><h1>Test</h1></body></html>';
         $headers = [
@@ -54,7 +54,7 @@ final class HtmlResponseTest extends TestCase
     }
 
     #[Test]
-    public function content_type_header_can_be_overridden(): void
+    public function contentTypeHeaderCanBeOverridden(): void
     {
         $html = '<html><body><h1>Test</h1></body></html>';
         $customContentType = 'text/xml';

@@ -19,7 +19,7 @@ use Throwable;
 final class UuidTest extends TestCase
 {
     #[Test]
-    public function random_returns_version4_uuid_instances(): void
+    public function randomReturnsVersion4UuidInstances(): void
     {
         $uuids = [];
         for ($i = 0; $i < 100; ++$i) {
@@ -36,7 +36,7 @@ final class UuidTest extends TestCase
     }
 
     #[Test]
-    public function nil_returns_the_nil_uuid_instance(): void
+    public function nilReturnsTheNilUuidInstance(): void
     {
         $uuid = Uuid::nil();
         self::assertInstanceOf(NilUuid::class, $uuid);
@@ -50,7 +50,7 @@ final class UuidTest extends TestCase
     }
 
     #[Test]
-    public function ordered_returns_timestamp_first_comb_uuid_instances(): void
+    public function orderedReturnsTimestampFirstCombUuidInstances(): void
     {
         $uuid = Uuid::ordered();
         $reduced_comparison = 0;
@@ -70,7 +70,7 @@ final class UuidTest extends TestCase
         self::assertSame(100, $reduced_comparison);
     }
 
-    public function fromString_returns_matching_uuid(): void
+    public function fromStringReturnsMatchingUuid(): void
     {
         $uuid = Uuid::random();
         self::assertTrue($uuid->equals(
@@ -79,14 +79,14 @@ final class UuidTest extends TestCase
     }
 
     #[Test]
-    public function instance_returns_same_UuidInterface_instance(): void
+    public function instanceReturnsSameUuidInterfaceInstance(): void
     {
         $uuid = Uuid::random();
         self::assertSame($uuid, Uuid::instance($uuid));
     }
 
     #[Test]
-    public function instance_casts_strings_to_UuidInterface(): void
+    public function instanceCastsStringsToUuidInterface(): void
     {
         $uuid = Uuid::random();
 
@@ -110,7 +110,7 @@ final class UuidTest extends TestCase
 
     #[DataProvider('provideUncastableUuidValues')]
     #[Test]
-    public function instance_throws_exception_if_cannot_cast_to_UuidInterface(mixed $value): void
+    public function instanceThrowsExceptionIfCannotCastToUuidInterface(mixed $value): void
     {
         $this->expectException(Throwable::class);
         Uuid::instance($value);

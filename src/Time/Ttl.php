@@ -11,15 +11,19 @@ final readonly class Ttl
 {
     public const int DEFAULT_SECONDS = 5 * TimeConstant::SECONDS_IN_MINUTE;
 
-    public function __construct(public int|float $seconds = self::DEFAULT_SECONDS)
+    public int $seconds;
+
+    public function __construct(int|float $seconds = self::DEFAULT_SECONDS)
     {
         $seconds >= 0 || throw new \UnexpectedValueException('TTL must be greater than or equal to 0');
+        $seconds > \PHP_INT_MAX && throw new \UnexpectedValueException('TTL must be less than or equal to ' . \PHP_INT_MAX);
+        $this->seconds = (int)$seconds;
     }
 
     /**
      * This named constructor is designed to be backwards compatible with the
      * various ways a time-to-live value can be referenced from both of the PSRs
-     * concerned with caching, and our legacy Util_Memcache class.
+     * concerned with caching.
      */
     public static function make(mixed $ttl, \DateTimeImmutable $now = new \DateTimeImmutable()): self
     {
@@ -28,8 +32,8 @@ final readonly class Ttl
             $ttl instanceof \DateInterval => self::until($now->add($ttl), $now),
             $ttl instanceof \DateTimeInterface => self::until($ttl, $now),
             $ttl === null => self::max(),
-            \is_int($ttl), \is_float($ttl) => new self($ttl),
-            \is_numeric($ttl) => new self((float)$ttl),
+            \is_int($ttl) => new self($ttl),
+            \is_numeric($ttl) => new self((int)$ttl),
             default => throw new \UnexpectedValueException('Cannot Convert Value to TTL'),
         };
     }
@@ -61,34 +65,34 @@ final readonly class Ttl
 
     public static function max(): self
     {
-        static $max;
-        return $max ??= new self(\PHP_INT_MAX);
+        static $max = new self(\PHP_INT_MAX);
+        return $max;
     }
 
     public static function min(): self
     {
-        static $min;
-        return $min ??= new self(0);
+        static $min = new self(0);
+        return $min;
     }
 
     public function inSeconds(): int
     {
-        return (int)$this->seconds;
+        return $this->seconds;
     }
 
     public function inMinutes(): int
     {
-        return Math::floor($this->inSeconds() / TimeConstant::SECONDS_IN_MINUTE);
+        return Math::floor($this->seconds / TimeConstant::SECONDS_IN_MINUTE);
     }
 
     public function inHours(): int
     {
-        return Math::floor($this->inSeconds() / TimeConstant::SECONDS_IN_HOUR);
+        return Math::floor($this->seconds / TimeConstant::SECONDS_IN_HOUR);
     }
 
     public function toDateInterval(): \DateInterval
     {
-        return new \DateInterval('PT' . $this->inSeconds() . 'S');
+        return new \DateInterval('PT' . $this->seconds . 'S');
     }
 
     public function __serialize(): array

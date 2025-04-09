@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 final class TtlTest extends TestCase
 {
     #[Test]
-    public function sut_can_be_instantiated_with_defaults(): void
+    public function sutCanBeInstantiatedWithDefaults(): void
     {
         self::assertSame(Ttl::DEFAULT_SECONDS, (new Ttl())->seconds);
         self::assertSame(Ttl::DEFAULT_SECONDS, Ttl::seconds()->seconds);
@@ -23,20 +23,20 @@ final class TtlTest extends TestCase
     }
 
     #[Test]
-    public function sut_can_be_instantiated_with_max_ttl(): void
+    public function sutCanBeInstantiatedWithMaxTtl(): void
     {
         self::assertSame(\PHP_INT_MAX, Ttl::max()->seconds);
     }
 
     #[Test]
-    public function sut_can_be_instantiated_with_min_ttl(): void
+    public function sutCanBeInstantiatedWithMinTtl(): void
     {
         self::assertSame(0, Ttl::min()->seconds);
     }
 
     #[DataProvider('provideSeconds')]
     #[Test]
-    public function sut_can_be_instantiated_with_seconds(int|float $expected, int|float $seconds): void
+    public function sutCanBeInstantiatedWithSeconds(int|float $expected, int|float $seconds): void
     {
         self::assertSame($expected, (new Ttl($seconds))->seconds);
         self::assertSame($expected, Ttl::seconds($seconds)->seconds);
@@ -45,16 +45,14 @@ final class TtlTest extends TestCase
     public static function provideSeconds(): \Generator
     {
         yield [0, 0];
-        yield [0.0, 0.0];
         yield [3 * TimeConstant::SECONDS_IN_MINUTE, 3 * TimeConstant::SECONDS_IN_MINUTE];
-        yield [0.1234, 0.1234];
+        yield [0, 0.1234];
         yield [\PHP_INT_MAX, \PHP_INT_MAX];
-        yield [\PHP_INT_MAX + 1, \PHP_INT_MAX + 1];
     }
 
     #[DataProvider('provideMinutes')]
     #[Test]
-    public function sut_can_be_instantiated_with_minutes(int|float $expected, int|float $minutes): void
+    public function sutCanBeInstantiatedWithMinutes(int|float $expected, int|float $minutes): void
     {
         self::assertSame($expected, Ttl::minutes($minutes)->seconds);
     }
@@ -62,15 +60,13 @@ final class TtlTest extends TestCase
     public static function provideMinutes(): \Generator
     {
         yield [0, 0];
-        yield [0.0, 0.0];
         yield [5 * TimeConstant::SECONDS_IN_MINUTE, 5];
-        yield [0.1234 * TimeConstant::SECONDS_IN_MINUTE, 0.1234];
-        yield [\PHP_INT_MAX * TimeConstant::SECONDS_IN_MINUTE, \PHP_INT_MAX];
+        yield [7, 0.1234];
     }
 
     #[DataProvider('provideHours')]
     #[Test]
-    public function sut_can_be_instantiated_with_hours(int $expected, int $hours): void
+    public function sutCanBeInstantiatedWithHours(int $expected, int $hours): void
     {
         self::assertSame($expected, Ttl::hours($hours)->seconds);
     }
@@ -85,7 +81,7 @@ final class TtlTest extends TestCase
 
     #[DataProvider('provideDays')]
     #[Test]
-    public function sut_can_be_instantiated_with_days(int $expected, int $days): void
+    public function sutCanBeInstantiatedWithDays(int $expected, int $days): void
     {
         self::assertSame($expected, Ttl::days($days)->seconds);
     }
@@ -100,7 +96,7 @@ final class TtlTest extends TestCase
 
     #[DataProvider('provideDateTimeInterfaces')]
     #[Test]
-    public function sut_can_be_instantiated_based_on_datetime(
+    public function sutCanBeInstantiatedBasedOnDatetime(
         int|float $expected,
         \DateTimeInterface $datetime,
         \DateTimeInterface $now,
@@ -119,7 +115,7 @@ final class TtlTest extends TestCase
 
     #[DataProvider('provideInvalidSeconds')]
     #[Test]
-    public function time_to_live_cannot_be_negative(int|float $seconds): void
+    public function timeToLiveCannotBeNegative(int|float $seconds): void
     {
         $this->expectException(\UnexpectedValueException::class);
         new Ttl($seconds);
@@ -135,7 +131,7 @@ final class TtlTest extends TestCase
 
     #[DataProvider('provideValidMakeTestCases')]
     #[Test]
-    public function make_returns_expected_ttl(mixed $input, Ttl $expected, \DateTimeImmutable|null $now = null): void
+    public function makeReturnsExpectedTtl(mixed $input, Ttl $expected, \DateTimeImmutable|null $now = null): void
     {
         self::assertEquals($expected, Ttl::make($input, $now ?? new \DateTimeImmutable()));
     }
@@ -166,7 +162,7 @@ final class TtlTest extends TestCase
 
     #[DataProvider('provideInvalidMakeTestCases')]
     #[Test]
-    public function make_throws_exception_with_invalid_input(mixed $input): void
+    public function makeThrowsExceptionWithInvalidInput(mixed $input): void
     {
         $this->expectException(\UnexpectedValueException::class);
         Ttl::make($input);
@@ -175,7 +171,6 @@ final class TtlTest extends TestCase
     public static function provideInvalidMakeTestCases(): \Generator
     {
         yield [-1];
-        yield [-0.1];
         yield [\PHP_INT_MIN];
         yield [(float)\PHP_INT_MIN];
         yield ['foo'];

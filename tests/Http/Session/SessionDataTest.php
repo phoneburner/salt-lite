@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class SessionDataTest extends TestCase
 {
     #[Test]
-    public function constructor_initializes_csrf_token_and_attributes(): void
+    public function constructorInitializesCsrfTokenAndAttributes(): void
     {
         $session = new SessionData();
 
@@ -21,7 +21,7 @@ final class SessionDataTest extends TestCase
     }
 
     #[Test]
-    public function regenerateCsrfToken_creates_new_token(): void
+    public function regenerateCsrfTokenCreatesNewToken(): void
     {
         $session = new SessionData();
         $original_token = $session->csrf();
@@ -34,7 +34,7 @@ final class SessionDataTest extends TestCase
     }
 
     #[Test]
-    public function clear_regenerates_token_and_removes_all_attributes(): void
+    public function clearRegeneratesTokenAndRemovesAllAttributes(): void
     {
         $session = new SessionData();
         $original_token = $session->csrf();
@@ -49,7 +49,7 @@ final class SessionDataTest extends TestCase
     }
 
     #[Test]
-    public function flash_sets_value_and_marks_as_flash_data(): void
+    public function flashSetsValueAndMarksAsFlashData(): void
     {
         $session = new SessionData();
         $session->flash('notification', 'Success message');
@@ -74,7 +74,7 @@ final class SessionDataTest extends TestCase
     }
 
     #[Test]
-    public function keep_preserves_flash_data_for_next_request(): void
+    public function keepPreservesFlashDataForNextRequest(): void
     {
         $session = new SessionData();
         $session->flash('notification', 'Success message');
@@ -104,7 +104,7 @@ final class SessionDataTest extends TestCase
     }
 
     #[Test]
-    public function reflash_preserves_all_flash_data_for_next_request(): void
+    public function reflashPreservesAllFlashDataForNextRequest(): void
     {
         $session = new SessionData();
         $session->flash('notification', 'Success message');
@@ -130,7 +130,7 @@ final class SessionDataTest extends TestCase
     }
 
     #[Test]
-    public function serialization_preserves_session_data(): void
+    public function serializationPreservesSessionData(): void
     {
         $session = new SessionData();
         $session->set('regular', 'Regular value');
@@ -150,7 +150,7 @@ final class SessionDataTest extends TestCase
     }
 
     #[Test]
-    public function unserialized_session_transforms_flash_data_correctly(): void
+    public function unserializedSessionTransformsFlashDataCorrectly(): void
     {
         $session = new SessionData();
         $session->flash('notification', 'Flash message');
@@ -176,7 +176,7 @@ final class SessionDataTest extends TestCase
     }
 
     #[Test]
-    public function set_and_get_methods_store_and_retrieve_values(): void
+    public function setAndGetMethodsStoreAndRetrieveValues(): void
     {
         $session = new SessionData();
 
@@ -197,7 +197,7 @@ final class SessionDataTest extends TestCase
     }
 
     #[Test]
-    public function map_operations_work_as_expected(): void
+    public function mapOperationsWorkAsExpected(): void
     {
         $session = new SessionData();
 
@@ -212,7 +212,7 @@ final class SessionDataTest extends TestCase
     }
 
     #[Test]
-    public function stringable_keys_are_converted_to_strings(): void
+    public function stringableKeysAreConvertedToStrings(): void
     {
         $session = new SessionData();
         $stringable_key = new class implements \Stringable {

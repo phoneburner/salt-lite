@@ -22,7 +22,7 @@ final class HmacTest extends TestCase
 
     #[DataProvider('providesStringsWithValidHashFormats')]
     #[Test]
-    public function make_returns_hmac_from_hashed_string_and_algorithm(
+    public function makeReturnsHmacFromHashedStringAndAlgorithm(
         HashAlgorithm $algorithm,
         string $digest,
     ): void {
@@ -36,7 +36,7 @@ final class HmacTest extends TestCase
 
     #[DataProvider('providesStringsWithInvalidHashFormats')]
     #[Test]
-    public function make_throws_exception_on_invalid_hash_string(
+    public function makeThrowsExceptionOnInvalidHashString(
         HashAlgorithm $algorithm,
         string $invalid_hash,
     ): void {
@@ -46,7 +46,7 @@ final class HmacTest extends TestCase
 
     #[DataProvider('providesStringTestCases')]
     #[Test]
-    public function string_hmacs_an_arbitrary_string_with_algorithm(
+    public function stringHmacsAnArbitraryStringWithAlgorithm(
         HashAlgorithm $algorithm,
         string $digest,
     ): void {
@@ -61,7 +61,7 @@ final class HmacTest extends TestCase
 
     #[DataProvider('providesFileTestCases')]
     #[Test]
-    public function file_hmacs_an_arbitrary_file_with_algorithm(array $test_case): void
+    public function fileHmacsAnArbitraryFileWithAlgorithm(array $test_case): void
     {
         $hmac = Hmac::file(
             $test_case['file'],
@@ -77,7 +77,7 @@ final class HmacTest extends TestCase
 
     #[DataProvider('providesFileTestCases')]
     #[Test]
-    public function iterable_hmacs_an_arbitrary_pump_iterator_with_algorithm(array $test_case): void
+    public function iterableHmacsAnArbitraryPumpIteratorWithAlgorithm(array $test_case): void
     {
         $hmac = Hmac::iterable(
             FileReader::make($test_case['file']),
@@ -93,7 +93,7 @@ final class HmacTest extends TestCase
 
     #[DataProvider('providesFileTestCases')]
     #[Test]
-    public function iterable_hashes_an_arbitrary_pump_iterator_recursively_with_algorithm(array $test_case): void
+    public function iterableHashesAnArbitraryPumpIteratorRecursivelyWithAlgorithm(array $test_case): void
     {
         $hmac = Hmac::iterable([
             FileReader::make($test_case['file']),
@@ -117,7 +117,7 @@ final class HmacTest extends TestCase
     }
 
     #[Test]
-    public function is_returns_true_if_two_hmacs_are_the_same_string_and_algorithm(): void
+    public function isReturnsTrueIfTwoHmacsAreTheSameStringAndAlgorithm(): void
     {
         $key_0 = SharedKey::generate();
         $key_1 = SharedKey::generate();

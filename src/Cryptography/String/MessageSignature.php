@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Cryptography\String;
 
-use PhoneBurner\SaltLite\Cryptography\String\FixedLengthBinaryString;
-
 /**
  * A 512-bit digital signature created with either the Symmetric::sign() or
  * Asymmetric::sign() methods.
  */
-final class MessageSignature extends FixedLengthBinaryString
+final class MessageSignature extends FixedLengthSensitiveBinaryString
 {
     public const int LENGTH = \SODIUM_CRYPTO_GENERICHASH_BYTES_MAX; // 512-bit digest
 
-    public function first(int $n): VariableLengthBinaryString
+    public function first(int $n): VariableLengthSensitiveBinaryString
     {
-        return new VariableLengthBinaryString(\substr($this->bytes(), 0, $n));
+        return new VariableLengthSensitiveBinaryString(\substr($this->bytes(), 0, $n));
     }
 }

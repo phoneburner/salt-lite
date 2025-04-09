@@ -14,10 +14,10 @@ use PhoneBurner\SaltLite\Cryptography\Asymmetric\KeyExchange;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\Message\EncryptedMessageBox;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\Message\SealedMessageBox;
 use PhoneBurner\SaltLite\Cryptography\Exception\CryptoLogicException;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
 use PhoneBurner\SaltLite\Cryptography\String\Ciphertext;
 use PhoneBurner\SaltLite\Cryptography\String\Nonce;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\Algorithm\Aegis256;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 
 /**
  * Diffie-Hellman key exchange over Curve25519 + AEGIS-256 AEAD

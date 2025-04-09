@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class StaticHighResolutionTimerTest extends TestCase
 {
     #[Test]
-    public function happy_path(): void
+    public function happyPath(): void
     {
         $timer = new StaticHighResolutionTimer(42);
         for ($i = 0; $i < 100; ++$i) {

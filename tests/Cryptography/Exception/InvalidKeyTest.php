@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class InvalidKeyTest extends TestCase
 {
     #[Test]
-    public function happy_path_test_length(): void
+    public function happyPathTestLength(): void
     {
         self::assertSame('Key Must Be Exactly 16 Bytes', InvalidKey::length(16)->getMessage());
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Cryptography\Symmetric;
 
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 
 interface SymmetricEncryptionAlgorithm
 {

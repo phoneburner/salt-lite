@@ -19,7 +19,7 @@ final class EmailAddressTest extends TestCase
     private const string VALID_FULL = 'John Doe <test@phoneburner.com>';
 
     #[Test]
-    public function it_can_be_instantiated_with_just_address(): void
+    public function itCanBeInstantiatedWithJustAddress(): void
     {
         $email = new EmailAddress(self::VALID_EMAIL);
         self::assertInstanceOf(EmailAddress::class, $email);
@@ -35,7 +35,7 @@ final class EmailAddressTest extends TestCase
     }
 
     #[Test]
-    public function it_can_be_instantiated_with_address_and_name(): void
+    public function itCanBeInstantiatedWithAddressAndName(): void
     {
         $email = new EmailAddress(self::VALID_EMAIL, self::VALID_NAME);
         self::assertInstanceOf(EmailAddress::class, $email);
@@ -51,7 +51,7 @@ final class EmailAddressTest extends TestCase
     }
 
     #[Test]
-    public function parse_returns_email_address_from_address_alone(): void
+    public function parseReturnsEmailAddressFromAddressAlone(): void
     {
         $email = EmailAddress::parse(self::VALID_EMAIL);
         self::assertSame(self::VALID_EMAIL, $email->address);
@@ -64,7 +64,7 @@ final class EmailAddressTest extends TestCase
     }
 
     #[Test]
-    public function parse_returns_email_address_from_full_address(): void
+    public function parseReturnsEmailAddressFromFullAddress(): void
     {
         $email = EmailAddress::parse(self::VALID_FULL);
         self::assertSame(self::VALID_EMAIL, $email->address);
@@ -77,7 +77,7 @@ final class EmailAddressTest extends TestCase
     }
 
     #[Test]
-    public function parse_returns_self(): void
+    public function parseReturnsSelf(): void
     {
         $email = new EmailAddress(self::VALID_EMAIL, self::VALID_NAME);
         self::assertSame($email, EmailAddress::parse($email));
@@ -88,7 +88,7 @@ final class EmailAddressTest extends TestCase
     #[TestWith(['john@'])]
     #[TestWith(['john@phoneburner'])]
     #[Test]
-    public function invalid_email_results_in_exception(string $invalid_email): void
+    public function invalidEmailResultsInException(string $invalid_email): void
     {
         $this->expectException(InvalidEmailAddress::class);
 

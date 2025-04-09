@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Cryptography\KeyManagement;
 
-use PhoneBurner\SaltLite\Cryptography\Exception\SerializationProhibited;
-use PhoneBurner\SaltLite\Cryptography\String\ImportableBinaryString;
+use PhoneBurner\SaltLite\Serialization\Exception\SerializationProhibited;
+use PhoneBurner\SaltLite\String\BinaryString\ImportableBinaryString;
 
 /**
  * Represents some kind of cryptographic key in the raw binary form.

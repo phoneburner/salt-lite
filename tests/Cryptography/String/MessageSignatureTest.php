@@ -6,14 +6,24 @@ namespace PhoneBurner\SaltLite\Tests\Cryptography\String;
 
 use PhoneBurner\SaltLite\Cryptography\Exception\InvalidStringLength;
 use PhoneBurner\SaltLite\Cryptography\String\MessageSignature;
+use PhoneBurner\SaltLite\Cryptography\String\VariableLengthSensitiveBinaryString;
 use PhoneBurner\SaltLite\String\Encoding\Encoding;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
+#[CoversClass(MessageSignature::class)]
 final class MessageSignatureTest extends TestCase
 {
+    private string $valid_bytes;
+
+    protected function setUp(): void
+    {
+        $this->valid_bytes = \random_bytes(MessageSignature::LENGTH);
+    }
+
     #[Test]
-    public function happy_path_test(): void
+    public function happyPathTest(): void
     {
         $bytes = \random_bytes(MessageSignature::LENGTH);
 
@@ -28,23 +38,58 @@ final class MessageSignatureTest extends TestCase
     }
 
     #[Test]
-    public function invalid_length_test_short(): void
+    public function invalidLengthTestShort(): void
     {
         $this->expectException(InvalidStringLength::class);
         new MessageSignature(\random_bytes(MessageSignature::LENGTH - 1));
     }
 
     #[Test]
-    public function invalid_length_test_long(): void
+    public function invalidLengthTestLong(): void
     {
         $this->expectException(InvalidStringLength::class);
         new MessageSignature(\random_bytes(MessageSignature::LENGTH + 1));
     }
 
     #[Test]
-    public function invalid_length_test_empty(): void
+    public function invalidLengthTestEmpty(): void
     {
         $this->expectException(InvalidStringLength::class);
         new MessageSignature('');
+    }
+
+    #[Test]
+    public function constructsWithValidBytes(): void
+    {
+        $signature = new MessageSignature($this->valid_bytes);
+        self::assertInstanceOf(MessageSignature::class, $signature);
+        self::assertSame($this->valid_bytes, $signature->bytes());
+    }
+
+    #[Test]
+    public function throwsWhenBytesHaveInvalidLength(): void
+    {
+        $this->expectException(InvalidStringLength::class);
+        $this->expectExceptionMessage('String Must Be Exactly 64 Bytes');
+
+        new MessageSignature(\random_bytes(MessageSignature::LENGTH - 1));
+    }
+
+    #[Test]
+    public function firstReturnsCorrectSubstring(): void
+    {
+        $signature = new MessageSignature($this->valid_bytes);
+        $substring = $signature->first(10);
+
+        self::assertInstanceOf(VariableLengthSensitiveBinaryString::class, $substring);
+        self::assertSame(\substr($this->valid_bytes, 0, 10), $substring->bytes());
+        self::assertSame(10, $substring->length());
+    }
+
+    #[Test]
+    public function lengthConstantIsCorrect(): void
+    {
+        self::assertSame(64, MessageSignature::LENGTH);
+        self::assertSame(\SODIUM_CRYPTO_GENERICHASH_BYTES_MAX, MessageSignature::LENGTH);
     }
 }

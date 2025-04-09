@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 final class HandlingHttpRequestStartTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_public_properties(): void
+    public function constructorSetsPublicProperties(): void
     {
         $request = new ServerRequest(
             uri: new Uri('https://example.com/test'),
@@ -27,7 +27,7 @@ final class HandlingHttpRequestStartTest extends TestCase
     }
 
     #[Test]
-    public function getLogEntry_returns_log_entry_with_request_details(): void
+    public function getLogEntryReturnsLogEntryWithRequestDetails(): void
     {
         $request = new ServerRequest(
             uri: new Uri('https://example.com/test'),

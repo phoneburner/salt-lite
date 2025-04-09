@@ -8,6 +8,6 @@ class UnableToWriteFile extends \RuntimeException
 {
     public static function atLocation(string $location, string $reason = '', \Throwable|null $previous = null): self
     {
-        return new self(\rtrim("Unable to write file at location: {$location}. {$reason}"), previous: $previous);
+        return new self(\rtrim(\sprintf('Unable to write file at location: %s. %s', $location, $reason)), previous: $previous);
     }
 }

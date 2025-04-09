@@ -14,8 +14,8 @@ use PhoneBurner\SaltLite\Cryptography\Asymmetric\KeyExchange;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\Message\EncryptedMessageBox;
 use PhoneBurner\SaltLite\Cryptography\Exception\CryptoLogicException;
 use PhoneBurner\SaltLite\Cryptography\Exception\UnsupportedOperation;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\Algorithm\Aes256Gcm;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 
 /**
  * Diffie-Hellman key exchange over Curve25519 + AES-256-GCM AEAD

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Container\ServiceFactory;
 
-use PhoneBurner\SaltLite\App\App;
 use PhoneBurner\SaltLite\Container\ServiceFactory;
+use Psr\Container\ContainerInterface;
 
 final readonly class StaticMethodServiceFactory implements ServiceFactory
 {
@@ -18,8 +18,8 @@ final readonly class StaticMethodServiceFactory implements ServiceFactory
     ) {
     }
 
-    public function __invoke(App $app, string $id): object
+    public function __invoke(ContainerInterface $container, string $id): object
     {
-        return $this->class::{$this->method}($app);
+        return $this->class::{$this->method}($container);
     }
 }

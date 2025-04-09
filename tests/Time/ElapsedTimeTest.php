@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class ElapsedTimeTest extends TestCase
 {
     #[Test]
-    public function it_converts_to_seconds_correctly(): void
+    public function itConvertsToSecondsCorrectly(): void
     {
         $elapsed = new ElapsedTime(12523432372);
         self::assertSame(12.5234, $elapsed->inSeconds());
@@ -21,7 +21,7 @@ final class ElapsedTimeTest extends TestCase
     }
 
     #[Test]
-    public function it_converts_to_milliseconds_correctly(): void
+    public function itConvertsToMillisecondsCorrectly(): void
     {
         $elapsed = new ElapsedTime(12523432372);
         self::assertSame(12523.43, $elapsed->inMilliseconds());
@@ -31,7 +31,7 @@ final class ElapsedTimeTest extends TestCase
     }
 
     #[Test]
-    public function it_converts_to_microseconds_correctly(): void
+    public function itConvertsToMicrosecondsCorrectly(): void
     {
         $elapsed = new ElapsedTime(323732);
         self::assertSame(324.0, $elapsed->inMicroseconds());
@@ -41,7 +41,7 @@ final class ElapsedTimeTest extends TestCase
     }
 
     #[Test]
-    public function it_converts_to_string_correctly(): void
+    public function itConvertsToStringCorrectly(): void
     {
         $elapsed = new ElapsedTime(12523432372);
         self::assertSame('12.5234', (string)$elapsed);

@@ -14,14 +14,14 @@ use Psr\Http\Message\RequestInterface;
 final class RestrictToTest extends TestCase
 {
     #[Test]
-    public function happy_path(): void
+    public function happyPath(): void
     {
         $sut = new RestrictTo(ServiceProvider::class);
         self::assertSame([ServiceProvider::class], $sut->classes);
     }
 
     #[Test]
-    public function happy_path_with_multiple_classes(): void
+    public function happyPathWithMultipleClasses(): void
     {
         $sut = new RestrictTo(ServiceProvider::class, ContainerInterface::class, RequestInterface::class);
         self::assertSame([
@@ -32,7 +32,7 @@ final class RestrictToTest extends TestCase
     }
 
     #[Test]
-    public function sad_path(): void
+    public function sadPath(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         new RestrictTo();

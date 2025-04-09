@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class UuidStringTest extends TestCase
 {
     #[Test]
-    public function it_is_a_UUID(): void
+    public function itIsAUUID(): void
     {
         $uuid = Uuid::ordered();
         $wrapped_uuid = new UuidString($uuid);
@@ -47,7 +47,7 @@ final class UuidStringTest extends TestCase
     }
 
     #[Test]
-    public function it_can_be_constructed_from_string(): void
+    public function itCanBeConstructedFromString(): void
     {
         $uuid_string = Uuid::random()->toString();
         $uuid_obj = new UuidString($uuid_string);
@@ -57,7 +57,7 @@ final class UuidStringTest extends TestCase
     }
 
     #[Test]
-    public function it_can_be_constructed_from_stringable(): void
+    public function itCanBeConstructedFromStringable(): void
     {
         $uuid = Uuid::random();
         $uuid_string = $uuid->toString();
@@ -80,7 +80,7 @@ final class UuidStringTest extends TestCase
     }
 
     #[Test]
-    public function it_can_be_json_serialized(): void
+    public function itCanBeJsonSerialized(): void
     {
         $uuid = Uuid::random();
         $uuid_string = $uuid->toString();
@@ -91,7 +91,7 @@ final class UuidStringTest extends TestCase
     }
 
     #[Test]
-    public function it_returns_urn(): void
+    public function itReturnsUrn(): void
     {
         $uuid = Uuid::random();
         $uuid_obj = new UuidString($uuid);
@@ -100,7 +100,7 @@ final class UuidStringTest extends TestCase
     }
 
     #[Test]
-    public function it_properly_delegates_deprecated_methods(): void
+    public function itProperlyDelegatesDeprecatedMethods(): void
     {
         $uuid = Uuid::random();
         $uuid_obj = new UuidString($uuid);

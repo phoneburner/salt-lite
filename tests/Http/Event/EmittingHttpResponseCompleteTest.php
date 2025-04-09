@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class EmittingHttpResponseCompleteTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_public_properties(): void
+    public function constructorSetsPublicProperties(): void
     {
         $response = new Response();
         $event = new EmittingHttpResponseComplete($response);

@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class InternalTest extends TestCase
 {
     #[Test]
-    public function happy_path(): void
+    public function happyPath(): void
     {
         $sut = new Internal();
         self::assertSame('', $sut->help);

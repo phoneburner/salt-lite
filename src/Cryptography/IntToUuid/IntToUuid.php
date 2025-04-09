@@ -6,7 +6,7 @@ namespace PhoneBurner\SaltLite\Cryptography\IntToUuid;
 
 use InvalidArgumentException;
 use LogicException;
-use PhoneBurner\SaltLite\Cryptography\String\PackFormat;
+use PhoneBurner\SaltLite\String\BinaryString\PackFormat;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use RuntimeException;

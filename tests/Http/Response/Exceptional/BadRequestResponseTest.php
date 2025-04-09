@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class BadRequestResponseTest extends TestCase
 {
     #[Test]
-    public function response_has_expected_defaults(): void
+    public function responseHasExpectedDefaults(): void
     {
         $sut = new BadRequestResponse();
 

@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 final class AreaCodeCollectionTest extends TestCase
 {
     #[Test]
-    public function collects_area_codes(): void
+    public function collectsAreaCodes(): void
     {
         $area_codes = [
             AreaCode::make(330),

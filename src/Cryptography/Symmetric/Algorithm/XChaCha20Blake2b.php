@@ -6,15 +6,15 @@ namespace PhoneBurner\SaltLite\Cryptography\Symmetric\Algorithm;
 
 use PhoneBurner\SaltLite\Attribute\Usage\Internal;
 use PhoneBurner\SaltLite\Cryptography\KeyManagement\KeyDerivation;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
 use PhoneBurner\SaltLite\Cryptography\String\Ciphertext;
 use PhoneBurner\SaltLite\Cryptography\String\Nonce;
-use PhoneBurner\SaltLite\Cryptography\String\PackFormat;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\EncryptedMessage;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SharedKey;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\Symmetric;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SymmetricAlgorithm;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SymmetricEncryptionAlgorithm;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\PackFormat;
 
 /**
  * Symmetric Encryption (AEAD): XChaCha20-BLAKE2b

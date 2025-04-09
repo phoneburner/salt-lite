@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Cryptography;
 
 use PhoneBurner\SaltLite\Cryptography\Exception\CryptoLogicException;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
-use PhoneBurner\SaltLite\Cryptography\String\PackFormat;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\PackFormat;
 
 class Util
 {

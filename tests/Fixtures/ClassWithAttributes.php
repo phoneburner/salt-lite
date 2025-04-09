@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Tests\Fixtures;
 
-#[TestAttribute('class')]
+use PhoneBurner\SaltLite\Tests\Fixtures\Attributes\MockAttribute;
+
+#[MockAttribute('class')]
 class ClassWithAttributes
 {
     public const string CONSTANT = 'constant';
 
-    #[TestAttribute('property')]
+    #[MockAttribute('property')]
     public string $property = '';
 
-    #[TestAttribute('method')]
+    #[MockAttribute('method')]
     public function method(): void
     {
     }

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class OverrideByParameterTypeTest extends TestCase
 {
     #[Test]
-    public function happy_path(): void
+    public function happyPath(): void
     {
         $override = new OverrideByParameterType('SomeClassName', 'bar');
         self::assertSame('SomeClassName', $override->identifier());
@@ -26,7 +26,7 @@ final class OverrideByParameterTypeTest extends TestCase
     }
 
     #[Test]
-    public function identifier_must_be_nonempty(): void
+    public function identifierMustBeNonempty(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         new OverrideByParameterType('', 'bar');

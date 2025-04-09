@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class TextResponseTest extends TestCase
 {
     #[Test]
-    public function creates_text_response_with_defaults(): void
+    public function createsTextResponseWithDefaults(): void
     {
         $text = 'Plain text message';
         $response = new TextResponse($text);
@@ -25,7 +25,7 @@ final class TextResponseTest extends TestCase
     }
 
     #[Test]
-    public function creates_text_response_with_custom_status(): void
+    public function createsTextResponseWithCustomStatus(): void
     {
         $text = 'Resource created successfully';
         $response = new TextResponse($text, HttpStatus::CREATED);
@@ -36,7 +36,7 @@ final class TextResponseTest extends TestCase
     }
 
     #[Test]
-    public function creates_text_response_with_custom_headers(): void
+    public function createsTextResponseWithCustomHeaders(): void
     {
         $text = 'Plain text with custom headers';
         $headers = [
@@ -54,7 +54,7 @@ final class TextResponseTest extends TestCase
     }
 
     #[Test]
-    public function content_type_header_can_be_overridden(): void
+    public function contentTypeHeaderCanBeOverridden(): void
     {
         $text = 'Plain text with custom content type';
         $customContentType = 'text/csv';

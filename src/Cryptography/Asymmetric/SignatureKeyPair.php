@@ -6,12 +6,12 @@ namespace PhoneBurner\SaltLite\Cryptography\Asymmetric;
 
 use PhoneBurner\SaltLite\Cryptography\Exception\InvalidKeyPair;
 use PhoneBurner\SaltLite\Cryptography\Exception\InvalidKeySeed;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
-use PhoneBurner\SaltLite\Cryptography\String\Traits\BinaryStringExportBehavior;
-use PhoneBurner\SaltLite\Cryptography\String\Traits\BinaryStringImportBehavior;
-use PhoneBurner\SaltLite\Cryptography\String\Traits\BinaryStringProhibitsSerialization;
 use PhoneBurner\SaltLite\Cryptography\Util;
 use PhoneBurner\SaltLite\Exception\UnreachableCode;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringExportBehavior;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringImportBehavior;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringProhibitsSerialization;
 
 /**
  * Holds a secret key and the corresponding public key for signing and verifying

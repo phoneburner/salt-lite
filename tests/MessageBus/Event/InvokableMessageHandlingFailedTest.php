@@ -13,7 +13,7 @@ use stdClass;
 final class InvokableMessageHandlingFailedTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_message_property(): void
+    public function constructorSetsMessageProperty(): void
     {
         $message = new stdClass();
         $event = new InvokableMessageHandlingFailed($message);
@@ -23,7 +23,7 @@ final class InvokableMessageHandlingFailedTest extends TestCase
     }
 
     #[Test]
-    public function constructor_sets_exception_property(): void
+    public function constructorSetsExceptionProperty(): void
     {
         $message = new stdClass();
         $exception = new RuntimeException('Test exception');

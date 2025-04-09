@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 final class AlgorithmTest extends TestCase
 {
     #[Test]
-    public function happy_path_for_implementation(): void
+    public function happyPathForImplementation(): void
     {
         self::assertInstanceOf(X25519XChaCha20Blake2b::class, AsymmetricAlgorithm::X25519XChaCha20Blake2b->implementation());
         self::assertInstanceOf(X25519XChaCha20Poly1305::class, AsymmetricAlgorithm::X25519XChaCha20Poly1305->implementation());

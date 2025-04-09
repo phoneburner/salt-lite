@@ -120,11 +120,11 @@ final readonly class Str
      */
     public static function contains(string $haystack, string $needle, bool $case_sensitive = true): bool
     {
-        if ($needle === '') {
-            return true;
-        }
-
-        return false !== ($case_sensitive ? \strpos($haystack, $needle) : \stripos($haystack, $needle));
+        return match (true) {
+            $needle === '' => true,
+            $case_sensitive => \str_contains($haystack, $needle),
+            default => \stripos($haystack, $needle) !== false,
+        };
     }
 
     /**
@@ -134,11 +134,11 @@ final readonly class Str
      */
     public static function startsWith(string $haystack, string $needle, bool $case_sensitive = true): bool
     {
-        if ($needle === '') {
-            return true;
-        }
-
-        return 0 === ($case_sensitive ? \strpos($haystack, $needle) : \stripos($haystack, $needle));
+        return match (true) {
+            $needle === '' => true,
+            $case_sensitive => \str_starts_with($haystack, $needle),
+            default => \stripos($haystack, $needle) === 0,
+        };
     }
 
     /**
@@ -148,12 +148,11 @@ final readonly class Str
      */
     public static function endsWith(string $haystack, string $needle, bool $case_sensitive = true): bool
     {
-        if ($needle === '') {
-            return true;
-        }
-
-        $length = \strlen($needle);
-        return 0 === \substr_compare($haystack, $needle, -$length, $length, ! $case_sensitive);
+        return match (true) {
+            $needle === '' => true,
+            $case_sensitive => \str_ends_with($haystack, $needle),
+            default => \strripos($haystack, $needle) === \strlen($haystack) - \strlen($needle),
+        };
     }
 
     /**

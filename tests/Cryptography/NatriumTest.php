@@ -27,7 +27,7 @@ final class NatriumTest extends TestCase
     public const string KNOWN_RECIPIENT_KEYPAIR = 'fvVzvZ085EQ+chb5HtMzBhLcBHjVAQi1g4CnQfuJnjTGPBGm6sIenWqy7v7b4iNdaQhtpn6gDVtpXquKyo7KKQ==';
 
     #[Test]
-    public function symmetric_regression_test_default(): void
+    public function symmetricRegressionTestDefault(): void
     {
         $shared_key = SharedKey::import(self::KNOWN_KEY);
 
@@ -48,7 +48,7 @@ final class NatriumTest extends TestCase
     }
 
     #[Test]
-    public function symmetric_regression_test_alternate_algo(): void
+    public function symmetricRegressionTestAlternateAlgo(): void
     {
         $shared_key = SharedKey::import(self::KNOWN_KEY);
 
@@ -69,7 +69,7 @@ final class NatriumTest extends TestCase
     }
 
     #[Test]
-    public function asymmetric_regression_test_default(): void
+    public function asymmetricRegressionTestDefault(): void
     {
         $shared_key = SharedKey::import(self::KNOWN_KEY);
 
@@ -94,7 +94,7 @@ final class NatriumTest extends TestCase
     }
 
     #[Test]
-    public function asymmetric_regression_test_alternate_algo(): void
+    public function asymmetricRegressionTestAlternateAlgo(): void
     {
         $shared_key = SharedKey::import(self::KNOWN_KEY);
 
@@ -122,7 +122,7 @@ final class NatriumTest extends TestCase
     }
 
     #[Test]
-    public function happy_path_for_symmetric_signatures(): void
+    public function happyPathForSymmetricSignatures(): void
     {
         $natrium = new Natrium(new KeyChain(SharedKey::import(self::KNOWN_KEY)));
 
@@ -132,7 +132,7 @@ final class NatriumTest extends TestCase
     }
 
     #[Test]
-    public function happy_path_for_asymmetric_signatures(): void
+    public function happyPathForAsymmetricSignatures(): void
     {
         $shared_key = SharedKey::import(self::KNOWN_KEY);
 
@@ -144,7 +144,7 @@ final class NatriumTest extends TestCase
     }
 
     #[Test]
-    public function happy_path_for_encrypted_paseto(): void
+    public function happyPathForEncryptedPaseto(): void
     {
         $shared_key = SharedKey::import(self::KNOWN_KEY);
 
@@ -166,7 +166,7 @@ final class NatriumTest extends TestCase
     }
 
     #[Test]
-    public function happy_path_for_signed_paseto(): void
+    public function happyPathForSignedPaseto(): void
     {
         $shared_key = SharedKey::import(self::KNOWN_KEY);
 

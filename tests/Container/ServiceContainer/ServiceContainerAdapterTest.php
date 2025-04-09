@@ -16,7 +16,7 @@ use PhoneBurner\SaltLite\Container\ServiceContainer\ServiceContainerAdapter;
 use PhoneBurner\SaltLite\Container\ServiceFactory\CallableServiceFactory;
 use PhoneBurner\SaltLite\Container\ServiceProvider;
 use PhoneBurner\SaltLite\Logging\BufferLogger;
-use PhoneBurner\SaltLite\Tests\Fixtures\TestApp;
+use PhoneBurner\SaltLite\Tests\Fixtures\MockApp;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -36,7 +36,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function has_returns_true_for_resolved_services(): void
+    public function hasReturnsTrueForResolvedServices(): void
     {
         $service = new \stdClass();
         $this->container->set(LoggerInterface::class, $service);
@@ -45,7 +45,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function has_returns_true_for_factories(): void
+    public function hasReturnsTrueForFactories(): void
     {
         $factory = new CallableServiceFactory(fn(): \stdClass => new \stdClass());
         $this->container->set(LoggerInterface::class, $factory);
@@ -54,7 +54,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function has_returns_true_for_deferred_services(): void
+    public function hasReturnsTrueForDeferredServices(): void
     {
         $provider = new class implements DeferrableServiceProvider {
             public static function provides(): array
@@ -77,19 +77,19 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function has_returns_true_for_instantiable_classes_in_non_strict_mode(): void
+    public function hasReturnsTrueForInstantiableClassesInNonStrictMode(): void
     {
         self::assertTrue($this->container->has(\stdClass::class));
     }
 
     #[Test]
-    public function has_returns_false_for_non_instantiable_classes_in_strict_mode(): void
+    public function hasReturnsFalseForNonInstantiableClassesInStrictMode(): void
     {
         self::assertFalse($this->container->has(LoggerInterface::class, true));
     }
 
     #[Test]
-    public function get_returns_resolved_service(): void
+    public function getReturnsResolvedService(): void
     {
         $service = new \stdClass();
         $this->container->set(LoggerInterface::class, $service);
@@ -98,7 +98,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function get_resolves_service_from_factory(): void
+    public function getResolvesServiceFromFactory(): void
     {
         $service = new \stdClass();
         $factory = new CallableServiceFactory(fn(): \stdClass => $service);
@@ -108,14 +108,14 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function get_throws_not_found_for_unregistered_service(): void
+    public function getThrowsNotFoundForUnregisteredService(): void
     {
         $this->expectException(NotFound::class);
         $this->container->get(LoggerInterface::class);
     }
 
     #[Test]
-    public function get_resolves_service_from_deferred_provider(): void
+    public function getResolvesServiceFromDeferredProvider(): void
     {
         $service = new NullLogger();
         $provider = new class ($service) implements DeferrableServiceProvider {
@@ -144,7 +144,7 @@ final class ServiceContainerAdapterTest extends TestCase
 
         $environment = $this->createMock(Environment::class);
         $config = $this->createMock(Configuration::class);
-        $mock_app = new TestApp($this->container, Context::Test, $environment, $config);
+        $mock_app = new MockApp($this->container, Context::Test, $environment, $config);
 
         $this->container = new ServiceContainerAdapter($mock_app);
         $this->container->defer($provider);
@@ -155,7 +155,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function get_detects_circular_dependencies(): void
+    public function getDetectsCircularDependencies(): void
     {
         $this->container->set(LoggerInterface::class, fn(): object => $this->container->get(NullLogger::class));
         $this->container->set(NullLogger::class, fn(): object => $this->container->get(LoggerInterface::class));
@@ -165,7 +165,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function set_accepts_service_factory(): void
+    public function setAcceptsServiceFactory(): void
     {
         $factory = new CallableServiceFactory(fn(): \stdClass => new \stdClass());
         $this->container->set(LoggerInterface::class, $factory);
@@ -174,7 +174,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function set_accepts_closure_as_factory(): void
+    public function setAcceptsClosureAsFactory(): void
     {
         $this->container->set(LoggerInterface::class, fn(): \stdClass => new \stdClass());
 
@@ -182,7 +182,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function set_accepts_object(): void
+    public function setAcceptsObject(): void
     {
         $service = new \stdClass();
         $this->container->set(LoggerInterface::class, $service);
@@ -191,14 +191,14 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function set_throws_for_non_object_value(): void
+    public function setThrowsForNonObjectValue(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->container->set(LoggerInterface::class, 'not an object');
     }
 
     #[Test]
-    public function unset_removes_service(): void
+    public function unsetRemovesService(): void
     {
         $this->container->set(LoggerInterface::class, new \stdClass());
         $this->container->unset(LoggerInterface::class);
@@ -207,7 +207,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function register_registers_service_provider(): void
+    public function registerRegistersServiceProvider(): void
     {
         $provider = new class implements ServiceProvider {
             public static function bind(): array
@@ -225,7 +225,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function register_throws_for_invalid_provider(): void
+    public function registerThrowsForInvalidProvider(): void
     {
         $this->expectException(InvalidServiceProvider::class);
         /** @phpstan-ignore argument.type (intentional error) */
@@ -233,7 +233,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function defer_registers_deferred_provider(): void
+    public function deferRegistersDeferredProvider(): void
     {
         $provider = new class implements DeferrableServiceProvider {
             public static function provides(): array
@@ -256,7 +256,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function defer_throws_for_invalid_provider(): void
+    public function deferThrowsForInvalidProvider(): void
     {
         $this->expectException(InvalidServiceProvider::class);
         /** @phpstan-ignore argument.type (intentional error) */
@@ -264,7 +264,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function set_logger_updates_logger(): void
+    public function setLoggerUpdatesLogger(): void
     {
         $logger = new NullLogger();
         $this->container->setLogger($logger);
@@ -274,7 +274,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function set_logger_copies_buffer_logger_entries(): void
+    public function setLoggerCopiesBufferLoggerEntries(): void
     {
         $bufferLogger = new BufferLogger();
         $container = new ServiceContainerAdapter($this->app, $bufferLogger);
@@ -287,7 +287,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function call_invokes_closure(): void
+    public function callInvokesClosure(): void
     {
         $called = false;
         $closure = function () use (&$called): string {
@@ -302,7 +302,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function call_invokes_method_on_object(): void
+    public function callInvokesMethodOnObject(): void
     {
         $object = new class {
             public function test(): string
@@ -317,7 +317,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function call_invokes_method_on_class_string(): void
+    public function callInvokesMethodOnClassString(): void
     {
         $service = new class {
             public function test(): string
@@ -333,7 +333,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function call_throws_for_invalid_object(): void
+    public function callThrowsForInvalidObject(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         /** @phpstan-ignore argument.type (intentional error) */
@@ -341,7 +341,7 @@ final class ServiceContainerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function call_throws_for_non_invokable_object(): void
+    public function callThrowsForNonInvokableObject(): void
     {
         $object = new \stdClass();
 

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class KeyValueStoreTest extends TestCase
 {
     #[Test]
-    public function it_can_set_and_get_values(): void
+    public function itCanSetAndGetValues(): void
     {
         $store = new KeyValueStore();
 
@@ -32,7 +32,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_unset_a_value(): void
+    public function itCanUnsetAValue(): void
     {
         $store = new KeyValueStore(['key' => 'value']);
         self::assertTrue($store->has('key'));
@@ -43,7 +43,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_remember_a_value_that_does_not_exist(): void
+    public function itCanRememberAValueThatDoesNotExist(): void
     {
         $store = new KeyValueStore();
 
@@ -55,7 +55,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_remember_a_value_that_exists(): void
+    public function itCanRememberAValueThatExists(): void
     {
         $store = new KeyValueStore(['key1' => 'value1', 'key2' => 'value2']);
         self::assertTrue($store->has('key2'));
@@ -66,7 +66,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_forget_a_value(): void
+    public function itCanForgetAValue(): void
     {
         $store = new KeyValueStore(['key' => 'value']);
         self::assertTrue($store->has('key'));
@@ -78,7 +78,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_clear_all_values(): void
+    public function itCanClearAllValues(): void
     {
         $store = new KeyValueStore(['key1' => 'value1', 'key2' => 'value2']);
         self::assertSame(['key1' => 'value1', 'key2' => 'value2'], $store->toArray());
@@ -93,7 +93,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_iterate_over_values(): void
+    public function itCanIterateOverValues(): void
     {
         $store = new KeyValueStore(['key1' => 'value1', 'key2' => 'value2']);
 
@@ -106,7 +106,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_get_all_keys(): void
+    public function itCanGetAllKeys(): void
     {
         $store = new KeyValueStore(['key1' => 'value1', 'key2' => 'value2']);
 
@@ -116,7 +116,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_filter_data(): void
+    public function itCanFilterData(): void
     {
         $store = new KeyValueStore(['key1' => 1, 'key2' => 2, 'key3' => 3, 'key4' => 0]);
 
@@ -126,7 +126,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_reject_data(): void
+    public function itCanRejectData(): void
     {
         $store = new KeyValueStore(['key1' => 1, 'key2' => 2, 'key3' => 3, 'key4' => 0]);
 
@@ -136,7 +136,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_map_data(): void
+    public function itCanMapData(): void
     {
         $store = new KeyValueStore(['key1' => 1, 'key2' => 2]);
 
@@ -146,7 +146,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_all_data(): void
+    public function itCanAllData(): void
     {
         $store = new KeyValueStore(['key1' => 1, 'key2' => 2, 'key3' => 3, 'key4' => 0]);
 
@@ -160,7 +160,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_any_data(): void
+    public function itCanAnyData(): void
     {
         $store = new KeyValueStore(['key1' => 1, 'key2' => 2, 'key3' => 3, 'key4' => 0]);
 
@@ -174,7 +174,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_serialize_and_unserialize(): void
+    public function itCanSerializeAndUnserialize(): void
     {
         $store = new KeyValueStore(['key' => 'value']);
 
@@ -186,7 +186,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_can_check_if_empty(): void
+    public function itCanCheckIfEmpty(): void
     {
         $emptyStore = new KeyValueStore();
         $nonEmptyStore = new KeyValueStore(['key' => 'value']);
@@ -196,7 +196,7 @@ final class KeyValueStoreTest extends TestCase
     }
 
     #[Test]
-    public function it_has_array_access_behavior(): void
+    public function itHasArrayAccessBehavior(): void
     {
         $store = new KeyValueStore();
 

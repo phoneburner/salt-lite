@@ -21,7 +21,7 @@ final class PasetoTest extends TestCase
 {
     #[Test]
     #[DataProvider('providesHappyPathTestCases')]
-    public function happy_path(string $value, PasetoVersion $version, PasetoPurpose $purpose, string $footer): void
+    public function happyPath(string $value, PasetoVersion $version, PasetoPurpose $purpose, string $footer): void
     {
         $token = new Paseto($value);
 
@@ -51,7 +51,7 @@ final class PasetoTest extends TestCase
 
     #[Test]
     #[DataProvider('providesSadPathTestCases')]
-    public function sad_path(string $token): void
+    public function sadPath(string $token): void
     {
         $this->expectException(PasetoCryptoException::class);
         $this->expectExceptionMessage('Invalid PASETO Token');

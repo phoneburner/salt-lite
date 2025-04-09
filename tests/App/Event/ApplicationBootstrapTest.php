@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class ApplicationBootstrapTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_app_property(): void
+    public function constructorSetsAppProperty(): void
     {
         $app = $this->createMock(App::class);
         self::assertSame($app, new ApplicationBootstrap($app)->app);

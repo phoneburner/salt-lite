@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Cache;
 
 use PhoneBurner\SaltLite\Attribute\Usage\Contract;
-use PhoneBurner\SaltLite\Cache\AppendOnlyCache;
 use PhoneBurner\SaltLite\Time\Ttl;
 
 /**
@@ -23,7 +22,7 @@ use PhoneBurner\SaltLite\Time\Ttl;
  * check that the return of get() is not null.
  */
 #[Contract]
-interface Cache extends AppendOnlyCache
+interface Cache
 {
     /**
      * Retrieve an item from the cache by key. Use this method to also check if

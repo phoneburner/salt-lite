@@ -38,7 +38,7 @@ final class FileStreamTest extends TestCase
     }
 
     #[Test]
-    public function read_write_operations(): void
+    public function readWriteOperations(): void
     {
         $stream = new FileStream($this->temp_file, FileMode::WriteCreateOrTruncateExisting);
         self::assertTrue($stream->isWritable());
@@ -52,7 +52,7 @@ final class FileStreamTest extends TestCase
     }
 
     #[Test]
-    public function read_chunks(): void
+    public function readChunks(): void
     {
         $content = \str_repeat('test', 1000);
         \file_put_contents($this->temp_file, $content);
@@ -64,7 +64,7 @@ final class FileStreamTest extends TestCase
     }
 
     #[Test]
-    public function seek_and_tell(): void
+    public function seekAndTell(): void
     {
         $stream = new FileStream($this->temp_file, FileMode::Read);
         self::assertSame(0, $stream->tell());
@@ -87,7 +87,7 @@ final class FileStreamTest extends TestCase
     }
 
     #[Test]
-    public function get_size(): void
+    public function getSize(): void
     {
         $stream = new FileStream($this->temp_file, FileMode::Read);
         self::assertSame(12, $stream->getSize());
@@ -97,7 +97,7 @@ final class FileStreamTest extends TestCase
     }
 
     #[Test]
-    public function to_string(): void
+    public function toStringReturnsExpectedValue(): void
     {
         $stream = new FileStream($this->temp_file, FileMode::Read);
         self::assertSame('test content', (string)$stream);
@@ -122,7 +122,7 @@ final class FileStreamTest extends TestCase
     }
 
     #[Test]
-    public function get_metadata(): void
+    public function getMetadata(): void
     {
         $stream = new FileStream($this->temp_file, FileMode::Read);
         $metadata = $stream->getMetadata();
@@ -136,7 +136,7 @@ final class FileStreamTest extends TestCase
     }
 
     #[Test]
-    public function write_to_read_only_stream(): void
+    public function writeToReadOnlyStream(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Stream is not writable');
@@ -146,7 +146,7 @@ final class FileStreamTest extends TestCase
     }
 
     #[Test]
-    public function read_from_write_only_stream(): void
+    public function readFromWriteOnlyStream(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Stream is not readable');
@@ -156,7 +156,7 @@ final class FileStreamTest extends TestCase
     }
 
     #[Test]
-    public function get_contents_on_write_only_stream(): void
+    public function getContentsOnWriteOnlyStream(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Stream is not readable');
@@ -166,7 +166,7 @@ final class FileStreamTest extends TestCase
     }
 
     #[Test]
-    public function seek_on_non_seekable_stream(): void
+    public function seekOnNonSeekableStream(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Stream is not seekable');
@@ -177,7 +177,7 @@ final class FileStreamTest extends TestCase
     }
 
     #[Test]
-    public function tell_on_detached_stream(): void
+    public function tellOnDetachedStream(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Stream resource detached from instance');

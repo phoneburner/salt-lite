@@ -15,7 +15,7 @@ final class AreaCodePurposeTest extends TestCase
 {
     #[DataProvider('providesLookupTestCases')]
     #[Test]
-    public function lookup_returns_expected_enum_value(AreaCode $area_code, AreaCodePurpose $expected): void
+    public function lookupReturnsExpectedEnumValue(AreaCode $area_code, AreaCodePurpose $expected): void
     {
         $area_code_aware = new readonly class ($area_code) implements AreaCodeAware {
             public function __construct(private AreaCode $area_code)

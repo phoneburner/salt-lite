@@ -15,7 +15,7 @@ final class AreaCodeLocationTest extends TestCase
 {
     #[DataProvider('providesHappyPathTestCases')]
     #[Test]
-    public function make_happy_path(array $input, string $region, array $subdivisions): void
+    public function makeHappyPath(array $input, string $region, array $subdivisions): void
     {
         $sut = AreaCodeLocation::make(...$input);
 
@@ -124,7 +124,7 @@ final class AreaCodeLocationTest extends TestCase
 
     #[DataProvider('providesDifferentRegionSadPathTestCases')]
     #[Test]
-    public function passing_two_different_regions_fails(array $input): void
+    public function passingTwoDifferentRegionsFails(array $input): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('AreaCodeLocation Requires 1 Region');
@@ -139,7 +139,7 @@ final class AreaCodeLocationTest extends TestCase
     }
 
     #[Test]
-    public function passing_invalid_region_code_fails(): void
+    public function passingInvalidRegionCodeFails(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Invalid NANP Region Code: MK');
@@ -147,7 +147,7 @@ final class AreaCodeLocationTest extends TestCase
     }
 
     #[Test]
-    public function passing_invalid_subdivision_code_fails(): void
+    public function passingInvalidSubdivisionCodeFails(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Undefined Subdivision Code: US-PE');

@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class HashAlgorithmTest extends TestCase
 {
     #[Test]
-    public function default_returns_the_default_instance(): void
+    public function defaultReturnsTheDefaultInstance(): void
     {
         self::assertSame(HashAlgorithm::BLAKE2B, HashAlgorithm::default());
         self::assertSame(HashAlgorithm::BLAKE2B, HashAlgorithm::default(true));
@@ -19,7 +19,7 @@ final class HashAlgorithmTest extends TestCase
     }
 
     #[Test]
-    public function cryptographic_returns_expected_value_for_algo(): void
+    public function cryptographicReturnsExpectedValueForAlgo(): void
     {
         self::assertTrue(HashAlgorithm::BLAKE2B->cryptographic());
         self::assertTrue(HashAlgorithm::SHA256->cryptographic());
@@ -32,7 +32,7 @@ final class HashAlgorithmTest extends TestCase
     }
 
     #[Test]
-    public function bytes_returns_expected_value_for_algo(): void
+    public function bytesReturnsExpectedValueForAlgo(): void
     {
         self::assertSame(32, HashAlgorithm::BLAKE2B->bytes());
         self::assertSame(32, HashAlgorithm::SHA256->bytes());

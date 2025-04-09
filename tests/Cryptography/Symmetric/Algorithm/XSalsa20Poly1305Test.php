@@ -21,7 +21,7 @@ final class XSalsa20Poly1305Test extends TestCase
     public const string KNOWN_KEY = 'pP8fF46Eb737WAN9ccW1iZJP3w/7GESMKgfWT38/aU0=';
 
     #[Test]
-    public function happy_path(): void
+    public function happyPath(): void
     {
         $shared_key = SharedKey::generate();
 
@@ -33,7 +33,7 @@ final class XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function symmetric_encryption_regression_test(): void
+    public function symmetricEncryptionRegressionTest(): void
     {
         $shared_key = SharedKey::import(self::KNOWN_KEY);
         $ciphertext = CipherText::import(File::read(__DIR__ . '/../../Fixtures/lorem_xsalsa20poly1305.txt'));
@@ -45,7 +45,7 @@ final class XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function encrypt_throw_exception_if_additional_data_is_nonempty(): void
+    public function encryptThrowExceptionIfAdditionalDataIsNonempty(): void
     {
         $shared_key = SharedKey::generate();
 
@@ -55,7 +55,7 @@ final class XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function decrypt_throw_exception_if_additional_data_is_nonempty(): void
+    public function decryptThrowExceptionIfAdditionalDataIsNonempty(): void
     {
         $shared_key = SharedKey::generate();
 
@@ -65,7 +65,7 @@ final class XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function decrypt_returns_null_with_wrong_key(): void
+    public function decryptReturnsNullWithWrongKey(): void
     {
         $shared_key = SharedKey::generate();
 
@@ -79,7 +79,7 @@ final class XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function decrypt_returns_null_with_wrong_tag(): void
+    public function decryptReturnsNullWithWrongTag(): void
     {
         $shared_key = SharedKey::generate();
 
@@ -94,7 +94,7 @@ final class XSalsa20Poly1305Test extends TestCase
     #[Test]
     #[TestWith([''])]
     #[TestWith(['short'])]
-    public function decrypt_returns_null_when_message_is_too_short(string $ciphertext): void
+    public function decryptReturnsNullWhenMessageIsTooShort(string $ciphertext): void
     {
         // Pass a deliberately short message to trigger error condition.
         $plaintext = XSalsa20Poly1305::decrypt(SharedKey::generate(), new Ciphertext($ciphertext));
@@ -103,7 +103,7 @@ final class XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function sodium_crypto_secretbox_compatibility_regression_test_sender(): void
+    public function sodiumCryptoSecretboxCompatibilityRegressionTestSender(): void
     {
         $key_bytes = \random_bytes(\SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
 
@@ -123,7 +123,7 @@ final class XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function sodium_crypto_secretbox_compatibility_regression_test_recipient(): void
+    public function sodiumCryptoSecretboxCompatibilityRegressionTestRecipient(): void
     {
         $key_bytes = \random_bytes(\SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
 

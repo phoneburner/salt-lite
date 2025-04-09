@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class NonEmptyTest extends TestCase
 {
     #[Test]
-    public function empty_string_throws_default_exception(): void
+    public function emptyStringThrowsDefaultException(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('String Must Not Be Empty');
@@ -20,7 +20,7 @@ final class NonEmptyTest extends TestCase
     }
 
     #[Test]
-    public function empty_string_throws_exception(): void
+    public function emptyStringThrowsException(): void
     {
         $exception = new \RuntimeException('Custom Exception');
         $this->expectException(\RuntimeException::class);
@@ -30,7 +30,7 @@ final class NonEmptyTest extends TestCase
 
     #[DataProvider('providesStringTestCases')]
     #[Test]
-    public function string_returns_expected_value(string $input): void
+    public function stringReturnsExpectedValue(string $input): void
     {
         self::assertSame($input, NonEmptyCast::string($input));
     }

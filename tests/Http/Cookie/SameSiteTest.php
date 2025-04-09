@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class SameSiteTest extends TestCase
 {
     #[Test]
-    public function it_has_expected_cases(): void
+    public function itHasExpectedCases(): void
     {
         self::assertSame('Lax', SameSite::Lax->name);
         self::assertSame('Strict', SameSite::Strict->name);

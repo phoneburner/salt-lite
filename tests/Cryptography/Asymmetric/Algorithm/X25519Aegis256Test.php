@@ -22,7 +22,7 @@ final class X25519Aegis256Test extends TestCase
     public const string ADDITIONAL_DATA = 'Some Random Metadata Not Sent in the Message';
 
     #[Test]
-    public function encryption_happy_path(): void
+    public function encryptionHappyPath(): void
     {
         $sender_keypair = EncryptionKeyPair::generate();
         $recipient_keypair = EncryptionKeyPair::generate();
@@ -45,7 +45,7 @@ final class X25519Aegis256Test extends TestCase
     }
 
     #[Test]
-    public function authenticated_encryption_regression_test(): void
+    public function authenticatedEncryptionRegressionTest(): void
     {
         $sender_keypair = EncryptionKeyPair::import(self::KNOWN_SENDER_KEYPAIR);
         $recipient_keypair = EncryptionKeyPair::import(self::KNOWN_RECIPIENT_KEYPAIR);
@@ -59,7 +59,7 @@ final class X25519Aegis256Test extends TestCase
     }
 
     #[Test]
-    public function anonymous_encryption_regression_test(): void
+    public function anonymousEncryptionRegressionTest(): void
     {
         $recipient_keypair = EncryptionKeyPair::import(self::KNOWN_RECIPIENT_KEYPAIR);
 
@@ -72,7 +72,7 @@ final class X25519Aegis256Test extends TestCase
     }
 
     #[Test]
-    public function anonymous_encryption_happy_path(): void
+    public function anonymousEncryptionHappyPath(): void
     {
         $recipient_keypair = EncryptionKeyPair::generate();
 
@@ -83,7 +83,7 @@ final class X25519Aegis256Test extends TestCase
     }
 
     #[Test]
-    public function aead_happy_path(): void
+    public function aeadHappyPath(): void
     {
         $sender_keypair = EncryptionKeyPair::generate();
         $recipient_keypair = EncryptionKeyPair::generate();
@@ -107,7 +107,7 @@ final class X25519Aegis256Test extends TestCase
     }
 
     #[Test]
-    public function aead_missing_on_encryption(): void
+    public function aeadMissingOnEncryption(): void
     {
         $sender_keypair = EncryptionKeyPair::generate();
         $recipient_keypair = EncryptionKeyPair::generate();
@@ -129,7 +129,7 @@ final class X25519Aegis256Test extends TestCase
     }
 
     #[Test]
-    public function aead_missing_on_decryption(): void
+    public function aeadMissingOnDecryption(): void
     {
         $sender_keypair = EncryptionKeyPair::generate();
         $recipient_keypair = EncryptionKeyPair::generate();
@@ -151,7 +151,7 @@ final class X25519Aegis256Test extends TestCase
     }
 
     #[Test]
-    public function aead_does_not_match(): void
+    public function aeadDoesNotMatch(): void
     {
         $sender_keypair = EncryptionKeyPair::generate();
         $recipient_keypair = EncryptionKeyPair::generate();

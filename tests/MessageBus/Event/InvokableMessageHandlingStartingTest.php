@@ -12,7 +12,7 @@ use stdClass;
 final class InvokableMessageHandlingStartingTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_message_property(): void
+    public function constructorSetsMessageProperty(): void
     {
         $message = new stdClass();
         $event = new InvokableMessageHandlingStarting($message);

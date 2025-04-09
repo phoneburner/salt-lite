@@ -13,7 +13,7 @@ use Psr\Log\LogLevel as Psr3LogLevel;
 final class LogLevelTest extends TestCase
 {
     #[Test]
-    public function enum_values_match_psr3_values(): void
+    public function enumValuesMatchPsr3Values(): void
     {
         self::assertSame(Psr3LogLevel::EMERGENCY, LogLevel::Emergency->value);
         self::assertSame(Psr3LogLevel::ALERT, LogLevel::Alert->value);
@@ -26,23 +26,23 @@ final class LogLevelTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('instance_from_string_provider')]
-    public function instance_from_string_returns_correct_enum(string $input, LogLevel $expected): void
+    #[DataProvider('instanceFromStringProvider')]
+    public function instanceFromStringReturnsCorrectEnum(string $input, LogLevel $expected): void
     {
         $result = LogLevel::instance($input);
         self::assertSame($expected, $result);
     }
 
     #[Test]
-    #[DataProvider('instance_from_int_provider')]
-    public function instance_from_int_returns_correct_enum(int $input, LogLevel $expected): void
+    #[DataProvider('instanceFromIntProvider')]
+    public function instanceFromIntReturnsCorrectEnum(int $input, LogLevel $expected): void
     {
         $result = LogLevel::instance($input);
         self::assertSame($expected, $result);
     }
 
     #[Test]
-    public function instance_from_enum_returns_same_instance(): void
+    public function instanceFromEnumReturnsSameInstance(): void
     {
         $level = LogLevel::Error;
         $result = LogLevel::instance($level);
@@ -50,7 +50,7 @@ final class LogLevelTest extends TestCase
     }
 
     #[Test]
-    public function instance_from_object_with_to_psr_log_level_method(): void
+    public function instanceFromObjectWithToPsrLogLevelMethod(): void
     {
         $object = new class {
             public function toPsrLogLevel(): string
@@ -64,31 +64,31 @@ final class LogLevelTest extends TestCase
     }
 
     #[Test]
-    public function instance_throws_for_invalid_int(): void
+    public function instanceThrowsForInvalidInt(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         LogLevel::instance(999);
     }
 
     #[Test]
-    public function instance_throws_for_invalid_type(): void
+    public function instanceThrowsForInvalidType(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         LogLevel::instance([]);
     }
 
     #[Test]
-    #[DataProvider('monolog_level_provider')]
-    public function to_monlog_log_level_returns_correct_value(LogLevel $level, int $expected): void
+    #[DataProvider('monologLevelProvider')]
+    public function toMonlogLogLevelReturnsCorrectValue(LogLevel $level, int $expected): void
     {
         $result = $level->toMonlogLogLevel();
         self::assertSame($expected, $result);
     }
 
     /**
-     * @return \Iterator<string, array{string, \PhoneBurner\SaltLite\Logging\LogLevel}>
+     * @return \Iterator<string, array{string, LogLevel}>
      */
-    public static function instance_from_string_provider(): \Iterator
+    public static function instanceFromStringProvider(): \Iterator
     {
         yield 'emergency' => ['emergency', LogLevel::Emergency];
         yield 'alert' => ['alert', LogLevel::Alert];
@@ -104,9 +104,9 @@ final class LogLevelTest extends TestCase
     }
 
     /**
-     * @return \Iterator<string, array{int, \PhoneBurner\SaltLite\Logging\LogLevel}>
+     * @return \Iterator<string, array{int, LogLevel}>
      */
-    public static function instance_from_int_provider(): \Iterator
+    public static function instanceFromIntProvider(): \Iterator
     {
         yield 'emergency (600)' => [600, LogLevel::Emergency];
         yield 'alert (550)' => [550, LogLevel::Alert];
@@ -119,9 +119,9 @@ final class LogLevelTest extends TestCase
     }
 
     /**
-     * @return \Iterator<string, array{\PhoneBurner\SaltLite\Logging\LogLevel, int}>
+     * @return \Iterator<string, array{LogLevel, int}>
      */
-    public static function monolog_level_provider(): \Iterator
+    public static function monologLevelProvider(): \Iterator
     {
         yield 'emergency' => [LogLevel::Emergency, 600];
         yield 'alert' => [LogLevel::Alert, 550];

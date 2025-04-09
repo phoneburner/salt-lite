@@ -19,7 +19,7 @@ final class FileWriterTest extends TestCase
     }
 
     #[Test]
-    public function string_writes_expected_file(): void
+    public function stringWritesExpectedFile(): void
     {
         $contents = "foo\nbar\nbaz\n";
         $filename = __DIR__ . '/test.txt';
@@ -33,7 +33,7 @@ final class FileWriterTest extends TestCase
     }
 
     #[Test]
-    public function string_overwrites_expected_file(): void
+    public function stringOverwritesExpectedFile(): void
     {
         $old_contents = "qux\nquux\nquuz\n";
         $new_contents = "foo\nbar\nbaz\n";
@@ -51,7 +51,7 @@ final class FileWriterTest extends TestCase
     }
 
     #[Test]
-    public function iterable_writes_expected_file(): void
+    public function iterableWritesExpectedFile(): void
     {
         $iterable = static function (): \Generator {
             yield 'foo' . \PHP_EOL;
@@ -70,7 +70,7 @@ final class FileWriterTest extends TestCase
     }
 
     #[Test]
-    public function iterable_overwrites_expected_file(): void
+    public function iterableOverwritesExpectedFile(): void
     {
         $old_contents = "qux\nquux\nquuz\n";
         $iterable = static function (): \Generator {

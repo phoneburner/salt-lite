@@ -24,7 +24,7 @@ final class ArrTest extends TestCase
 {
     #[DataProvider('providesAccessibleTestCases')]
     #[Test]
-    public function accessible_returns_if_array_or_implements_ArrayAccess(bool $expected, mixed $value): void
+    public function accessibleReturnsIfArrayOrImplementsArrayAccess(bool $expected, mixed $value): void
     {
         self::assertSame($expected, Arr::accessible($value));
     }
@@ -48,14 +48,14 @@ final class ArrTest extends TestCase
 
     #[DataProvider('providesArrayAndIteratorTestCases')]
     #[Test]
-    public function arrayable_returns_true_if_array_or_castable_to_array(mixed $input, array $array): void
+    public function arrayableReturnsTrueIfArrayOrCastableToArray(mixed $input, array $array): void
     {
         self::assertTrue(Arr::arrayable($array));
     }
 
     #[DataProvider('providesArrayInvalidTestCases')]
     #[Test]
-    public function arrayable_returns_false_if_not_array_or_castable_to_array(mixed $value): void
+    public function arrayableReturnsFalseIfNotArrayOrCastableToArray(mixed $value): void
     {
         self::assertFalse(Arr::arrayable($value));
     }
@@ -66,7 +66,7 @@ final class ArrTest extends TestCase
      */
     #[DataProvider('providesArrayAndIteratorTestCases')]
     #[Test]
-    public function array_returns_array_from_arrays_or_arraylike(mixed $input, array $array): void
+    public function arrayReturnsArrayFromArraysOrArraylike(mixed $input, array $array): void
     {
         $converted = Arr::cast($input);
         self::assertIsArray($converted);
@@ -125,7 +125,7 @@ final class ArrTest extends TestCase
      */
     #[DataProvider('providesFirstTestCases')]
     #[Test]
-    public function first_returns_the_first_value_from_iterable(mixed $expected, mixed $iterable): void
+    public function firstReturnsTheFirstValueFromIterable(mixed $expected, mixed $iterable): void
     {
         self::assertSame($expected, Arr::first($iterable));
     }
@@ -156,7 +156,7 @@ final class ArrTest extends TestCase
 
     #[DataProvider('providesGetAndHasTestCases')]
     #[Test]
-    public function has_traverses_array_by_dot_notation(string $needle, bool $exists): void
+    public function hasTraversesArrayByDotNotation(string $needle, bool $exists): void
     {
         $array = $this->makeTestHaystack();
         $array_access = self::makeArrayAccess($array);
@@ -166,7 +166,7 @@ final class ArrTest extends TestCase
     }
 
     #[Test]
-    public function has_handles_empty_array_case(): void
+    public function hasHandlesEmptyArrayCase(): void
     {
         self::assertFalse(Arr::has('', []));
         self::assertFalse(Arr::has('foo', []));
@@ -175,7 +175,7 @@ final class ArrTest extends TestCase
 
     #[DataProvider('providesArrayInvalidTestCases')]
     #[Test]
-    public function has_throws_exception_for_non_arraylike_things(mixed $not_arraylike): void
+    public function hasThrowsExceptionForNonArraylikeThings(mixed $not_arraylike): void
     {
         $this->expectException(\InvalidArgumentException::class);
         Arr::has('foo', $not_arraylike);
@@ -183,7 +183,7 @@ final class ArrTest extends TestCase
 
     #[DataProvider('providesGetAndHasTestCases')]
     #[Test]
-    public function get_traverses_array_by_dot_notation(
+    public function getTraversesArrayByDotNotation(
         string $needle,
         bool $exists,
         mixed $expected,
@@ -197,7 +197,7 @@ final class ArrTest extends TestCase
     }
 
     #[Test]
-    public function get_handles_empty_invalid_array_case(): void
+    public function getHandlesEmptyInvalidArrayCase(): void
     {
         self::assertNull(Arr::get('', []));
         self::assertNull(Arr::get('foo', []));
@@ -206,7 +206,7 @@ final class ArrTest extends TestCase
 
     #[DataProvider('providesArrayInvalidTestCases')]
     #[Test]
-    public function get_throws_exception_for_non_arraylike_things(mixed $not_arraylike): void
+    public function getThrowsExceptionForNonArraylikeThings(mixed $not_arraylike): void
     {
         $this->expectException(\InvalidArgumentException::class);
         Arr::get('foo', $not_arraylike);
@@ -214,13 +214,13 @@ final class ArrTest extends TestCase
 
     #[DataProvider('providesArrayInvalidTestCases')]
     #[Test]
-    public function value_returns_same_non_arrayable_value(mixed $value): void
+    public function valueReturnsSameNonArrayableValue(mixed $value): void
     {
         self::assertSame($value, Arr::value($value));
     }
 
     #[Test]
-    public function value_recursively_casts_arrayable_values_to_array(): void
+    public function valueRecursivelyCastsArrayableValuesToArray(): void
     {
         $anon_function_returns_array = static fn(): array => [1, 2, 3];
         $std_class = new stdClass();
@@ -318,7 +318,7 @@ final class ArrTest extends TestCase
      */
     #[DataProvider('providesWrapTestCases')]
     #[Test]
-    public function wrap_returns_arrayable_cast_to_array_or_wraps_in_array_otherwise(
+    public function wrapReturnsArrayableCastToArrayOrWrapsInArrayOtherwise(
         mixed $input,
         array $expected,
     ): void {
@@ -598,7 +598,7 @@ final class ArrTest extends TestCase
 
     #[DataProvider('providesConvertNestedObjectsTests')]
     #[Test]
-    public function convertNestedObjects_converts_nested_objects(mixed $test, array $expected): void
+    public function convertNestedObjectsConvertsNestedObjects(mixed $test, array $expected): void
     {
         self::assertSame($expected, Arr::convertNestedObjects($test));
     }

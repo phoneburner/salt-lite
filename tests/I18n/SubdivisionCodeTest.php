@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 final class SubdivisionCodeTest extends TestCase
 {
     #[Test]
-    public static function region_codes_are_unique_and_non_empty(): void
+    public function regionCodesAreUniqueAndNonEmpty(): void
     {
         $codes = new \ReflectionClass(SubdivisionCode::class)->getConstants();
         self::assertNotEmpty($codes);
@@ -34,7 +34,7 @@ final class SubdivisionCodeTest extends TestCase
 
     #[DataProvider('providesSubdivisionCodes')]
     #[Test]
-    public function validate_returns_true_for_valid_subdivision_codes(string $subdivision_code): void
+    public function validateReturnsTrueForValidSubdivisionCodes(string $subdivision_code): void
     {
         self::assertTrue(SubdivisionCode::validate($subdivision_code));
         /** @phpstan-ignore-next-line staticMethod.impossibleType Intentional defect for testing */
@@ -51,7 +51,7 @@ final class SubdivisionCodeTest extends TestCase
     #[TestWith(['CA'])]
     #[TestWith(['CA-XX'])]
     #[Test]
-    public function validate_returns_false_for_invalid_subdivision_codes(string $subdivision_code): void
+    public function validateReturnsFalseForInvalidSubdivisionCodes(string $subdivision_code): void
     {
         /** @phpstan-ignore-next-line intentional defect for testing */
         self::assertFalse(SubdivisionCode::validate($subdivision_code));
@@ -65,7 +65,7 @@ final class SubdivisionCodeTest extends TestCase
     }
 
     #[Test]
-    public function region_returns_expected_codes(): void
+    public function regionReturnsExpectedCodes(): void
     {
         $subdivisions = SubdivisionCode::region(Region::CA->value);
 

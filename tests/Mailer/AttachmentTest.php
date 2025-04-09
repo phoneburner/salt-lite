@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class AttachmentTest extends TestCase
 {
     #[Test]
-    public function constructor_throws_exception_when_no_path_or_content(): void
+    public function constructorThrowsExceptionWhenNoPathOrContent(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Attachment must have a file path or content');
@@ -20,7 +20,7 @@ final class AttachmentTest extends TestCase
     }
 
     #[Test]
-    public function constructor_throws_exception_when_both_path_and_content(): void
+    public function constructorThrowsExceptionWhenBothPathAndContent(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Attachment cannot have both a file path and content');
@@ -28,7 +28,7 @@ final class AttachmentTest extends TestCase
     }
 
     #[Test]
-    public function attachment_from_path_sets_correct_type(): void
+    public function attachmentFromPathSetsCorrectType(): void
     {
         $attachment = new Attachment('test.txt');
         self::assertSame('test.txt', $attachment->path);
@@ -40,7 +40,7 @@ final class AttachmentTest extends TestCase
     }
 
     #[Test]
-    public function attachment_from_content_sets_correct_type(): void
+    public function attachmentFromContentSetsCorrectType(): void
     {
         $attachment = new Attachment('', 'test content');
         self::assertSame('', $attachment->path);
@@ -52,7 +52,7 @@ final class AttachmentTest extends TestCase
     }
 
     #[Test]
-    public function inline_attachment_from_path_sets_correct_type(): void
+    public function inlineAttachmentFromPathSetsCorrectType(): void
     {
         $attachment = new Attachment('test.txt', '', null, null, true);
         self::assertSame('test.txt', $attachment->path);
@@ -64,7 +64,7 @@ final class AttachmentTest extends TestCase
     }
 
     #[Test]
-    public function inline_attachment_from_content_sets_correct_type(): void
+    public function inlineAttachmentFromContentSetsCorrectType(): void
     {
         $attachment = new Attachment('', 'test content', null, null, true);
         self::assertSame('', $attachment->path);
@@ -76,7 +76,7 @@ final class AttachmentTest extends TestCase
     }
 
     #[Test]
-    public function from_path_factory_method_creates_path_attachment(): void
+    public function fromPathFactoryMethodCreatesPathAttachment(): void
     {
         $attachment = Attachment::fromPath('test.txt', 'custom.txt', 'text/plain', false);
         self::assertSame('test.txt', $attachment->path);
@@ -88,7 +88,7 @@ final class AttachmentTest extends TestCase
     }
 
     #[Test]
-    public function from_content_factory_method_creates_content_attachment(): void
+    public function fromContentFactoryMethodCreatesContentAttachment(): void
     {
         $attachment = Attachment::fromContent('test content', 'custom.txt', 'text/plain', false);
         self::assertSame('', $attachment->path);
@@ -100,7 +100,7 @@ final class AttachmentTest extends TestCase
     }
 
     #[Test]
-    public function from_path_factory_method_creates_inline_attachment(): void
+    public function fromPathFactoryMethodCreatesInlineAttachment(): void
     {
         $attachment = Attachment::fromPath('test.txt', 'custom.txt', 'text/plain', true);
         self::assertSame('test.txt', $attachment->path);
@@ -112,7 +112,7 @@ final class AttachmentTest extends TestCase
     }
 
     #[Test]
-    public function from_content_factory_method_creates_inline_attachment(): void
+    public function fromContentFactoryMethodCreatesInlineAttachment(): void
     {
         $attachment = Attachment::fromContent('test content', 'custom.txt', 'text/plain', true);
         self::assertSame('', $attachment->path);

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class WithValuesStaticMethodTest extends TestCase
 {
     #[Test]
-    public function string_backed_values_return_expected_array(): void
+    public function stringBackedValuesReturnExpectedArray(): void
     {
         self::assertSame([
                 'Red' => 'red',
@@ -22,7 +22,7 @@ final class WithValuesStaticMethodTest extends TestCase
     }
 
     #[Test]
-    public function integer_backed_values_return_expected_array(): void
+    public function integerBackedValuesReturnExpectedArray(): void
     {
         self::assertSame([
                 'Zero' => 0,

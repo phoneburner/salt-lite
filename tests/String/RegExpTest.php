@@ -11,14 +11,14 @@ use PHPUnit\Framework\TestCase;
 
 final class RegExpTest extends TestCase
 {
-    #[DataProvider('regular_expressions')]
+    #[DataProvider('regularExpressions')]
     #[Test]
-    public function make_returns_expected(string $regexp, string $modifiers, string $expected): void
+    public function makeReturnsExpected(string $regexp, string $modifiers, string $expected): void
     {
         self::assertSame($expected, (string)RegExp::make($regexp, $modifiers));
     }
 
-    public static function regular_expressions(): \Generator
+    public static function regularExpressions(): \Generator
     {
         yield ['[Aa]', '', '/[Aa]/'];
         yield ['[Aa]', 'i', '/[Aa]/i'];

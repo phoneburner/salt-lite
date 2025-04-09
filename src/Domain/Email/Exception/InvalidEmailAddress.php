@@ -13,7 +13,7 @@ class InvalidEmailAddress extends \UnexpectedValueException
         \Throwable|null $previous = null,
     ) {
         if ($address) {
-            $message .= ": $address";
+            $message .= ': ' . $address;
         }
         parent::__construct($message, $code, $previous);
     }

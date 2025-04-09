@@ -32,7 +32,7 @@ final class LazyMiddlewareRequestHandlerFactoryTest extends TestCase
     }
 
     #[Test]
-    public function queue_returns_middleware_queue_with_resolved_middleware(): void
+    public function queueReturnsMiddlewareQueueWithResolvedMiddleware(): void
     {
         $middleware = new NullMiddleware();
         $this->container->method('get')
@@ -50,7 +50,7 @@ final class LazyMiddlewareRequestHandlerFactoryTest extends TestCase
     }
 
     #[Test]
-    public function stack_returns_middleware_stack_with_resolved_middleware(): void
+    public function stackReturnsMiddlewareStackWithResolvedMiddleware(): void
     {
         $middleware = new NullMiddleware();
         $this->container->method('get')
@@ -68,7 +68,7 @@ final class LazyMiddlewareRequestHandlerFactoryTest extends TestCase
     }
 
     #[Test]
-    public function queue_handles_middleware_instances_directly(): void
+    public function queueHandlesMiddlewareInstancesDirectly(): void
     {
         $middleware = $this->createMock(MiddlewareInterface::class);
         $this->container->expects($this->never())
@@ -81,7 +81,7 @@ final class LazyMiddlewareRequestHandlerFactoryTest extends TestCase
     }
 
     #[Test]
-    public function stack_handles_middleware_instances_directly(): void
+    public function stackHandlesMiddlewareInstancesDirectly(): void
     {
         $middleware = $this->createMock(MiddlewareInterface::class);
         $this->container->expects($this->never())

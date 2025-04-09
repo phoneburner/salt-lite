@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 final class AlgorithmImplementationTest extends TestCase
 {
     #[Test]
-    public function happy_path(): void
+    public function happyPath(): void
     {
         $symmetric = new XChaCha20Blake2b();
         $sut = new AlgorithmImplementation($symmetric);

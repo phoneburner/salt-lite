@@ -14,7 +14,7 @@ use Psr\Http\Message\StreamInterface;
 final class StreamResponseTest extends TestCase
 {
     #[Test]
-    public function make_creates_response_from_string(): void
+    public function makeCreatesResponseFromString(): void
     {
         $content = 'Hello, World!';
         $response = StreamResponse::make($content);
@@ -24,7 +24,7 @@ final class StreamResponseTest extends TestCase
     }
 
     #[Test]
-    public function make_creates_response_from_stream(): void
+    public function makeCreatesResponseFromStream(): void
     {
         $content = 'Hello, Stream World!';
         $stream = new Stream('php://temp', 'w+');
@@ -39,7 +39,7 @@ final class StreamResponseTest extends TestCase
     }
 
     #[Test]
-    public function make_creates_response_with_custom_status(): void
+    public function makeCreatesResponseWithCustomStatus(): void
     {
         $content = 'Created!';
         $response = StreamResponse::make($content, HttpStatus::CREATED);
@@ -49,7 +49,7 @@ final class StreamResponseTest extends TestCase
     }
 
     #[Test]
-    public function make_creates_response_with_custom_headers(): void
+    public function makeCreatesResponseWithCustomHeaders(): void
     {
         $content = 'Test Content';
         $headers = [

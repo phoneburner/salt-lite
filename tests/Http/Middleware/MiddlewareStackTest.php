@@ -38,7 +38,7 @@ final class MiddlewareStackTest extends TestCase
     }
 
     #[Test]
-    public function make_returns_middleware_stack_instance(): void
+    public function makeReturnsMiddlewareStackInstance(): void
     {
         self::assertInstanceOf(
             MiddlewareStack::class,
@@ -47,7 +47,7 @@ final class MiddlewareStackTest extends TestCase
     }
 
     #[Test]
-    public function push_adds_middleware_to_stack(): void
+    public function pushAddsMiddlewareToStack(): void
     {
         $middleware = $this->createMock(MiddlewareInterface::class);
         $middleware->expects($this->never())->method('process');
@@ -59,7 +59,7 @@ final class MiddlewareStackTest extends TestCase
     }
 
     #[Test]
-    public function handle_returns_fallback_response_when_stack_is_empty(): void
+    public function handleReturnsFallbackResponseWhenStackIsEmpty(): void
     {
         $stack = MiddlewareStack::make($this->fallback_handler);
 
@@ -69,7 +69,7 @@ final class MiddlewareStackTest extends TestCase
     }
 
     #[Test]
-    public function handle_processes_middleware_in_reverse_order(): void
+    public function handleProcessesMiddlewareInReverseOrder(): void
     {
         new Response();
         $second_response = new Response();
@@ -96,7 +96,7 @@ final class MiddlewareStackTest extends TestCase
     }
 
     #[Test]
-    public function handle_dispatches_events_for_middleware_processing(): void
+    public function handleDispatchesEventsForMiddlewareProcessing(): void
     {
         $middleware_response = new Response();
         $middleware = $this->createMock(MiddlewareInterface::class);
@@ -133,7 +133,7 @@ final class MiddlewareStackTest extends TestCase
     }
 
     #[Test]
-    public function handle_dispatches_events_for_fallback_handler(): void
+    public function handleDispatchesEventsForFallbackHandler(): void
     {
         $event_dispatcher = $this->createMock(EventDispatcherInterface::class);
         $event_dispatcher->expects($matcher = $this->exactly(2))
@@ -164,7 +164,7 @@ final class MiddlewareStackTest extends TestCase
     }
 
     #[Test]
-    public function handle_sets_fallback_handler_on_terminable_middleware(): void
+    public function handleSetsFallbackHandlerOnTerminableMiddleware(): void
     {
         $middleware = $this->createMock(TerminableMiddleware::class);
         $middleware->expects($this->once())

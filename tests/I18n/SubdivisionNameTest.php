@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class SubdivisionNameTest extends TestCase
 {
     #[Test]
-    public static function region_names_are_unique_and_non_empty(): void
+    public function regionNamesAreUniqueAndNonEmpty(): void
     {
         $names = SubdivisionName::all();
         self::assertNotEmpty($names);
@@ -24,13 +24,13 @@ final class SubdivisionNameTest extends TestCase
     }
 
     #[Test]
-    public function display_returns_expected_string(): void
+    public function displayReturnsExpectedString(): void
     {
         self::assertSame('Ohio', SubdivisionName::display('US-OH'));
     }
 
     #[Test]
-    public function display_handles_invalid_case(): void
+    public function displayHandlesInvalidCase(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         /** @phpstan-ignore argument.type (Intentional Defect) */
@@ -38,13 +38,13 @@ final class SubdivisionNameTest extends TestCase
     }
 
     #[Test]
-    public function short_returns_expected_string(): void
+    public function shortReturnsExpectedString(): void
     {
         self::assertSame('OH', SubdivisionName::short('US-OH'));
     }
 
     #[Test]
-    public function short_handles_invalid_case(): void
+    public function shortHandlesInvalidCase(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         /** @phpstan-ignore argument.type (Intentional Defect) */

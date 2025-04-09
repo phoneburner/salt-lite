@@ -31,7 +31,7 @@ class ConfigurationFactory
 
     private static function compile(Environment $environment): array
     {
-        $cache_enabled = $environment->env('SALT_ENABLE_CONFIG_CACHE', true, false);
+        $cache_enabled = (bool)$environment->env('SALT_ENABLE_CONFIG_CACHE', true, false);
         $cache_file = $environment->root() . self::CACHE_FILE;
 
         /**

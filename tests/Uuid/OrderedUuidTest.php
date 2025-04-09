@@ -13,7 +13,7 @@ use Ramsey\Uuid\Uuid;
 final class OrderedUuidTest extends TestCase
 {
     #[Test]
-    public function it_is_a_UUID(): void
+    public function itIsAUUID(): void
     {
         $uuid = new OrderedUuid();
 

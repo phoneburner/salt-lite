@@ -63,6 +63,7 @@ final readonly class EnumCaseAttr
      */
     public static function fetch(
         \UnitEnum $enum_case,
+        /** @var class-string<T> $attribute_name */
         string $attribute_name,
         bool $use_instanceof = false,
     ): object {

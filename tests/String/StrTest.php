@@ -20,7 +20,7 @@ use Stringable;
 final class StrTest extends TestCase
 {
     #[Test]
-    public function str_cannot_be_instantiated(): void
+    public function strCannotBeInstantiated(): void
     {
         $this->expectException(NotInstantiable::class);
         new Str();
@@ -28,7 +28,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesValidStringTestCases')]
     #[Test]
-    public function stringable_will_return_true_for_strings_and_stringable_objects(
+    public function stringableWillReturnTrueForStringsAndStringableObjects(
         string $expected,
         string|\Stringable $test,
     ): void {
@@ -37,20 +37,20 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesInvalidStringTestCases')]
     #[Test]
-    public function stringable_will_return_false_for_non_strings_or_stringable_objects(mixed $test): void
+    public function stringableWillReturnFalseForNonStringsOrStringableObjects(mixed $test): void
     {
         self::assertFalse(Str::stringable($test));
     }
 
     #[DataProvider('providesValidStringTestCases')]
     #[Test]
-    public function string_will_cast_stringlike_thing_to_string(string $expected, string|\Stringable $test): void
+    public function stringWillCastStringlikeThingToString(string $expected, string|\Stringable $test): void
     {
         self::assertSame($expected, Str::cast($test));
     }
 
     #[Test]
-    public function stream_will_return_passed_instance_if_StreamInterface(): void
+    public function streamWillReturnPassedInstanceIfStreamInterface(): void
     {
         $stream = $this->createMock(StreamInterface::class);
 
@@ -58,14 +58,14 @@ final class StrTest extends TestCase
     }
 
     #[Test]
-    public function stream_default_value_returns_empty_Stream(): void
+    public function streamDefaultValueReturnsEmptyStream(): void
     {
         self::assertSame('', (string)Str::stream());
     }
 
     #[DataProvider('providesValidStringTestCases')]
     #[Test]
-    public function stream_will_cast_string_or_stringable_to_stream(string $expected, string|Stringable $test): void
+    public function streamWillCastStringOrStringableToStream(string $expected, string|Stringable $test): void
     {
         $stream = Str::stream($test);
 
@@ -116,7 +116,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesTrimTestCases')]
     #[Test]
-    public function trim_will_trim_whitespace_characters(array $test): void
+    public function trimWillTrimWhitespaceCharacters(array $test): void
     {
         $trimmed = Str::trim($test['input']);
         self::assertSame($test['trim'], $trimmed);
@@ -124,7 +124,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesAdditionalCharacterTrimTestCases')]
     #[Test]
-    public function trim_will_trim_additional_characters(array $test): void
+    public function trimWillTrimAdditionalCharacters(array $test): void
     {
         $trimmed = Str::trim($test['input'], $test['characters']);
         self::assertSame($test['trim'], $trimmed);
@@ -132,7 +132,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesTrimTestCases')]
     #[Test]
-    public function rtrim_will_trim_whitespace_characters(array $test): void
+    public function rtrimWillTrimWhitespaceCharacters(array $test): void
     {
         $trimmed = Str::rtrim($test['input']);
         self::assertSame($test['rtrim'], $trimmed);
@@ -140,7 +140,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesAdditionalCharacterTrimTestCases')]
     #[Test]
-    public function rtrim_will_trim_additional_characters(array $test): void
+    public function rtrimWillTrimAdditionalCharacters(array $test): void
     {
         $trimmed = Str::rtrim($test['input'], $test['characters']);
         self::assertSame($test['rtrim'], $trimmed);
@@ -148,7 +148,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesTrimTestCases')]
     #[Test]
-    public function ltrim_will_trim_whitespace_characters(array $test): void
+    public function ltrimWillTrimWhitespaceCharacters(array $test): void
     {
         $trimmed = Str::ltrim($test['input']);
         self::assertSame($test['ltrim'], $trimmed);
@@ -156,7 +156,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesAdditionalCharacterTrimTestCases')]
     #[Test]
-    public function ltrim_will_trim_additional_characters(array $test): void
+    public function ltrimWillTrimAdditionalCharacters(array $test): void
     {
         $trimmed = Str::ltrim($test['input'], $test['characters']);
         self::assertSame($test['ltrim'], $trimmed);
@@ -226,10 +226,10 @@ final class StrTest extends TestCase
 
         yield 'trim_quotes_single' => [[
             'characters' => ['"', "'"],
-            'input' => '\'Hello, World!\'',
+            'input' => "'Hello, World!'",
             'trim' => 'Hello, World!',
-            'rtrim' => '\'Hello, World!',
-            'ltrim' => 'Hello, World!\'',
+            'rtrim' => "'Hello, World!",
+            'ltrim' => "Hello, World!'",
         ],];
 
         yield 'trim_quotes_double' => [[
@@ -243,7 +243,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesContainsTestCases')]
     #[Test]
-    public function contains_returns_if_string_contains_string(array $test): void
+    public function containsReturnsIfStringContainsString(array $test): void
     {
         self::assertSame($test['expected'], Str::contains(
             $test['haystack'],
@@ -305,7 +305,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesStartsWithTestCases')]
     #[Test]
-    public function startsWith_returns_if_string_starts_with_string(array $test): void
+    public function startsWithReturnsIfStringStartsWithString(array $test): void
     {
         self::assertSame($test['expected'], Str::startsWith(
             $test['haystack'],
@@ -347,7 +347,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesEndsWithTestCases')]
     #[Test]
-    public function endsWith_returns_if_string_ends_with_string(array $test): void
+    public function endsWithReturnsIfStringEndsWithString(array $test): void
     {
         self::assertSame($test['expected'], Str::endsWith(
             $test['haystack'],
@@ -388,7 +388,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesStartTestCases')]
     #[Test]
-    public function start_prepends_if_string_does_not_start_with_value(array $test): void
+    public function startPrependsIfStringDoesNotStartWithValue(array $test): void
     {
         self::assertSame($test['expected'], Str::start($test['input'], $test['prefix']));
     }
@@ -410,7 +410,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesEndTestCases')]
     #[Test]
-    public function end_appends_if_string_does_not_end_with_value(array $test): void
+    public function endAppendsIfStringDoesNotEndWithValue(array $test): void
     {
         self::assertSame($test['expected'], Str::end($test['input'], $test['suffix']));
     }
@@ -435,7 +435,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesStripTestByStringCases')]
     #[Test]
-    public function strip_removes_expected_characters(string $string, string $search, string $expected): void
+    public function stripRemovesExpectedCharacters(string $string, string $search, string $expected): void
     {
         self::assertSame($expected, Str::strip($string, $search));
     }
@@ -467,7 +467,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesStripTestCasesByRegExp')]
     #[Test]
-    public function strip_removes_expected_characters_by_regexp(string $string, RegExp $regexp, string $expected): void
+    public function stripRemovesExpectedCharactersByRegexp(string $string, RegExp $regexp, string $expected): void
     {
         self::assertSame($expected, Str::strip($string, $regexp));
     }
@@ -482,7 +482,7 @@ final class StrTest extends TestCase
     }
 
     #[Test]
-    public function strip_throws_exception_if_regexp_is_not_provided(): void
+    public function stripThrowsExceptionIfRegexpIsNotProvided(): void
     {
         $this->expectException(\RuntimeException::class);
         Str::strip('foo', new RegExp('#foo/'));
@@ -490,7 +490,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesShortnameTestCases')]
     #[Test]
-    public function shortname_returns_class_name_without_namespace(string $expected, string $classname): void
+    public function shortnameReturnsClassNameWithoutNamespace(string $expected, string $classname): void
     {
         self::assertSame($expected, Str::shortname($classname));
     }
@@ -506,49 +506,49 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
-    public function snake_coverts_string_to_snake_case(array $expected, string $input): void
+    public function snakeCovertsStringToSnakeCase(array $expected, string $input): void
     {
         self::assertSame($expected['snake'], Str::snake($input));
     }
 
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
-    public function kabob_coverts_string_to_kabob_case(array $expected, string $input): void
+    public function kabobCovertsStringToKabobCase(array $expected, string $input): void
     {
         self::assertSame($expected['kabob'], Str::kabob($input));
     }
 
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
-    public function pascal_coverts_string_to_pascal_case(array $expected, string $input): void
+    public function pascalCovertsStringToPascalCase(array $expected, string $input): void
     {
         self::assertSame($expected['pascal'], Str::pascal($input));
     }
 
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
-    public function camel_coverts_string_to_camel_case(array $expected, string $input): void
+    public function camelCovertsStringToCamelCase(array $expected, string $input): void
     {
         self::assertSame($expected['camel'], Str::camel($input));
     }
 
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
-    public function screaming_coverts_string_to_screaming_snake_case(array $expected, string $input): void
+    public function screamingCovertsStringToScreamingSnakeCase(array $expected, string $input): void
     {
         self::assertSame($expected['screaming'], Str::screaming($input));
     }
 
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
-    public function dot_coverts_string_to_dot_case(array $expected, string $input): void
+    public function dotCovertsStringToDotCase(array $expected, string $input): void
     {
         self::assertSame($expected['dot'], Str::dot($input));
     }
 
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
-    public function ucwords_coverts_string_to_ucwords_case(array $expected, string $input): void
+    public function ucwordsCovertsStringToUcwordsCase(array $expected, string $input): void
     {
         self::assertSame($expected['ucwords'], Str::ucwords($input));
     }
@@ -642,7 +642,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesValidStringTestCases')]
     #[Test]
-    public function object_returns_Stringable_of_string(string $expected, mixed $input): void
+    public function objectReturnsStringableOfString(string $expected, mixed $input): void
     {
         $object = Str::object($input);
 
@@ -652,7 +652,7 @@ final class StrTest extends TestCase
 
     #[DataProvider('providesTruncateTestCases')]
     #[Test]
-    public function truncate_returns_expected_string(
+    public function truncateReturnsExpectedString(
         string|\Stringable $input,
         int $max_length,
         string $append,
@@ -682,7 +682,7 @@ final class StrTest extends TestCase
     }
 
     #[Test]
-    public function truncate_enforces_nonnegative_max_length(): void
+    public function truncateEnforcesNonnegativeMaxLength(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Max Length Must Be Non-Negative');
@@ -690,7 +690,7 @@ final class StrTest extends TestCase
     }
 
     #[Test]
-    public function truncate_enforces_max_append_length(): void
+    public function truncateEnforcesMaxAppendLength(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Trim Marker Length Must Be Less Than or Equal to Max Length');

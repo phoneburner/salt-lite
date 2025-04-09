@@ -28,7 +28,7 @@ final class HtmlResponseTransformerStrategyTest extends TestCase
     }
 
     #[Test]
-    public function transform_creates_html_response(): void
+    public function transformCreatesHtmlResponse(): void
     {
         $exception = $this->createMock(HttpExceptionResponse::class);
         $exception->method('getStatusCode')->willReturn(HttpStatus::NOT_FOUND);

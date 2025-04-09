@@ -61,7 +61,7 @@ final class ImmutableConfigurationTest extends TestCase
     ];
 
     #[Test]
-    public function all_values_are_accessible(): void
+    public function allValuesAreAccessible(): void
     {
         $sut = new ImmutableConfiguration(self::TEST_HAYSTACK);
         self::assertSame(self::TEST_HAYSTACK, $sut->values);
@@ -69,7 +69,7 @@ final class ImmutableConfigurationTest extends TestCase
 
     #[Test]
     #[DataProvider('providesGetAndHasTestCases')]
-    public function get_traverses_array_by_dot_notation(string $needle, bool $exists, mixed $expected): void
+    public function getTraversesArrayByDotNotation(string $needle, bool $exists, mixed $expected): void
     {
         $sut = new ImmutableConfiguration(self::TEST_HAYSTACK);
         self::assertSame($exists, $sut->has($needle));
@@ -123,35 +123,35 @@ final class ImmutableConfigurationTest extends TestCase
     }
 
     #[Test]
-    public function has_returns_true_when_key_exists(): void
+    public function hasReturnsTrueWhenKeyExists(): void
     {
         $config = new ImmutableConfiguration(['foo' => 'bar']);
         self::assertTrue($config->has('foo'));
     }
 
     #[Test]
-    public function has_returns_false_when_key_does_not_exist(): void
+    public function hasReturnsFalseWhenKeyDoesNotExist(): void
     {
         $config = new ImmutableConfiguration(['foo' => 'bar']);
         self::assertFalse($config->has('baz'));
     }
 
     #[Test]
-    public function get_returns_value_for_direct_key(): void
+    public function getReturnsValueForDirectKey(): void
     {
         $config = new ImmutableConfiguration(['foo' => 'bar']);
         self::assertSame('bar', $config->get('foo'));
     }
 
     #[Test]
-    public function get_returns_null_for_missing_key(): void
+    public function getReturnsNullForMissingKey(): void
     {
         $config = new ImmutableConfiguration(['foo' => 'bar']);
         self::assertNull($config->get('baz'));
     }
 
     #[Test]
-    public function get_returns_value_for_dot_notation_key(): void
+    public function getReturnsValueForDotNotationKey(): void
     {
         $config = new ImmutableConfiguration([
             'foo' => [
@@ -165,7 +165,7 @@ final class ImmutableConfigurationTest extends TestCase
     }
 
     #[Test]
-    public function get_returns_null_for_invalid_dot_notation_path(): void
+    public function getReturnsNullForInvalidDotNotationPath(): void
     {
         $config = new ImmutableConfiguration([
             'foo' => [
@@ -177,7 +177,7 @@ final class ImmutableConfigurationTest extends TestCase
     }
 
     #[Test]
-    public function get_handles_deep_nested_arrays(): void
+    public function getHandlesDeepNestedArrays(): void
     {
         $config = new ImmutableConfiguration([
             'foo' => [
@@ -195,7 +195,7 @@ final class ImmutableConfigurationTest extends TestCase
     }
 
     #[Test]
-    public function get_handles_keys_with_dots(): void
+    public function getHandlesKeysWithDots(): void
     {
         $config = new ImmutableConfiguration([
             'foo.bar' => 'baz',

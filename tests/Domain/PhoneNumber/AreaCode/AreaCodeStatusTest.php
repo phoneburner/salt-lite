@@ -13,7 +13,7 @@ final class AreaCodeStatusTest extends TestCase
 {
     #[DataProvider('providesTestCases')]
     #[Test]
-    public function mask_applies_expected_bitmask(int $status, int $expected): void
+    public function maskAppliesExpectedBitmask(int $status, int $expected): void
     {
         self::assertSame($expected, AreaCodeStatus::mask($status));
     }

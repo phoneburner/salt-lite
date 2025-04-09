@@ -6,7 +6,7 @@ namespace PhoneBurner\SaltLite\Tests\Type\Cast;
 
 use Carbon\CarbonImmutable;
 use PhoneBurner\SaltLite\Tests\Fixtures\IntBackedEnum;
-use PhoneBurner\SaltLite\Tests\Fixtures\Stoplight;
+use PhoneBurner\SaltLite\Tests\Fixtures\StoplightState;
 use PhoneBurner\SaltLite\Time\Standards\AnsiSql;
 use PhoneBurner\SaltLite\Type\Cast\NullableCast;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -17,7 +17,7 @@ final class NullableCastTest extends TestCase
 {
     #[DataProvider('providesIntegerTestCases')]
     #[Test]
-    public function integer_returns_expected_value(mixed $input, int|null $expected): void
+    public function integerReturnsExpectedValue(mixed $input, int|null $expected): void
     {
         self::assertSame($expected, NullableCast::integer($input));
     }
@@ -39,7 +39,7 @@ final class NullableCastTest extends TestCase
 
     #[DataProvider('providesFloatTestCases')]
     #[Test]
-    public function float_returns_expected_value(mixed $input, float|null $expected): void
+    public function floatReturnsExpectedValue(mixed $input, float|null $expected): void
     {
         self::assertSame($expected, NullableCast::float($input));
     }
@@ -58,12 +58,12 @@ final class NullableCastTest extends TestCase
         yield [false, 0.0];
         yield [null, null];
         yield [IntBackedEnum::Bar, 2.0];
-        yield [Stoplight::Red, 0.0];
+        yield [StoplightState::Red, 0.0];
     }
 
     #[DataProvider('providesStringTestCases')]
     #[Test]
-    public function string_returns_expected_value(mixed $input, string|null $expected): void
+    public function stringReturnsExpectedValue(mixed $input, string|null $expected): void
     {
         self::assertSame($expected, NullableCast::string($input));
     }
@@ -82,12 +82,12 @@ final class NullableCastTest extends TestCase
         yield [false, ''];
         yield [null, null];
         yield [IntBackedEnum::Bar, '2'];
-        yield [Stoplight::Red, 'red'];
+        yield [StoplightState::Red, 'red'];
     }
 
     #[DataProvider('providesBooleanTestCases')]
     #[Test]
-    public function boolean_returns_expected_value(mixed $input, bool|null $expected): void
+    public function booleanReturnsExpectedValue(mixed $input, bool|null $expected): void
     {
         self::assertSame($expected, NullableCast::boolean($input));
     }
@@ -106,12 +106,12 @@ final class NullableCastTest extends TestCase
         yield [false, false];
         yield [null, null];
         yield [IntBackedEnum::Bar, true];
-        yield [Stoplight::Red, true];
+        yield [StoplightState::Red, true];
     }
 
     #[DataProvider('providesDatetimeTestCases')]
     #[Test]
-    public function datetime_returns_expected_value(mixed $input, CarbonImmutable|null $expected): void
+    public function datetimeReturnsExpectedValue(mixed $input, CarbonImmutable|null $expected): void
     {
         $datetime = NullableCast::datetime($input);
         if ($expected instanceof CarbonImmutable) {

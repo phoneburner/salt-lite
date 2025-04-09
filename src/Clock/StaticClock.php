@@ -7,10 +7,17 @@ namespace PhoneBurner\SaltLite\Clock;
 use Carbon\CarbonImmutable;
 use PhoneBurner\SaltLite\Clock\Clock;
 
-class StaticClock implements Clock
+final readonly class StaticClock implements Clock
 {
-    public function __construct(private readonly CarbonImmutable $now)
+    private CarbonImmutable $now;
+
+    public function __construct(\DateTimeInterface|string|null $now = new CarbonImmutable())
     {
+        $this->now = match (true) {
+            $now instanceof CarbonImmutable => $now,
+            $now instanceof \DateTimeInterface => CarbonImmutable::instance($now),
+            default => new CarbonImmutable($now),
+        };
     }
 
     #[\Override]

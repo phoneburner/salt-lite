@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Cryptography\Symmetric;
 
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
 use PhoneBurner\SaltLite\Cryptography\String\Ciphertext;
 use PhoneBurner\SaltLite\Cryptography\String\Nonce;
-use PhoneBurner\SaltLite\Cryptography\String\Traits\BinaryStringExportBehavior;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringExportBehavior;
 use PhoneBurner\SaltLite\String\Encoding\Encoding;
 
 final readonly class EncryptedMessage implements BinaryString

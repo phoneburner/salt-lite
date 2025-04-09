@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class InvalidSignatureTest extends TestCase
 {
     #[Test]
-    public function happy_path_test_length(): void
+    public function happyPathTestLength(): void
     {
         self::assertSame("Message Signature Must Be Exactly 32 Bytes", InvalidSignature::length(32)->getMessage());
     }

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class KeyDerivationTest extends TestCase
 {
     #[Test]
-    public function happy_path_shared(): void
+    public function happyPathShared(): void
     {
         $key = SharedKey::generate();
 
@@ -33,7 +33,7 @@ final class KeyDerivationTest extends TestCase
     }
 
     #[Test]
-    public function happy_path_encryption_keypair(): void
+    public function happyPathEncryptionKeypair(): void
     {
         $key = SharedKey::generate();
 
@@ -54,7 +54,7 @@ final class KeyDerivationTest extends TestCase
     }
 
     #[Test]
-    public function happy_path_signature_keypair(): void
+    public function happyPathSignatureKeypair(): void
     {
         $key = SharedKey::generate();
 
@@ -75,7 +75,7 @@ final class KeyDerivationTest extends TestCase
     }
 
     #[Test]
-    public function happy_path_for_hkdf(): void
+    public function happyPathForHkdf(): void
     {
         $key = SharedKey::generate();
 

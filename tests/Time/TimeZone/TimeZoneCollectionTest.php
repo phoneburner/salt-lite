@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class TimeZoneCollectionTest extends TestCase
 {
     #[Test]
-    public function zero_time_zone_case_behavior(): void
+    public function zeroTimeZoneCaseBehavior(): void
     {
         $collection = TimeZoneCollection::make();
         self::assertEmpty($collection);
@@ -34,7 +34,7 @@ final class TimeZoneCollectionTest extends TestCase
     }
 
     #[Test]
-    public function single_time_zone_case_behavior(): void
+    public function singleTimeZoneCaseBehavior(): void
     {
         $timezone = TimeZoneFactory::make(Tz::Chicago);
         $collection = TimeZoneCollection::make($timezone);
@@ -53,7 +53,7 @@ final class TimeZoneCollectionTest extends TestCase
     }
 
     #[Test]
-    public function multiple_time_zone_case_behavior(): void
+    public function multipleTimeZoneCaseBehavior(): void
     {
         $chicago = TimeZoneFactory::make(Tz::Chicago);
         $los_angeles = TimeZoneFactory::make(Tz::LosAngeles);
@@ -100,7 +100,7 @@ final class TimeZoneCollectionTest extends TestCase
     }
 
     #[Test]
-    public function full_nanp_timezone_list_behavior(): void
+    public function fullNanpTimezoneListBehavior(): void
     {
         $collection = TimeZoneFactory::collect(...[
             Tz::Adak,

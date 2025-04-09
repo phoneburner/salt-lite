@@ -14,16 +14,16 @@ use PHPUnit\Framework\TestCase;
 
 final class IntegerIdTest extends TestCase
 {
-    #[DataProvider('provides_valid_values_and_namespaces')]
+    #[DataProvider('providesValidValuesAndNamespaces')]
     #[Test]
-    public function make_instantiates_the_IntegerId(int $value, int $namespace): void
+    public function makeInstantiatesTheIntegerId(int $value, int $namespace): void
     {
         $integer_id = IntegerId::make($value, $namespace);
         self::assertSame($value, $integer_id->value);
         self::assertSame($namespace, $integer_id->namespace);
     }
 
-    public static function provides_valid_values_and_namespaces(): Generator
+    public static function providesValidValuesAndNamespaces(): Generator
     {
         yield [0, 0];
         yield [0, 1];
@@ -39,31 +39,31 @@ final class IntegerIdTest extends TestCase
         }
     }
 
-    #[DataProvider('provides_invalid_id_values')]
+    #[DataProvider('providesInvalidIdValues')]
     #[Test]
-    public function minimum_id_value_is_checked(int $value): void
+    public function minimumIdValueIsChecked(int $value): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('$value Must Be an Integer Between 0 and 9223372036854775807, inclusive.');
         IntToUuid::encode(IntegerId::make($value, 123));
     }
 
-    public static function provides_invalid_id_values(): Generator
+    public static function providesInvalidIdValues(): Generator
     {
         yield [-1];
         yield [\PHP_INT_MIN];
     }
 
-    #[DataProvider('provides_invalid_namespace_values')]
+    #[DataProvider('providesInvalidNamespaceValues')]
     #[Test]
-    public function namespace_boundaries_are_checked(int $namespace): void
+    public function namespaceBoundariesAreChecked(int $namespace): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('$namespace Must Be an Integer Between 0 and 4294967295, inclusive.');
         IntegerId::make(1, $namespace);
     }
 
-    public static function provides_invalid_namespace_values(): Generator
+    public static function providesInvalidNamespaceValues(): Generator
     {
         yield [-1];
         yield [2 ** 32];

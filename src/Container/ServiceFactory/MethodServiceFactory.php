@@ -21,6 +21,9 @@ final readonly class MethodServiceFactory implements ServiceFactory
     public function __invoke(ContainerInterface $app, string $id): object
     {
         $object = \is_string($this->class_or_object) ? $app->get($this->class_or_object) : $this->class_or_object;
+        if (! \method_exists($object, $this->method)) {
+            throw new \LogicException(\sprintf('Method "%s" does not exist', $this->method));
+        }
 
         return $object->{$this->method}($app);
     }

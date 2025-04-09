@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class LogTraceTest extends TestCase
 {
     #[Test]
-    public function it_is_a_UUID(): void
+    public function itIsAUUID(): void
     {
         $log_trace = LogTrace::make();
 

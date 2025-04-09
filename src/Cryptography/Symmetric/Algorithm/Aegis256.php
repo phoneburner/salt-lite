@@ -6,7 +6,6 @@ namespace PhoneBurner\SaltLite\Cryptography\Symmetric\Algorithm;
 
 use PhoneBurner\SaltLite\Attribute\Usage\Internal;
 use PhoneBurner\SaltLite\Cryptography\Exception\CryptoLogicException;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
 use PhoneBurner\SaltLite\Cryptography\String\Ciphertext;
 use PhoneBurner\SaltLite\Cryptography\String\Nonce;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\EncryptedMessage;
@@ -14,6 +13,7 @@ use PhoneBurner\SaltLite\Cryptography\Symmetric\SharedKey;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\Symmetric;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SymmetricAlgorithm;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SymmetricEncryptionAlgorithm;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 
 /**
  * Symmetric Encryption: AEGIS-256 AEAD

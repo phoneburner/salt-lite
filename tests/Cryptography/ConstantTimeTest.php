@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 final class ConstantTimeTest extends TestCase
 {
     #[Test]
-    public function prefix_returns_expected_value(): void
+    public function prefixReturnsExpectedValue(): void
     {
         self::assertSame('hex:', Encoding::Hex->prefix());
         self::assertSame('base64:', Encoding::Base64->prefix());
@@ -23,7 +23,7 @@ final class ConstantTimeTest extends TestCase
     }
 
     #[Test]
-    public function regex_returns_expected_value(): void
+    public function regexReturnsExpectedValue(): void
     {
         self::assertSame('/^[A-Fa-f0-9]+$/', Encoding::Hex->regex());
         self::assertSame('/^[A-Za-z0-9+\/]+={0,2}$/', Encoding::Base64->regex());
@@ -34,7 +34,7 @@ final class ConstantTimeTest extends TestCase
 
     #[Test]
     #[DataProvider('providesEncodingHappyPathTests')]
-    public function happy_path_encoding_and_decoding(
+    public function happyPathEncodingAndDecoding(
         Encoding $encoding,
         bool $prefix,
         string $input,
@@ -91,7 +91,7 @@ final class ConstantTimeTest extends TestCase
 
     #[Test]
     #[DataProvider('providesInvalidInputForDecoding')]
-    public function decode_throws_exception_on_invalid_input(
+    public function decodeThrowsExceptionOnInvalidInput(
         Encoding $encoding,
         string $input,
     ): void {
@@ -110,7 +110,7 @@ final class ConstantTimeTest extends TestCase
     }
 
     #[Test]
-    public function hex_prefixes_are_stripped(): void
+    public function hexPrefixesAreStripped(): void
     {
         self::assertSame('hello', ConstantTime::decode(Encoding::Hex, 'hex:68656c6c6f'));
         self::assertSame('hello', ConstantTime::decode(Encoding::Hex, '0x68656c6c6f'));

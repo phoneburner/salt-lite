@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class KernelExecutionStartTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_kernel_property(): void
+    public function constructorSetsKernelProperty(): void
     {
         $kernel = $this->createMock(Kernel::class);
         self::assertSame($kernel, new KernelExecutionStart($kernel)->kernel);

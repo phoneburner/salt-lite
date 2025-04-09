@@ -17,7 +17,7 @@ use Psr\Http\Server\MiddlewareInterface;
 final class MiddlewareProcessingStartTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_public_properties(): void
+    public function constructorSetsPublicProperties(): void
     {
         $request = new ServerRequest();
         $middleware = $this->createMock(MiddlewareInterface::class);
@@ -29,7 +29,7 @@ final class MiddlewareProcessingStartTest extends TestCase
     }
 
     #[Test]
-    public function getLogEntry_returns_log_entry_with_middleware_class(): void
+    public function getLogEntryReturnsLogEntryWithMiddlewareClass(): void
     {
         $request = new ServerRequest();
         $middleware = $this->createMock(MiddlewareInterface::class);
@@ -44,7 +44,7 @@ final class MiddlewareProcessingStartTest extends TestCase
     }
 
     #[Test]
-    public function getLogEntry_returns_middleware_property_from_lazy_middleware(): void
+    public function getLogEntryReturnsMiddlewarePropertyFromLazyMiddleware(): void
     {
         $request = new ServerRequest();
         $middleware_name = NullMiddleware::class;

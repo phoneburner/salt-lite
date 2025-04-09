@@ -37,14 +37,14 @@ final class LazyMiddlewareTest extends TestCase
     }
 
     #[Test]
-    public function make_returns_lazy_middleware_instance(): void
+    public function makeReturnsLazyMiddlewareInstance(): void
     {
         $middleware = LazyMiddleware::make($this->container, NullMiddleware::class);
         self::assertInstanceOf(LazyMiddleware::class, $middleware);
     }
 
     #[Test]
-    public function process_delegates_to_resolved_middleware(): void
+    public function processDelegatesToResolvedMiddleware(): void
     {
         $middleware = $this->createMock(MiddlewareInterface::class);
         $middleware->expects($this->once())
@@ -63,7 +63,7 @@ final class LazyMiddlewareTest extends TestCase
     }
 
     #[Test]
-    public function process_sets_fallback_handler_on_terminable_middleware(): void
+    public function processSetsFallbackHandlerOnTerminableMiddleware(): void
     {
         $middleware = $this->createMock(TerminableMiddleware::class);
         $middleware->expects($this->once())
@@ -87,7 +87,7 @@ final class LazyMiddlewareTest extends TestCase
     }
 
     #[Test]
-    public function process_does_not_set_fallback_handler_on_non_terminable_middleware(): void
+    public function processDoesNotSetFallbackHandlerOnNonTerminableMiddleware(): void
     {
         $middleware = $this->createMock(MiddlewareInterface::class);
         $middleware->expects($this->once())

@@ -23,12 +23,12 @@ use PhoneBurner\SaltLite\Cryptography\Paseto\Paseto;
 use PhoneBurner\SaltLite\Cryptography\Paseto\PasetoWithClaims;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Protocol\PasetoFacade;
 use PhoneBurner\SaltLite\Cryptography\Random\Random;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
 use PhoneBurner\SaltLite\Cryptography\String\Ciphertext;
 use PhoneBurner\SaltLite\Cryptography\String\MessageSignature;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\EncryptedMessage;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SharedKey;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\Symmetric;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 use PhoneBurner\SaltLite\Time\TimeConstant;
 use PhoneBurner\SaltLite\Time\Ttl;
 

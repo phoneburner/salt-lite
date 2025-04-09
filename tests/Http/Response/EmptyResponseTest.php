@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class EmptyResponseTest extends TestCase
 {
     #[Test]
-    public function default_constructor_creates_204_response(): void
+    public function defaultConstructorCreates204Response(): void
     {
         $response = new EmptyResponse();
 
@@ -24,8 +24,8 @@ final class EmptyResponseTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('valid_status_codes')]
-    public function can_create_with_custom_status_code(int $status): void
+    #[DataProvider('validStatusCodes')]
+    public function canCreateWithCustomStatusCode(int $status): void
     {
         $response = new EmptyResponse($status);
 
@@ -35,7 +35,7 @@ final class EmptyResponseTest extends TestCase
     }
 
     #[Test]
-    public function can_create_with_custom_headers(): void
+    public function canCreateWithCustomHeaders(): void
     {
         $headers = [
             'X-Custom-Header' => ['custom-value'],
@@ -54,7 +54,7 @@ final class EmptyResponseTest extends TestCase
     /**
      * @return \Iterator<(int | string), array<int>>
      */
-    public static function valid_status_codes(): \Iterator
+    public static function validStatusCodes(): \Iterator
     {
         yield [HttpStatus::OK];
         yield [HttpStatus::CREATED];

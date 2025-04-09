@@ -36,7 +36,7 @@ final class SymmetricTest extends TestCase
 
     #[Test]
     #[DataProvider('providesPlaintextTestCases')]
-    public function encrypt_and_decrypt_work_without_additional_data(string $plaintext): void
+    public function encryptAndDecryptWorkWithoutAdditionalData(string $plaintext): void
     {
         $key = SharedKey::generate();
         $ciphertext = new Symmetric()->encrypt($key, $plaintext);
@@ -47,7 +47,7 @@ final class SymmetricTest extends TestCase
 
     #[Test]
     #[DataProvider('providesPlaintextTestCases')]
-    public function encrypt_and_decrypt_work_with_additional_data(string $plaintext): void
+    public function encryptAndDecryptWorkWithAdditionalData(string $plaintext): void
     {
         $key = SharedKey::generate();
         $ciphertext = new Symmetric()->encrypt($key, $plaintext, 'additional data');
@@ -58,7 +58,7 @@ final class SymmetricTest extends TestCase
 
     #[Test]
     #[DataProvider('providesPlaintextTestCases')]
-    public function message_length_is_checked_(string $plaintext): void
+    public function messageLengthIsChecked(string $plaintext): void
     {
         $key = SharedKey::generate();
         $ciphertext = new Symmetric()->encrypt($key, $plaintext);
@@ -71,7 +71,7 @@ final class SymmetricTest extends TestCase
 
     #[Test]
     #[DataProvider('providesPlaintextTestCases')]
-    public function message_authentication_works(string $plaintext): void
+    public function messageAuthenticationWorks(string $plaintext): void
     {
         $key = SharedKey::generate();
         $ciphertext = new Symmetric()->encrypt($key, $plaintext);
@@ -94,7 +94,7 @@ final class SymmetricTest extends TestCase
     }
 
     #[Test]
-    public function sign_and_verify_return_true_with_same_keys(): void
+    public function signAndVerifyReturnTrueWithSameKeys(): void
     {
         $key = SharedKey::generate();
 
@@ -105,7 +105,7 @@ final class SymmetricTest extends TestCase
     }
 
     #[Test]
-    public function sign_and_verify_return_false_with_different_keys(): void
+    public function signAndVerifyReturnFalseWithDifferentKeys(): void
     {
         $key = SharedKey::generate();
 
@@ -116,7 +116,7 @@ final class SymmetricTest extends TestCase
     }
 
     #[Test]
-    public function verify_regression_test(): void
+    public function verifyRegressionTest(): void
     {
         $key = SharedKey::import(self::KNOWN_KEY);
         $message_signature = MessageSignature::import(self::KNOWN_MESSAGE_SIGNATURE);

@@ -15,20 +15,20 @@ final class FuncTest extends TestCase
 {
     #[DataProvider('providesCallableValuesWithArgs')]
     #[Test]
-    public function value_calls_callable_values(callable $test, array $args, mixed $expected): void
+    public function valueCallsCallableValues(callable $test, array $args, mixed $expected): void
     {
         self::assertSame($expected, Func::value($test, ...$args));
     }
 
     #[DataProvider('providesCallableValuesWithoutArgs')]
     #[Test]
-    public function value_calls_callable_values_without_args(callable $test, mixed $expected): void
+    public function valueCallsCallableValuesWithoutArgs(callable $test, mixed $expected): void
     {
         self::assertSame($expected, Func::value($test));
     }
 
     #[Test]
-    public function fwd_returns_callable_that_calls_method_on_object_without_args(): void
+    public function fwdReturnsCallableThatCallsMethodOnObjectWithoutArgs(): void
     {
         $epoch = CarbonImmutable::createFromTimestamp(0);
         $dates = \array_map(static fn(int $i): CarbonImmutable => $epoch->addMinutes($i), [0, 1, 2, 3]);
@@ -37,7 +37,7 @@ final class FuncTest extends TestCase
     }
 
     #[Test]
-    public function fwd_returns_callable_that_calls_method_on_object_with_single_args(): void
+    public function fwdReturnsCallableThatCallsMethodOnObjectWithSingleArgs(): void
     {
         $epoch = CarbonImmutable::createFromTimestamp(1, Tz::Utc->value);
         $dates = \array_map(static fn(int $i): CarbonImmutable => $epoch->addDays($i), [0, 1, 2, 3]);
@@ -51,7 +51,7 @@ final class FuncTest extends TestCase
     }
 
     #[Test]
-    public function fwd_returns_callable_that_calls_method_on_object_with_multiple_args(): void
+    public function fwdReturnsCallableThatCallsMethodOnObjectWithMultipleArgs(): void
     {
         $arr = \array_map(static fn(int $i): object => self::makeMockObject($i), [0, 1, 2, 3]);
 
@@ -64,7 +64,7 @@ final class FuncTest extends TestCase
     }
 
     #[Test]
-    public function noop_returns_function_that_does_nothing(): void
+    public function noopReturnsFunctionThatDoesNothing(): void
     {
         $func = Func::noop();
         $test = $func();
@@ -128,7 +128,7 @@ final class FuncTest extends TestCase
 
     #[DataProvider('providesNonCallableValues')]
     #[Test]
-    public function value_passes_through_non_callable_values(mixed $test, array $args): void
+    public function valuePassesThroughNonCallableValues(mixed $test, array $args): void
     {
         self::assertSame($test, Func::value($test, ...$args));
     }

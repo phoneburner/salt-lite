@@ -14,7 +14,7 @@ final class EncoderTest extends TestCase
 {
     #[Test]
     #[DataProvider('providesEncodingHappyPathTests')]
-    public function happy_path_encoding_and_decoding(
+    public function happyPathEncodingAndDecoding(
         Encoding $encoding,
         bool $prefix,
         string $input,
@@ -71,7 +71,7 @@ final class EncoderTest extends TestCase
 
     #[Test]
     #[DataProvider('providesInvalidInputForDecoding')]
-    public function decode_throws_exception_on_invalid_input(
+    public function decodeThrowsExceptionOnInvalidInput(
         Encoding $encoding,
         string $input,
     ): void {
@@ -89,7 +89,7 @@ final class EncoderTest extends TestCase
     }
 
     #[Test]
-    public function hex_prefixes_are_stripped(): void
+    public function hexPrefixesAreStripped(): void
     {
         self::assertSame('hello', Encoder::decode(Encoding::Hex, 'hex:68656c6c6f'));
         self::assertSame('hello', Encoder::decode(Encoding::Hex, '0x68656c6c6f'));

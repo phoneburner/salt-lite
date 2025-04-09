@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class EmittingHttpResponseFailedTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_public_properties(): void
+    public function constructorSetsPublicProperties(): void
     {
         $response = new Response();
         $exception = new \Exception('Test exception');
@@ -26,7 +26,7 @@ final class EmittingHttpResponseFailedTest extends TestCase
     }
 
     #[Test]
-    public function getLogEntry_returns_log_entry_with_exception(): void
+    public function getLogEntryReturnsLogEntryWithException(): void
     {
         $response = new Response();
         $exception = new \Exception('Test exception');

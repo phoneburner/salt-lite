@@ -12,7 +12,7 @@ use PhoneBurner\SaltLite\Cryptography\Paseto\Exception\PasetoCryptoException;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Paseto;
 use PhoneBurner\SaltLite\Cryptography\Paseto\PasetoVersion;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Protocol\Version4;
-use PhoneBurner\SaltLite\Cryptography\String\VariableLengthBinaryString;
+use PhoneBurner\SaltLite\Cryptography\String\VariableLengthSensitiveBinaryString;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SharedKey;
 use PhoneBurner\SaltLite\Filesystem\File;
 use PhoneBurner\SaltLite\String\Encoding\Encoding;
@@ -28,7 +28,7 @@ final class Version4Test extends TestCase
 
     #[Test]
     #[DataProvider('provideTestVectorsEncryptPass')]
-    public function paseto_standard_test_vectors_encrypt_pass(array $test_vector): void
+    public function pasetoStandardTestVectorsEncryptPass(array $test_vector): void
     {
         $key = SharedKey::import($test_vector['key'], Encoding::Hex);
         $vector_token = new Paseto($test_vector['token']);
@@ -49,12 +49,12 @@ final class Version4Test extends TestCase
 
     #[Test]
     #[DataProvider('provideTestVectorsSignPass')]
-    public function paseto_standard_test_vectors_sign_pass(array $test_vector): void
+    public function pasetoStandardTestVectorsSignPass(array $test_vector): void
     {
         $secret_key = SignatureSecretKey::import($test_vector['secret-key'], Encoding::Hex);
         $public_key = SignaturePublicKey::import($test_vector['public-key'], Encoding::Hex);
 
-        $key_pair_seed = VariableLengthBinaryString::import($test_vector['secret-key-seed'], Encoding::Hex);
+        $key_pair_seed = VariableLengthSensitiveBinaryString::import($test_vector['secret-key-seed'], Encoding::Hex);
         $key_pair = SignatureKeyPair::fromSeed($key_pair_seed);
 
         self::assertEquals($secret_key, $key_pair->secret);
@@ -82,7 +82,7 @@ final class Version4Test extends TestCase
 
     #[Test]
     #[DataProvider('provideTestVectorsEncryptFail')]
-    public function paseto_standard_test_vectors_encrypt_fail(array $test_vector): void
+    public function pasetoStandardTestVectorsEncryptFail(array $test_vector): void
     {
         $key = SharedKey::import($test_vector['key'], Encoding::Hex);
 
@@ -92,12 +92,12 @@ final class Version4Test extends TestCase
 
     #[Test]
     #[DataProvider('provideTestVectorsSignFail')]
-    public function paseto_standard_test_vectors_sign_fail(array $test_vector): void
+    public function pasetoStandardTestVectorsSignFail(array $test_vector): void
     {
         $secret_key = SignatureSecretKey::import($test_vector['secret-key'], Encoding::Hex);
         $public_key = SignaturePublicKey::import($test_vector['public-key'], Encoding::Hex);
 
-        $key_pair_seed = VariableLengthBinaryString::import($test_vector['secret-key-seed'], Encoding::Hex);
+        $key_pair_seed = VariableLengthSensitiveBinaryString::import($test_vector['secret-key-seed'], Encoding::Hex);
         $key_pair = SignatureKeyPair::fromSeed($key_pair_seed);
 
         self::assertEquals($secret_key, $key_pair->secret);

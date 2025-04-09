@@ -17,14 +17,14 @@ final class DomesticPhoneNumberTest extends TestCase
 {
     #[DataProvider('invalidPhoneDataProvider')]
     #[Test]
-    public function constructor_validates_phone_numbers(string $test): void
+    public function constructorValidatesPhoneNumbers(string $test): void
     {
         $this->expectException(InvalidPhoneNumber::class);
         DomesticPhoneNumber::make($test);
     }
 
     #[Test]
-    public function make_validates_phone_numbers(): void
+    public function makeValidatesPhoneNumbers(): void
     {
         $this->expectException(\TypeError::class);
         /* @phpstan-ignore-next-line intentional defect */
@@ -33,14 +33,14 @@ final class DomesticPhoneNumberTest extends TestCase
 
     #[DataProvider('invalidPhoneDataProvider')]
     #[Test]
-    public function tryFrom_returns_null_on_invalid_validates_phone_numbers(string $test): void
+    public function tryFromReturnsNullOnInvalidValidatesPhoneNumbers(string $test): void
     {
         self::assertNull(DomesticPhoneNumber::tryFrom($test));
     }
 
     #[DataProvider('e164DataProvider')]
     #[Test]
-    public function tryFrom_returns_self(string $test): void
+    public function tryFromReturnsSelf(string $test): void
     {
         $phone_number = DomesticPhoneNumber::make($test);
         self::assertSame($phone_number, DomesticPhoneNumber::tryFrom($phone_number));
@@ -48,14 +48,14 @@ final class DomesticPhoneNumberTest extends TestCase
 
     #[DataProvider('e164DataProvider')]
     #[Test]
-    public function tryFrom_makes_valid_phone_numbers(string $test): void
+    public function tryFromMakesValidPhoneNumbers(string $test): void
     {
         self::assertEquals(DomesticPhoneNumber::make($test), DomesticPhoneNumber::tryFrom($test));
     }
 
     #[DataProvider('e164DataProvider')]
     #[Test]
-    public function make_returns_self(string $test): void
+    public function makeReturnsSelf(string $test): void
     {
         $phone_number = DomesticPhoneNumber::make($test);
         self::assertSame($phone_number, DomesticPhoneNumber::make($phone_number));
@@ -63,7 +63,7 @@ final class DomesticPhoneNumberTest extends TestCase
 
     #[DataProvider('e164DataProvider')]
     #[Test]
-    public function make_casts_Stringable(string $test): void
+    public function makeCastsStringable(string $test): void
     {
         $phone_number = DomesticPhoneNumber::make($test);
         self::assertEquals($phone_number, DomesticPhoneNumber::make(new class ($test) implements \Stringable {
@@ -80,7 +80,7 @@ final class DomesticPhoneNumberTest extends TestCase
 
     #[DataProvider('e164DataProvider')]
     #[Test]
-    public function make_reuses_valid_e164(string $test): void
+    public function makeReusesValidE164(string $test): void
     {
         $e164 = E164::make($test);
         self::assertSame($e164, DomesticPhoneNumber::make(new class ($e164) implements PhoneNumber {
@@ -97,14 +97,14 @@ final class DomesticPhoneNumberTest extends TestCase
 
     #[DataProvider('e164DataProvider')]
     #[Test]
-    public function jsonSerialize_returns_expected_string(string $test, string $expected): void
+    public function jsonSerializeReturnsExpectedString(string $test, string $expected): void
     {
         self::assertSame($expected, DomesticPhoneNumber::make($test)->jsonSerialize());
     }
 
     #[DataProvider('e164DataProvider')]
     #[Test]
-    public function it_can_be_serialized_and_deserialized(string $test, string $expected): void
+    public function itCanBeSerializedAndDeserialized(string $test, string $expected): void
     {
         $phone_number = DomesticPhoneNumber::make($test);
 
@@ -118,7 +118,7 @@ final class DomesticPhoneNumberTest extends TestCase
 
     #[DataProvider('formatDataProvider')]
     #[Test]
-    public function format_returns_the_phone_number_expected_string_format(string $test, array $formats): void
+    public function formatReturnsThePhoneNumberExpectedStringFormat(string $test, array $formats): void
     {
         self::assertSame(
             $formats['national'],
@@ -152,7 +152,7 @@ final class DomesticPhoneNumberTest extends TestCase
     }
 
     #[Test]
-    public function npa_nxx_and_line_functions_return_expected_(): void
+    public function npaNxxAndLineFunctionsReturnExpected(): void
     {
         $phone = DomesticPhoneNumber::make('3145550123');
 
@@ -163,7 +163,7 @@ final class DomesticPhoneNumberTest extends TestCase
 
     #[DataProvider('e164DataProvider')]
     #[Test]
-    public function toString_returns_the_unformatted_phone_number(string $test, string $normalized): void
+    public function toStringReturnsTheUnformattedPhoneNumber(string $test, string $normalized): void
     {
         $phone = DomesticPhoneNumber::make($test);
         self::assertSame((string)E164::make($normalized), (string)$phone);
@@ -171,14 +171,14 @@ final class DomesticPhoneNumberTest extends TestCase
 
     #[DataProvider('provideAreaCodes')]
     #[Test]
-    public function getAreaCode_parses_appropriate_string(string $test, int $expected): void
+    public function getAreaCodeParsesAppropriateString(string $test, int $expected): void
     {
         self::assertSame($expected, DomesticPhoneNumber::make($test)->getAreaCode()->npa);
     }
 
     #[DataProvider('e164DataProvider')]
     #[Test]
-    public function toE164_returns_expected_phone_number(string $test, string $expected): void
+    public function toE164ReturnsExpectedPhoneNumber(string $test, string $expected): void
     {
         $phone = DomesticPhoneNumber::make($test);
 

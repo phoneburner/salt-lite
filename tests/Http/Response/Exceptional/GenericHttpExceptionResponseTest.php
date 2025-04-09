@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class GenericHttpExceptionResponseTest extends TestCase
 {
     #[Test]
-    public function response_has_expected_defaults(): void
+    public function responseHasExpectedDefaults(): void
     {
         $sut = new GenericHttpExceptionResponse();
 
@@ -31,7 +31,7 @@ final class GenericHttpExceptionResponseTest extends TestCase
     }
 
     #[Test]
-    public function response_can_be_customized(): void
+    public function responseCanBeCustomized(): void
     {
         $title = "I'm a teapot!";
         $detail = "I am a teapot, and thus refuse to brew coffee.";

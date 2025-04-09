@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Tests\Cryptography\Symmetric;
 
 use PhoneBurner\SaltLite\Cryptography\Exception\InvalidStringLength;
-use PhoneBurner\SaltLite\Cryptography\Exception\SerializationProhibited;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SharedKey;
+use PhoneBurner\SaltLite\Serialization\Exception\SerializationProhibited;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class SharedKeyTest extends TestCase
 {
     #[Test]
-    public function happy_path(): void
+    public function happyPath(): void
     {
         $key = SharedKey::generate();
         self::assertSame(SharedKey::LENGTH, $key->length());
@@ -32,7 +32,7 @@ final class SharedKeyTest extends TestCase
     #[TestWith([SharedKey::LENGTH - 1])]
     #[TestWith([SharedKey::LENGTH + 1])]
     #[TestWith([0])]
-    public function key_requires_exact_length(int $length): void
+    public function keyRequiresExactLength(int $length): void
     {
         $key_material = $length > 0 ? \random_bytes($length) : '';
 
@@ -41,7 +41,7 @@ final class SharedKeyTest extends TestCase
     }
 
     #[Test]
-    public function key_cannot_be_serialized(): void
+    public function keyCannotBeSerialized(): void
     {
         $key = SharedKey::generate();
 

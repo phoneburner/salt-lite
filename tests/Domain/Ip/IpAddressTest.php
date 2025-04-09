@@ -17,7 +17,7 @@ final class IpAddressTest extends TestCase
 {
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function marshall_returns_value_from_true_ip(string $address, IpAddressType $type): void
+    public function marshallReturnsValueFromTrueIp(string $address, IpAddressType $type): void
     {
         $data = [
             'HTTP_TRUE_CLIENT_IP' => $address,
@@ -31,10 +31,10 @@ final class IpAddressTest extends TestCase
 
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function marshall_returns_value_from_forwarded_id(string $address, IpAddressType $type): void
+    public function marshallReturnsValueFromForwardedId(string $address, IpAddressType $type): void
     {
         $data = [
-            'HTTP_TRUE_CLIENT_IP' => "$address, 127.0.0.1",
+            'HTTP_TRUE_CLIENT_IP' => $address . ', 127.0.0.1',
         ];
         $sut = IpAddress::marshall($data);
         self::assertSame($address, (string)$sut);
@@ -45,7 +45,7 @@ final class IpAddressTest extends TestCase
 
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function marshall_returns_value_from_remote_ip(string $address, IpAddressType $type): void
+    public function marshallReturnsValueFromRemoteIp(string $address, IpAddressType $type): void
     {
         $data = [
             'REMOTE_ADDR' => $address,
@@ -58,7 +58,7 @@ final class IpAddressTest extends TestCase
     }
 
     #[Test]
-    public function marshall_returns_null_on_sad_path(): void
+    public function marshallReturnsNullOnSadPath(): void
     {
         $sut = IpAddress::marshall([]);
         self::assertNull($sut);
@@ -66,7 +66,7 @@ final class IpAddressTest extends TestCase
 
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function make_returns_value(string $address, IpAddressType $type): void
+    public function makeReturnsValue(string $address, IpAddressType $type): void
     {
         $sut = IpAddress::make($address);
         self::assertSame($address, (string)$sut);
@@ -77,7 +77,7 @@ final class IpAddressTest extends TestCase
 
     #[DataProvider('provideInvalidAddresses')]
     #[Test]
-    public function make_throws_InvalidArgument(string $address): void
+    public function makeThrowsInvalidArgument(string $address): void
     {
         $this->expectException(InvalidArgumentException::class);
         IpAddress::make($address);
@@ -85,7 +85,7 @@ final class IpAddressTest extends TestCase
 
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function tryFrom_returns_value_from_string(string $address, IpAddressType $type): void
+    public function tryFromReturnsValueFromString(string $address, IpAddressType $type): void
     {
         $sut = IpAddress::tryFrom($address);
         self::assertNotNull($sut);
@@ -97,7 +97,7 @@ final class IpAddressTest extends TestCase
 
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function tryFrom_returns_value_from_self(string $address): void
+    public function tryFromReturnsValueFromSelf(string $address): void
     {
         $address = IpAddress::make($address);
         self::assertSame($address, IpAddress::tryFrom($address));
@@ -105,7 +105,7 @@ final class IpAddressTest extends TestCase
 
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function tryFrom_returns_value_from_Stringable(string $address): void
+    public function tryFromReturnsValueFromStringable(string $address): void
     {
         $value = IpAddress::tryFrom(new readonly class ($address) implements \Stringable {
             public function __construct(private string $address)
@@ -125,7 +125,7 @@ final class IpAddressTest extends TestCase
     #[DataProvider('provideInvalidAddresses')]
     #[DataProvider('provideNonStringInvalidAddresses')]
     #[Test]
-    public function tryFrom_returns_null_when_invalid(mixed $address): void
+    public function tryFromReturnsNullWhenInvalid(mixed $address): void
     {
         self::assertNull(IpAddress::tryFrom($address));
     }

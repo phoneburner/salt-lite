@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 final class OverrideCollectionTest extends TestCase
 {
     #[Test]
-    public function empty_collection_tests(): void
+    public function emptyCollectionTests(): void
     {
         $collection = new OverrideCollection();
         self::assertFalse($collection->has(OverrideType::Position, 2));
@@ -27,7 +27,7 @@ final class OverrideCollectionTest extends TestCase
     }
 
     #[Test]
-    public function happy_path_tests(): void
+    public function happyPathTests(): void
     {
         $type_override = new OverrideByParameterType('SomeOtherClassName', 'bar');
         $name_override = new OverrideByParameterName('baz', 'bar');

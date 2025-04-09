@@ -18,7 +18,7 @@ use stdClass;
 final class InvokableMessageHandlerTest extends TestCase
 {
     #[Test]
-    public function invoke_dispatches_events_and_calls_container(): void
+    public function invokeDispatchesEventsAndCallsContainer(): void
     {
         $message = new stdClass();
         $container = $this->createMock(InvokingContainer::class);
@@ -41,7 +41,7 @@ final class InvokableMessageHandlerTest extends TestCase
     }
 
     #[Test]
-    public function invoke_dispatches_failed_event_on_exception(): void
+    public function invokeDispatchesFailedEventOnException(): void
     {
         $message = new stdClass();
         $exception = new RuntimeException('Test exception');

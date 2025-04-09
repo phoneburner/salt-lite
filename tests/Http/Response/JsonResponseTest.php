@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 final class JsonResponseTest extends TestCase
 {
     #[Test]
-    public function creates_json_response_with_defaults(): void
+    public function createsJsonResponseWithDefaults(): void
     {
         $data = ['message' => 'Hello, World!', 'success' => true];
         $response = new JsonResponse($data);
@@ -26,7 +26,7 @@ final class JsonResponseTest extends TestCase
     }
 
     #[Test]
-    public function creates_json_response_with_custom_status(): void
+    public function createsJsonResponseWithCustomStatus(): void
     {
         $data = ['id' => 123, 'name' => 'Test Resource'];
         $response = new JsonResponse($data, HttpStatus::CREATED);
@@ -37,7 +37,7 @@ final class JsonResponseTest extends TestCase
     }
 
     #[Test]
-    public function creates_json_response_with_custom_headers(): void
+    public function createsJsonResponseWithCustomHeaders(): void
     {
         $data = ['key' => 'value'];
         $headers = [
@@ -55,7 +55,7 @@ final class JsonResponseTest extends TestCase
     }
 
     #[Test]
-    public function creates_json_response_with_json_flags(): void
+    public function createsJsonResponseWithJsonFlags(): void
     {
         $data = ['special' => 'Characters: ☺'];
         $flags = \JSON_HEX_TAG | \JSON_HEX_APOS;
@@ -68,7 +68,7 @@ final class JsonResponseTest extends TestCase
     }
 
     #[Test]
-    public function content_type_header_can_be_overridden(): void
+    public function contentTypeHeaderCanBeOverridden(): void
     {
         $data = ['test' => true];
         $customContentType = 'application/problem+json';

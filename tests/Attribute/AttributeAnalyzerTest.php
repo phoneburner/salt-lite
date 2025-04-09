@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class AttributeAnalyzerTest extends TestCase
 {
     #[Test]
-    public function has_returns_true_when_analyze_returns_object(): void
+    public function hasReturnsTrueWhenAnalyzeReturnsObject(): void
     {
         $mockAnalyzer = $this->createMock(ClassAnalyzer::class);
         $mockAnalyzer->expects($this->once())
@@ -26,7 +26,7 @@ final class AttributeAnalyzerTest extends TestCase
     }
 
     #[Test]
-    public function has_returns_false_when_analyze_throws_exception(): void
+    public function hasReturnsFalseWhenAnalyzeThrowsException(): void
     {
         $mockAnalyzer = $this->createMock(ClassAnalyzer::class);
         $mockAnalyzer->expects($this->once())
@@ -38,7 +38,7 @@ final class AttributeAnalyzerTest extends TestCase
     }
 
     #[Test]
-    public function analyze_delegates_to_inner_analyzer(): void
+    public function analyzeDelegatesToInnerAnalyzer(): void
     {
         $expected = new \stdClass();
         $mockAnalyzer = $this->createMock(ClassAnalyzer::class);

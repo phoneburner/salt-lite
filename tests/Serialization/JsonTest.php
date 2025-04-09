@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class JsonTest extends TestCase
 {
     #[Test]
-    public function encode_returns_json_string(): void
+    public function encodeReturnsJsonString(): void
     {
         $data = ['foo' => 'bar', 'baz' => 123, 'nested' => ['qux' => true]];
         $expected = '{"foo":"bar","baz":123,"nested":{"qux":true}}';
@@ -20,7 +20,7 @@ final class JsonTest extends TestCase
     }
 
     #[Test]
-    public function encode_applies_flags(): void
+    public function encodeAppliesFlags(): void
     {
         $data = ['foo' => 'bar'];
         $result = Json::encode($data, \JSON_PRETTY_PRINT);
@@ -30,7 +30,7 @@ final class JsonTest extends TestCase
     }
 
     #[Test]
-    public function encode_throws_on_invalid_structure(): void
+    public function encodeThrowsOnInvalidStructure(): void
     {
         // Create an object with circular reference
         $a = new \stdClass();
@@ -44,7 +44,7 @@ final class JsonTest extends TestCase
     }
 
     #[Test]
-    public function encode_throws_on_invalid_data(): void
+    public function encodeThrowsOnInvalidData(): void
     {
         $data = "\xB1\x31"; // Invalid UTF-8 sequence
 
@@ -54,7 +54,7 @@ final class JsonTest extends TestCase
     }
 
     #[Test]
-    public function decode_returns_array(): void
+    public function decodeReturnsArray(): void
     {
         $json = '{"foo":"bar","baz":123,"nested":{"qux":true}}';
         $expected = ['foo' => 'bar', 'baz' => 123, 'nested' => ['qux' => true]];
@@ -65,7 +65,7 @@ final class JsonTest extends TestCase
     }
 
     #[Test]
-    public function decode_applies_flags(): void
+    public function decodeAppliesFlags(): void
     {
         // Test with JSON_THROW_ON_ERROR flag
         $json = '{"foo":"bar",}'; // Invalid JSON with trailing comma
@@ -76,7 +76,7 @@ final class JsonTest extends TestCase
     }
 
     #[Test]
-    public function decode_throws_when_result_is_not_array(): void
+    public function decodeThrowsWhenResultIsNotArray(): void
     {
         $json = '"not an array"';
 
@@ -86,14 +86,14 @@ final class JsonTest extends TestCase
         Json::decode($json);
     }
 
-    public function validate_returns_true_for_valid_json(): void
+    public function validateReturnsTrueForValidJson(): void
     {
         $json = '{"foo":"bar","baz":123}';
         self::assertTrue(Json::validate($json));
     }
 
     #[Test]
-    public function validate_returns_false_for_invalid_json(): void
+    public function validateReturnsFalseForInvalidJson(): void
     {
         $json = '{"foo":"bar",}'; // Invalid JSON with trailing comma
         self::assertFalse(Json::validate($json));

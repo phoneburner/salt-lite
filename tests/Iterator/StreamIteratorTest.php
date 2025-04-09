@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class StreamIteratorTest extends TestCase
 {
     #[Test]
-    public function happy_path_seekable(): void
+    public function happyPathSeekable(): void
     {
         $content = \random_bytes(8192 * 10);
 
@@ -51,7 +51,7 @@ final class StreamIteratorTest extends TestCase
     }
 
     #[Test]
-    public function happy_path_nonseekable(): void
+    public function happyPathNonseekable(): void
     {
         $content = \random_bytes(8192 * 10);
 

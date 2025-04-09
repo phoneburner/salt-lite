@@ -14,7 +14,7 @@ final class CacheKeyTest extends TestCase
 {
     #[DataProvider('providesTestCases')]
     #[Test]
-    public function make_normalizes_key(array $parts, string $expected): void
+    public function makeNormalizesKey(array $parts, string $expected): void
     {
         self::assertSame($expected, CacheKey::make(...$parts)->normalized);
     }
@@ -67,7 +67,7 @@ final class CacheKeyTest extends TestCase
 
     #[DataProvider('providesEmptyStringTestCases')]
     #[Test]
-    public function make_throws_exception_when_empty_string_passed(array $parts): void
+    public function makeThrowsExceptionWhenEmptyStringPassed(array $parts): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Cache key part cannot be empty string');

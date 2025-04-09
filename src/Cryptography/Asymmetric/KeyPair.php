@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Cryptography\Asymmetric;
 
 use PhoneBurner\SaltLite\Cryptography\KeyManagement\Key;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 
 interface KeyPair extends Key
 {

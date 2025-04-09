@@ -1,4 +1,4 @@
-# Salt-Lite Common Components Library
+# Salt-Lite Components
 
 > Feels like home, just without the salty tears of frustration
 
@@ -10,7 +10,15 @@ users with a robust framework with minimum cognitive overhead from the original
 Salt framework, avoiding the pitfalls of bringing in a full-fledged third-party
 framework and trying to adapt that to our needs.
 
-This package contains the common library for the Salt-Lite framework, which includes
-the core functionality and shared components used by the framework. It is designed 
-to work with either the Salt-Lite framework or the original Salt framework, providing a consistent
-and reliable foundation for building applications.
+This package contains framework-agnostic components for the Salt-Lite project, which
+are intended to be compatible with both the [Salt-Lite Framework]() and the original 
+Salt project, providing a consistent and reliable foundation for building applications.
+
+### Design & Dependencies
+The components are designed to be modular and reusable, and could potentially be
+split into their own packages in the future via subtree splitting. We separate
+these components from the Salt-Lite framework to reduce the number of dependencies,
+ability to reuse them in other projects, and to allow for easier testing and development.
+The number of third party dependencies should be kept to a minimum, and not bound
+to "framework implementation details", such as the ORM/database layer, requiring
+Redis or RabbitMQ, etc.

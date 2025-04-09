@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Cryptography;
 
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
-use PhoneBurner\SaltLite\Cryptography\Util;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 use PhoneBurner\SaltLite\String\Encoding\Encoding;
 use PhoneBurner\SaltLite\String\Encoding\Rfc4648Encoder;
 

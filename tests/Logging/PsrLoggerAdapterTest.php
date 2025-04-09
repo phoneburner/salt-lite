@@ -8,23 +8,23 @@ use PhoneBurner\SaltLite\Logging\LogEntry;
 use PhoneBurner\SaltLite\Logging\Loggable;
 use PhoneBurner\SaltLite\Logging\LogLevel;
 use PhoneBurner\SaltLite\Logging\PsrLoggerAdapter;
-use PhoneBurner\SaltLite\Tests\Fixtures\TestLogger;
+use PhoneBurner\SaltLite\Tests\Fixtures\MockLogger;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class PsrLoggerAdapterTest extends TestCase
 {
-    private TestLogger $test_logger;
+    private MockLogger $test_logger;
     private PsrLoggerAdapter $adapter;
 
     protected function setUp(): void
     {
-        $this->test_logger = new TestLogger();
+        $this->test_logger = new MockLogger();
         $this->adapter = new PsrLoggerAdapter($this->test_logger);
     }
 
     #[Test]
-    public function it_delegates_log_calls_to_inner_logger(): void
+    public function itDelegatesLogCallsToInnerLogger(): void
     {
         $this->adapter->log('info', 'Test message 1', ['key' => 'value']);
         $this->adapter->log('error', 'Test message 2');
@@ -47,7 +47,7 @@ final class PsrLoggerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function it_delegates_log_level_enum_to_inner_logger(): void
+    public function itDelegatesLogLevelEnumToInnerLogger(): void
     {
         $this->adapter->log(LogLevel::Warning, 'Test with enum', ['context' => true]);
 
@@ -59,7 +59,7 @@ final class PsrLoggerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function it_accepts_stringable_message(): void
+    public function itAcceptsStringableMessage(): void
     {
         $stringable = new class () implements \Stringable {
             public function __toString(): string
@@ -78,7 +78,7 @@ final class PsrLoggerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function it_processes_log_entry_objects(): void
+    public function itProcessesLogEntryObjects(): void
     {
         $entry = new LogEntry(LogLevel::Critical, 'Critical error', ['error' => 'details']);
 
@@ -92,7 +92,7 @@ final class PsrLoggerAdapterTest extends TestCase
     }
 
     #[Test]
-    public function it_processes_loggable_objects(): void
+    public function itProcessesLoggableObjects(): void
     {
         $loggable = new class () implements Loggable {
             public function getLogEntry(): LogEntry

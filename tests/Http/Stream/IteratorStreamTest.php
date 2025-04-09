@@ -25,7 +25,7 @@ final class IteratorStreamTest extends TestCase
 
     #[DataProvider('providesIterables')]
     #[Test]
-    public function IteratorStream_has_expected_stream_behavior(
+    public function iteratorStreamHasExpectedStreamBehavior(
         iterable $iterable,
         string $expected,
     ): void {
@@ -57,7 +57,7 @@ final class IteratorStreamTest extends TestCase
     }
 
     #[Test]
-    public function rewind_resets_position(): void
+    public function rewindResetsPosition(): void
     {
         $iterator = new \ArrayIterator(['foo', 'bar', 'baz']);
         $stream = new IteratorStream($iterator);
@@ -73,7 +73,7 @@ final class IteratorStreamTest extends TestCase
     }
 
     #[Test]
-    public function write_throws_exception(): never
+    public function writeThrowsException(): never
     {
         $iterator = new \ArrayIterator(['foo', 'bar']);
         $stream = new IteratorStream($iterator);
@@ -84,7 +84,7 @@ final class IteratorStreamTest extends TestCase
     }
 
     #[Test]
-    public function seek_throws_exception(): never
+    public function seekThrowsException(): never
     {
         $iterator = new \ArrayIterator(['foo', 'bar']);
         $stream = new IteratorStream($iterator);
@@ -95,7 +95,7 @@ final class IteratorStreamTest extends TestCase
     }
 
     #[Test]
-    public function getContents_returns_remaining_contents_string(): void
+    public function getContentsReturnsRemainingContentsString(): void
     {
         $iterator = new \ArrayIterator(['foo', 'bar', 'baz']);
         $stream = new IteratorStream($iterator);
@@ -110,7 +110,7 @@ final class IteratorStreamTest extends TestCase
 
     #[DataProvider('providesIterables')]
     #[Test]
-    public function getContents_happy_path(iterable $iterable, string $expected): void
+    public function getContentsHappyPath(iterable $iterable, string $expected): void
     {
         $stream = new IteratorStream($iterable);
 
@@ -120,7 +120,7 @@ final class IteratorStreamTest extends TestCase
     }
 
     #[Test]
-    public function toString_rewinds_and_returns_contents(): void
+    public function toStringRewindsAndReturnsContents(): void
     {
         $iterator = new \ArrayIterator(['foo', 'bar', 'baz']);
         $stream = new IteratorStream($iterator);
@@ -135,7 +135,7 @@ final class IteratorStreamTest extends TestCase
 
     #[DataProvider('providesIterables')]
     #[Test]
-    public function toString_happy_path(iterable $iterable, string $expected): void
+    public function toStringHappyPath(iterable $iterable, string $expected): void
     {
         $stream = new IteratorStream($iterable);
 

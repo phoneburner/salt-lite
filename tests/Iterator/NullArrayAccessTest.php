@@ -35,7 +35,7 @@ final class NullArrayAccessTest extends TestCase
     }
 
     #[Test]
-    public function offsetGet_gets_the_expected_value(): void
+    public function offsetGetGetsTheExpectedValue(): void
     {
         $sut = new NullableArrayAccess($this->test);
 
@@ -53,7 +53,7 @@ final class NullArrayAccessTest extends TestCase
     }
 
     #[Test]
-    public function offsetSet_and_offsetUnset_manipulate_the_expected_value(): void
+    public function offsetSetAndOffsetUnsetManipulateTheExpectedValue(): void
     {
     /** @var NullableArrayAccess<string, mixed> $sut */
         $sut = new NullableArrayAccess([]);

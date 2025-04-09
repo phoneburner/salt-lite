@@ -8,7 +8,7 @@ use PhoneBurner\SaltLite\Http\Domain\HttpMethod;
 use PhoneBurner\SaltLite\Http\Psr7;
 use PhoneBurner\SaltLite\Http\RequestFactory;
 use PhoneBurner\SaltLite\String\Str;
-use PhoneBurner\SaltLite\Tests\Fixtures\TestRequestHandler;
+use PhoneBurner\SaltLite\Tests\Fixtures\MockRequestHandler;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\MessageInterface;
@@ -17,7 +17,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 final class Psr7Test extends TestCase
 {
     #[Test]
-    public function attribute_returns_null_when_attribute_not_found(): void
+    public function attributeReturnsNullWhenAttributeNotFound(): void
     {
         $request = new RequestFactory()->server(HttpMethod::Get, 'http://example.com');
 
@@ -25,7 +25,7 @@ final class Psr7Test extends TestCase
     }
 
     #[Test]
-    public function attribute_returns_null_when_attribute_not_instance(): void
+    public function attributeReturnsNullWhenAttributeNotInstance(): void
     {
         $request = new RequestFactory()->server(HttpMethod::Get, 'http://example.com', attributes: [
             RequestHandlerInterface::class => new \stdClass(),
@@ -35,9 +35,9 @@ final class Psr7Test extends TestCase
     }
 
     #[Test]
-    public function attribute_returns_instance_on_happy_path(): void
+    public function attributeReturnsInstanceOnHappyPath(): void
     {
-        $handler = new TestRequestHandler();
+        $handler = new MockRequestHandler();
         $request = new RequestFactory()->server(HttpMethod::Get, 'http://example.com', attributes: [
             RequestHandlerInterface::class => $handler,
         ]);
@@ -46,7 +46,7 @@ final class Psr7Test extends TestCase
     }
 
     #[Test]
-    public function jsonBodyToArray_happy_path_with_message(): void
+    public function jsonBodyToArrayHappyPathWithMessage(): void
     {
         $array = [
             'foo' => 'bar',
@@ -60,7 +60,7 @@ final class Psr7Test extends TestCase
     }
 
     #[Test]
-    public function jsonBodyToArray_happy_path_with_stream(): void
+    public function jsonBodyToArrayHappyPathWithStream(): void
     {
         $array = [
             'foo' => 'bar',
@@ -73,7 +73,7 @@ final class Psr7Test extends TestCase
     }
 
     #[Test]
-    public function jsonBodyToArray_happy_sad_path_invalid(): void
+    public function jsonBodyToArrayHappySadPathInvalid(): void
     {
         $array = [
             'foo' => 'bar',
@@ -86,7 +86,7 @@ final class Psr7Test extends TestCase
     }
 
     #[Test]
-    public function jsonBodyToArray_happy_sad_path_not_array(): void
+    public function jsonBodyToArrayHappySadPathNotArray(): void
     {
         $stream = Str::stream(\substr(\json_encode('false', \JSON_THROW_ON_ERROR), 0, -1));
 
@@ -94,7 +94,7 @@ final class Psr7Test extends TestCase
     }
 
     #[Test]
-    public function expects_returns_true_when_content_type_matches_accept_header(): void
+    public function expectsReturnsTrueWhenContentTypeMatchesAcceptHeader(): void
     {
         $message = $this->createMock(MessageInterface::class);
         $message->method('getHeaderLine')
@@ -107,7 +107,7 @@ final class Psr7Test extends TestCase
     }
 
     #[Test]
-    public function expects_returns_true_when_content_type_matches_content_type_header(): void
+    public function expectsReturnsTrueWhenContentTypeMatchesContentTypeHeader(): void
     {
         $message = $this->createMock(MessageInterface::class);
         $message->method('getHeaderLine')
@@ -120,7 +120,7 @@ final class Psr7Test extends TestCase
     }
 
     #[Test]
-    public function expects_returns_true_when_content_type_matches_with_structured_syntax_suffix(): void
+    public function expectsReturnsTrueWhenContentTypeMatchesWithStructuredSyntaxSuffix(): void
     {
         $message = $this->createMock(MessageInterface::class);
         $message->method('getHeaderLine')
@@ -133,7 +133,7 @@ final class Psr7Test extends TestCase
     }
 
     #[Test]
-    public function expects_returns_false_when_no_matching_content_type(): void
+    public function expectsReturnsFalseWhenNoMatchingContentType(): void
     {
         $message = $this->createMock(MessageInterface::class);
         $message->method('getHeaderLine')
@@ -146,7 +146,7 @@ final class Psr7Test extends TestCase
     }
 
     #[Test]
-    public function expects_returns_false_when_headers_are_empty(): void
+    public function expectsReturnsFalseWhenHeadersAreEmpty(): void
     {
         $message = $this->createMock(MessageInterface::class);
         $message->method('getHeaderLine')

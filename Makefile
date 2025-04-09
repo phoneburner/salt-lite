@@ -115,6 +115,10 @@ pre-ci: build
 	@$(app) composer run-script rector || true
 	@$(app) composer run-script ci
 
+.PHONY: shell
+shell: build
+	@docker compose run --rm -it php vendor/bin/psysh
+
 .PHONY: serve-coverage
 serve-coverage:
 	@docker compose run --rm --publish 8000:80 php php -S 0.0.0.0:80 -t /app/build/phpunit

@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 final class NotFoundResponseTest extends TestCase
 {
     #[Test]
-    public function response_has_expected_defaults(): void
+    public function responseHasExpectedDefaults(): void
     {
         $sut = new NotFoundResponse();
 

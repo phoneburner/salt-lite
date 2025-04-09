@@ -42,7 +42,7 @@ final class MiddlewareQueueTest extends TestCase
     }
 
     #[Test]
-    public function make_returns_middleware_queue_instance(): void
+    public function makeReturnsMiddlewareQueueInstance(): void
     {
         self::assertInstanceOf(
             MiddlewareQueue::class,
@@ -51,7 +51,7 @@ final class MiddlewareQueueTest extends TestCase
     }
 
     #[Test]
-    public function push_adds_middleware_to_queue(): void
+    public function pushAddsMiddlewareToQueue(): void
     {
         $middleware = $this->createMock(MiddlewareInterface::class);
         $middleware->expects($this->never())->method('process');
@@ -63,7 +63,7 @@ final class MiddlewareQueueTest extends TestCase
     }
 
     #[Test]
-    public function handle_returns_fallback_response_when_queue_is_empty(): void
+    public function handleReturnsFallbackResponseWhenQueueIsEmpty(): void
     {
         $queue = MiddlewareQueue::make($this->fallback_handler);
 
@@ -73,7 +73,7 @@ final class MiddlewareQueueTest extends TestCase
     }
 
     #[Test]
-    public function handle_processes_middleware_in_order(): void
+    public function handleProcessesMiddlewareInOrder(): void
     {
         $first_response = new Response();
         new Response();
@@ -100,7 +100,7 @@ final class MiddlewareQueueTest extends TestCase
     }
 
     #[Test]
-    public function handle_dispatches_events_for_middleware_processing(): void
+    public function handleDispatchesEventsForMiddlewareProcessing(): void
     {
         $middleware_response = new Response();
         $middleware = $this->createMock(MiddlewareInterface::class);
@@ -138,7 +138,7 @@ final class MiddlewareQueueTest extends TestCase
     }
 
     #[Test]
-    public function handle_dispatches_events_for_fallback_handler(): void
+    public function handleDispatchesEventsForFallbackHandler(): void
     {
         $event_dispatcher = $this->createMock(EventDispatcherInterface::class);
 
@@ -171,7 +171,7 @@ final class MiddlewareQueueTest extends TestCase
     }
 
     #[Test]
-    public function handle_sets_fallback_handler_on_terminable_middleware(): void
+    public function handleSetsFallbackHandlerOnTerminableMiddleware(): void
     {
         $middleware = $this->createMock(TerminableMiddleware::class);
         $middleware->expects($this->once())

@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class HttpMethodTest extends TestCase
 {
     #[Test]
-    public function values_returns_expected_values(): void
+    public function valuesReturnsExpectedValues(): void
     {
         self::assertSame([
             'GET',
@@ -27,7 +27,7 @@ final class HttpMethodTest extends TestCase
     }
 
     #[Test]
-    public function instance_returns_expected_instance(): void
+    public function instanceReturnsExpectedInstance(): void
     {
         foreach (HttpMethod::cases() as $case) {
             self::assertSame($case, HttpMethod::instance($case));

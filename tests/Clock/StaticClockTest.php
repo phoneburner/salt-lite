@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class StaticClockTest extends TestCase
 {
     #[Test]
-    public function happy_path(): void
+    public function happyPath(): void
     {
         $now = CarbonImmutable::now();
 

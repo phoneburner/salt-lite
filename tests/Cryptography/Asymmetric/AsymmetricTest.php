@@ -38,7 +38,7 @@ final class AsymmetricTest extends TestCase
         EOL;
 
     #[Test]
-    public function encryption_happy_path_xchacha20blake2b(): void
+    public function encryptionHappyPathXchacha20blake2b(): void
     {
         $sender_keypair = EncryptionKeyPair::generate();
         $recipient_keypair = EncryptionKeyPair::generate();
@@ -60,7 +60,7 @@ final class AsymmetricTest extends TestCase
     }
 
     #[Test]
-    public function sign_and_verify_happy_path(): void
+    public function signAndVerifyHappyPath(): void
     {
         $key_pair = SignatureKeyPair::generate();
 
@@ -70,7 +70,7 @@ final class AsymmetricTest extends TestCase
     }
 
     #[Test]
-    public function sign_and_verify_regression_test(): void
+    public function signAndVerifyRegressionTest(): void
     {
         $key_pair = SignatureKeyPair::import(self::KNOWN_SIGNATURE_KEYPAIR);
         $message_signature = MessageSignature::import(self::KNOWN_MESSAGE_SIGNATURE);

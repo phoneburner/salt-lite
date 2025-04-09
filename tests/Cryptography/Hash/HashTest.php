@@ -18,7 +18,7 @@ final class HashTest extends TestCase
 {
     #[DataProvider('providesStringsWithValidHashFormats')]
     #[Test]
-    public function make_returns_instance_with_hashed_string_and_algorithm(
+    public function makeReturnsInstanceWithHashedStringAndAlgorithm(
         HashAlgorithm $algorithm,
         string $digest,
     ): void {
@@ -32,7 +32,7 @@ final class HashTest extends TestCase
 
     #[DataProvider('providesStringsWithInvalidHashFormats')]
     #[Test]
-    public function make_checks_if_hashed_string_is_valid_format_for_algorithm(
+    public function makeChecksIfHashedStringIsValidFormatForAlgorithm(
         HashAlgorithm $algorithm,
         string $invalid_hash,
     ): void {
@@ -42,7 +42,7 @@ final class HashTest extends TestCase
 
     #[DataProvider('providesStringTestCases')]
     #[Test]
-    public function string_hashes_an_arbitrary_string_with_algorithm(array $test_case): void
+    public function stringHashesAnArbitraryStringWithAlgorithm(array $test_case): void
     {
         $hash = Hash::string($test_case['content'], $test_case['algorithm']);
 
@@ -54,7 +54,7 @@ final class HashTest extends TestCase
 
     #[DataProvider('providesFileTestCases')]
     #[Test]
-    public function file_hashes_an_arbitrary_file_with_algorithm(array $test_case): void
+    public function fileHashesAnArbitraryFileWithAlgorithm(array $test_case): void
     {
         $hash = Hash::file($test_case['file'], $test_case['algorithm']);
 
@@ -66,7 +66,7 @@ final class HashTest extends TestCase
 
     #[DataProvider('providesFileTestCases')]
     #[Test]
-    public function iterable_hashes_an_arbitrary_pump_iterator_with_algorithm(array $test_case): void
+    public function iterableHashesAnArbitraryPumpIteratorWithAlgorithm(array $test_case): void
     {
         $hash = Hash::iterable(
             FileReader::make($test_case['file']),
@@ -81,7 +81,7 @@ final class HashTest extends TestCase
 
     #[DataProvider('providesFileTestCases')]
     #[Test]
-    public function iterable_hashes_an_arbitrary_pump_iterator_recursively_with_algorithm(array $test_case): void
+    public function iterableHashesAnArbitraryPumpIteratorRecursivelyWithAlgorithm(array $test_case): void
     {
         $hash = Hash::iterable([
             FileReader::make($test_case['file']),
@@ -105,7 +105,7 @@ final class HashTest extends TestCase
     }
 
     #[Test]
-    public function is_returns_true_if_two_hashes_are_the_same_string_and_algorithm(): void
+    public function isReturnsTrueIfTwoHashesAreTheSameStringAndAlgorithm(): void
     {
         $hash_0 = Hash::string('foo bar baz', HashAlgorithm::BLAKE2B);
         $hash_1 = Hash::string('foo bar baz', HashAlgorithm::BLAKE2B);

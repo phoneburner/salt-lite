@@ -5,26 +5,26 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Tests\Http;
 
 use PhoneBurner\SaltLite\Http\RequestHandlerFactory;
-use PhoneBurner\SaltLite\Tests\Fixtures\TestContainer;
-use PhoneBurner\SaltLite\Tests\Fixtures\TestRequestHandler;
+use PhoneBurner\SaltLite\Tests\Fixtures\MockContainer;
+use PhoneBurner\SaltLite\Tests\Fixtures\MockRequestHandler;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 final class RequestHandlerFactoryTest extends TestCase
 {
-    private TestContainer $container;
+    private MockContainer $container;
     private RequestHandlerFactory $factory;
 
     protected function setUp(): void
     {
-        $this->container = new TestContainer();
+        $this->container = new MockContainer();
         $this->factory = new RequestHandlerFactory($this->container);
     }
 
     #[Test]
-    public function make_returns_handler_when_given_instance(): void
+    public function makeReturnsHandlerWhenGivenInstance(): void
     {
-        $handler = new TestRequestHandler();
+        $handler = new MockRequestHandler();
 
         $result = $this->factory->make($handler);
 
@@ -32,10 +32,10 @@ final class RequestHandlerFactoryTest extends TestCase
     }
 
     #[Test]
-    public function make_resolves_from_container_when_given_class_name(): void
+    public function makeResolvesFromContainerWhenGivenClassName(): void
     {
-        $handler = new TestRequestHandler();
-        $class_name = TestRequestHandler::class;
+        $handler = new MockRequestHandler();
+        $class_name = MockRequestHandler::class;
 
         $this->container->registerService($class_name, $handler);
 
@@ -46,7 +46,7 @@ final class RequestHandlerFactoryTest extends TestCase
     }
 
     #[Test]
-    public function make_throws_when_given_invalid_string(): void
+    public function makeThrowsWhenGivenInvalidString(): void
     {
         $invalid_class = 'InvalidClass';
 
@@ -57,7 +57,7 @@ final class RequestHandlerFactoryTest extends TestCase
     }
 
     #[Test]
-    public function make_throws_when_given_non_handler_class(): void
+    public function makeThrowsWhenGivenNonHandlerClass(): void
     {
         $non_handler_class = \stdClass::class;
 

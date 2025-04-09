@@ -7,10 +7,10 @@ namespace PhoneBurner\SaltLite\Cryptography\Asymmetric\Message;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\AsymmetricAlgorithm;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\EncryptionPublicKey;
 use PhoneBurner\SaltLite\Cryptography\Exception\CryptoLogicException;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
-use PhoneBurner\SaltLite\Cryptography\String\Traits\BinaryStringExportBehavior;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\EncryptedMessage;
 use PhoneBurner\SaltLite\Exception\NotImplemented;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringExportBehavior;
 
 final readonly class MultipleRecipientMessageBox implements BinaryString
 {

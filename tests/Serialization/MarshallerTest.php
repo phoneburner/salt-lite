@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 final class MarshallerTest extends TestCase
 {
     #[Test]
-    public function serialize_and_deserialize_common_values(): void
+    public function serializeAndDeserializeCommonValues(): void
     {
         self::assertNull(Marshaller::deserialize(Marshaller::serialize(null)));
         self::assertTrue(Marshaller::deserialize(Marshaller::serialize(true)));
@@ -27,7 +27,7 @@ final class MarshallerTest extends TestCase
     }
 
     #[Test]
-    public function serialize_and_deserialize_complex_values(): void
+    public function serializeAndDeserializeComplexValues(): void
     {
         $array = ['nested' => ['value' => 42]];
         self::assertSame($array, Marshaller::deserialize(Marshaller::serialize($array)));
@@ -38,7 +38,7 @@ final class MarshallerTest extends TestCase
     }
 
     #[Test]
-    public function serialize_with_encoding(): void
+    public function serializeWithEncoding(): void
     {
         $serialized = Marshaller::serialize('test', Encoding::Base64, true);
         self::assertStringStartsWith(Encoding::BASE64_PREFIX, $serialized);
@@ -55,7 +55,7 @@ final class MarshallerTest extends TestCase
     }
 
     #[Test]
-    public function compression_with_custom_threshold(): void
+    public function compressionWithCustomThreshold(): void
     {
         $string = \str_repeat('test', 10);
         $serialized = Marshaller::serialize($string, null, false, true, new Bytes(10));
@@ -64,7 +64,7 @@ final class MarshallerTest extends TestCase
     }
 
     #[Test]
-    public function serializer_selection(): void
+    public function serializerSelection(): void
     {
         if (\extension_loaded('igbinary')) {
             $serialized = Marshaller::serialize('test', null, false, false, new Bytes(1000), Serializer::Igbinary);
@@ -76,7 +76,7 @@ final class MarshallerTest extends TestCase
     }
 
     #[Test]
-    public function error_cases(): void
+    public function errorCases(): void
     {
         $this->expectException(SerializationFailure::class);
         $this->expectExceptionMessage('cannot serialize resource');
@@ -84,7 +84,7 @@ final class MarshallerTest extends TestCase
     }
 
     #[Test]
-    public function invalid_serialized_data(): void
+    public function invalidSerializedData(): void
     {
         $this->expectException(SerializationFailure::class);
         $this->expectExceptionMessage('unsupported serialization format');
@@ -92,7 +92,7 @@ final class MarshallerTest extends TestCase
     }
 
     #[Test]
-    public function edge_cases(): void
+    public function edgeCases(): void
     {
         self::assertSame('', Marshaller::deserialize(Marshaller::serialize('')));
         self::assertSame([], Marshaller::deserialize(Marshaller::serialize([])));

@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 final class HandlingHttpRequestCompleteTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_public_properties(): void
+    public function constructorSetsPublicProperties(): void
     {
         $request = new ServerRequest();
         $response = new Response();

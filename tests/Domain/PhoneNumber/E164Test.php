@@ -15,7 +15,7 @@ final class E164Test extends TestCase
 {
     #[DataProvider('providesValidTestCases')]
     #[Test]
-    public function make_returns_instance_of_E164(string $test, string $expected): void
+    public function makeReturnsInstanceOfE164(string $test, string $expected): void
     {
         $e164 = E164::make($test);
 
@@ -51,7 +51,7 @@ final class E164Test extends TestCase
 
     #[DataProvider('providesInvalidTestCases')]
     #[Test]
-    public function make_throws_exception_for_invalid(string $test): void
+    public function makeThrowsExceptionForInvalid(string $test): void
     {
         $this->expectException(InvalidPhoneNumber::class);
         E164::make($test);
@@ -59,7 +59,7 @@ final class E164Test extends TestCase
 
     #[DataProvider('providesValidTestCases')]
     #[Test]
-    public function tryFrom_returns_instance_of_E164(string $test, string $expected): void
+    public function tryFromReturnsInstanceOfE164(string $test, string $expected): void
     {
         $e164 = E164::tryFrom($test);
 
@@ -94,14 +94,14 @@ final class E164Test extends TestCase
 
     #[DataProvider('providesInvalidTestCases')]
     #[Test]
-    public function tryFrom_returns_null_for_invalid(string $test): void
+    public function tryFromReturnsNullForInvalid(string $test): void
     {
         self::assertNull(E164::tryFrom($test));
     }
 
     #[DataProvider('providesValidTestCases')]
     #[Test]
-    public function it_can_be_serialized_and_deserialized(string $test, string $expected): void
+    public function itCanBeSerializedAndDeserialized(string $test, string $expected): void
     {
         $e164 = E164::make($test);
 
@@ -115,7 +115,7 @@ final class E164Test extends TestCase
 
     #[DataProvider('providesValidTestCases')]
     #[Test]
-    public function jsonSerialize_returns_expected_string(string $test, string $expected): void
+    public function jsonSerializeReturnsExpectedString(string $test, string $expected): void
     {
         self::assertSame($expected, E164::make($test)->jsonSerialize());
     }

@@ -38,7 +38,7 @@ final class MapWrapperTest extends TestCase
     }
 
     #[Test]
-    public function it_can_get_and_find_values(): void
+    public function itCanGetAndFindValues(): void
     {
         $map = self::getMockMap(['key1' => 'value1', 'key2' => 'value2']);
         self::assertSame('value1', $map->get('key1'));
@@ -52,7 +52,7 @@ final class MapWrapperTest extends TestCase
     }
 
     #[Test]
-    public function it_can_set_values(): void
+    public function itCanSetValues(): void
     {
         $map = self::getMockMap();
         $map->set('key1', 'value1');
@@ -64,7 +64,7 @@ final class MapWrapperTest extends TestCase
     }
 
     #[Test]
-    public function it_can_unset_values(): void
+    public function itCanUnsetValues(): void
     {
         $map = self::getMockMap(['key1' => 'value1', 'key2' => 'value2']);
         $map->unset('key1');
@@ -74,7 +74,7 @@ final class MapWrapperTest extends TestCase
     }
 
     #[Test]
-    public function it_can_clear_the_mapped_values(): void
+    public function itCanClearTheMappedValues(): void
     {
         $map = self::getMockMap(['key1' => 'value1', 'key2' => 'value2']);
         $map->clear();
@@ -85,7 +85,7 @@ final class MapWrapperTest extends TestCase
     }
 
     #[Test]
-    public function it_can_return_the_data_as_an_array(): void
+    public function itCanReturnTheDataAsAnArray(): void
     {
         $array = ['key1' => 'value1', 'key2' => 'value2'];
         $map = self::getMockMap(['key1' => 'value1', 'key2' => 'value2']);
@@ -94,7 +94,7 @@ final class MapWrapperTest extends TestCase
     }
 
     #[Test]
-    public function it_can_replace_the_mapped_values(): void
+    public function itCanReplaceTheMappedValues(): void
     {
         $map = self::getMockMap(['key1' => 'value1', 'key2' => 'value2']);
         $map->replace(['key3' => 'value3']);

@@ -6,7 +6,8 @@
 /.gitattributes             export-ignore
 /.github/                   export-ignore
 /.gitignore                 export-ignore
-/.idea                      export-ignore
+/.idea/                     export-ignore
+/.cursor/                   export-ignore
 /.psysh.php                 export-ignore
 /CHANGELOG.md               export-ignore
 /CODE_OF_CONDUCT.md         export-ignore

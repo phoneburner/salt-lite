@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Tests\Cryptography\IntToUuid;
 
-use Generator;
 use InvalidArgumentException;
 use PhoneBurner\SaltLite\Cryptography\IntToUuid\IntegerId;
 use PhoneBurner\SaltLite\Cryptography\IntToUuid\IntToUuid;
@@ -20,7 +19,7 @@ final class IntToUuidTest extends TestCase
 {
     #[DataProvider('providesIntegerAndNamespaceIds')]
     #[Test]
-    public function it_can_encode_and_decode_64bit_int_into_UUID(int $id, int $namespace): void
+    public function itCanEncodeAndDecode64bitIntIntoUUID(int $id, int $namespace): void
     {
         $id = IntegerId::make($id, $namespace);
 
@@ -37,7 +36,7 @@ final class IntToUuidTest extends TestCase
         self::assertEquals($id, IntToUuid::decode($uuid));
     }
 
-    public static function providesIntegerAndNamespaceIds(): Generator
+    public static function providesIntegerAndNamespaceIds(): \Generator
     {
         for ($i = 0; $i < 1000; ++$i) {
             yield [
@@ -52,16 +51,16 @@ final class IntToUuidTest extends TestCase
         yield [IntegerId::ID_MAX, IntegerId::NAMESPACE_MAX];
     }
 
-    #[DataProvider('provides_valid_uuids_without_encoded_id')]
+    #[DataProvider('providesValidUuidsWithoutEncodedId')]
     #[Test]
-    public function decode_validates_checksum_value(UuidInterface $bad_uuid): void
+    public function decodeValidatesChecksumValue(UuidInterface $bad_uuid): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage("UUID Could Not Be Decoded Successfully");
         IntToUuid::decode($bad_uuid);
     }
 
-    public static function provides_valid_uuids_without_encoded_id(): Generator
+    public static function providesValidUuidsWithoutEncodedId(): \Generator
     {
         yield [Uuid::fromString('4b9a188c-945a-4628-8599-b5b5e604d144')];
         yield [Uuid::fromString('489a188c-945a-4728-8599-b5b5e604d144')];
@@ -75,16 +74,16 @@ final class IntToUuidTest extends TestCase
         yield [Uuid::fromString('772e5800-40be-44d4-9567-09899746d872')];
     }
 
-    #[DataProvider('provides_invalid_v4_uuids')]
+    #[DataProvider('providesInvalidV4Uuids')]
     #[Test]
-    public function decode_validates_uuid_value(UuidInterface $invalid_uuid): void
+    public function decodeValidatesUuidValue(UuidInterface $invalid_uuid): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('UUID Does Not Match Required RFC 4122 v4 Format');
         IntToUuid::decode($invalid_uuid);
     }
 
-    public static function provides_invalid_v4_uuids(): Generator
+    public static function providesInvalidV4Uuids(): \Generator
     {
         yield [Uuid::fromString(Uuid::NIL)];
         yield [Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff')];

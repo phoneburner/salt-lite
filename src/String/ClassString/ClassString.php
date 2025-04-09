@@ -29,7 +29,7 @@ final readonly class ClassString implements \Stringable
             \class_exists($value) => ClassStringType::Object,
             \interface_exists($value) => ClassStringType::Interface,
             \trait_exists($value) => throw new \UnexpectedValueException("Traits are not supported"),
-            default => throw new \UnexpectedValueException("Class $value does not exist"),
+            default => throw new \UnexpectedValueException(\sprintf('Class %s does not exist', $value)),
         };
 
         /**
@@ -51,7 +51,7 @@ final readonly class ClassString implements \Stringable
             return $class_string;
         }
 
-        throw new \UnexpectedValueException("Class '$value' does not match type '$type'");
+        throw new \UnexpectedValueException(\sprintf("Class '%s' does not match type '%s'", $value, $type));
     }
 
     /**

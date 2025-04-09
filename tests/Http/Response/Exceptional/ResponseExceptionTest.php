@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 final class ResponseExceptionTest extends TestCase
 {
     #[Test]
-    public function response_has_expected_defaults(): void
+    public function responseHasExpectedDefaults(): void
     {
         $response = new HtmlResponse('Hello, World');
 
@@ -32,7 +32,7 @@ final class ResponseExceptionTest extends TestCase
     }
 
     #[Test]
-    public function response_can_return_response_with_exception_message_and_previous(): void
+    public function responseCanReturnResponseWithExceptionMessageAndPrevious(): void
     {
         $previous = new \RuntimeException('Test');
         $response = new JsonResponse(['message' => 'Hello, World'], 444);
@@ -49,7 +49,7 @@ final class ResponseExceptionTest extends TestCase
     }
 
     #[Test]
-    public function response_has_can_mutate(): void
+    public function responseHasCanMutate(): void
     {
         $response = new HtmlResponse('Hello, World');
 

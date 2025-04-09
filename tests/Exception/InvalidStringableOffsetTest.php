@@ -14,7 +14,7 @@ final class InvalidStringableOffsetTest extends TestCase
 {
     #[Test]
     #[DataProvider('exceptionMessageProvider')]
-    public function happy_path(mixed $offset, string $message): void
+    public function happyPath(mixed $offset, string $message): void
     {
         $exception = new InvalidStringableOffset($offset);
         self::assertSame($message, $exception->getMessage());

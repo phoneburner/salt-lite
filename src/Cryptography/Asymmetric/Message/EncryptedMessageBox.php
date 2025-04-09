@@ -6,10 +6,10 @@ namespace PhoneBurner\SaltLite\Cryptography\Asymmetric\Message;
 
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\AsymmetricAlgorithm;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\EncryptionPublicKey;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
 use PhoneBurner\SaltLite\Cryptography\String\Ciphertext;
 use PhoneBurner\SaltLite\Cryptography\String\Nonce;
-use PhoneBurner\SaltLite\Cryptography\String\Traits\BinaryStringExportBehavior;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringExportBehavior;
 use PhoneBurner\SaltLite\String\Encoding\Encoding;
 
 final readonly class EncryptedMessageBox implements BinaryString
@@ -65,7 +65,7 @@ final readonly class EncryptedMessageBox implements BinaryString
             EncryptionPublicKey::import($data[1], self::DEFAULT_ENCODING),
             EncryptionPublicKey::import($data[2], self::DEFAULT_ENCODING),
             Ciphertext::import($data[3], self::DEFAULT_ENCODING),
-            Nonce::import($data[3]),
+            Nonce::import($data[4], self::DEFAULT_ENCODING),
         );
     }
 }

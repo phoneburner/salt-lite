@@ -36,19 +36,6 @@ interface AppendOnlyCache
     public function setMultiple(iterable $values): bool;
 
     /**
-     * Remove an item from the cache.
-     */
-    public function delete(string|\Stringable $key): bool;
-
-    /**
-     * Deletes multiple cache items in a single operation.
-     *
-     * @param iterable<string|\Stringable> $keys A list of string-based keys to be deleted.
-     * @return bool True if the items were successfully removed. False if there was an error.
-     */
-    public function deleteMultiple(iterable $keys): bool;
-
-    /**
      * Get an item from the cache, or execute the given Closure and store the result.
      *
      * @template T
@@ -56,10 +43,4 @@ interface AppendOnlyCache
      * @return T
      */
     public function remember(string|\Stringable $key, callable $callback): mixed;
-
-    /**
-     * Deletes a key from the cache, returning the value if it existed, otherwise
-     * returns null
-     */
-    public function forget(string|\Stringable $key): mixed;
 }

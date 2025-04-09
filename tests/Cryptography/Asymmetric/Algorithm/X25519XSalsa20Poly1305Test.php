@@ -25,7 +25,7 @@ final class X25519XSalsa20Poly1305Test extends TestCase
     public const string ADDITIONAL_DATA = 'Some Random Metadata Not Sent in the Message';
 
     #[Test]
-    public function encryption_happy_path(): void
+    public function encryptionHappyPath(): void
     {
         $sender_keypair = EncryptionKeyPair::generate();
         $recipient_keypair = EncryptionKeyPair::generate();
@@ -48,7 +48,7 @@ final class X25519XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function authenticated_encryption_regression_test(): void
+    public function authenticatedEncryptionRegressionTest(): void
     {
         $sender_keypair = EncryptionKeyPair::import(self::KNOWN_SENDER_KEYPAIR);
         $recipient_keypair = EncryptionKeyPair::import(self::KNOWN_RECIPIENT_KEYPAIR);
@@ -61,7 +61,7 @@ final class X25519XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function anonymous_encryption_regression_test(): void
+    public function anonymousEncryptionRegressionTest(): void
     {
         $recipient_keypair = EncryptionKeyPair::import(self::KNOWN_RECIPIENT_KEYPAIR);
         $ciphertext = CipherText::import(File::read(__DIR__ . '/../../Fixtures/lorem_x25519xsalsa20poly1305_anonymous.txt'));
@@ -73,7 +73,7 @@ final class X25519XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function anonymous_encryption_happy_path(): void
+    public function anonymousEncryptionHappyPath(): void
     {
         $recipient_keypair = EncryptionKeyPair::generate();
 
@@ -84,7 +84,7 @@ final class X25519XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function encrypt_throw_exception_if_additional_data_is_nonempty(): void
+    public function encryptThrowExceptionIfAdditionalDataIsNonempty(): void
     {
         $sender_keypair = EncryptionKeyPair::generate();
         $recipient_keypair = EncryptionKeyPair::generate();
@@ -95,7 +95,7 @@ final class X25519XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function decrypt_throw_exception_if_additional_data_is_nonempty(): void
+    public function decryptThrowExceptionIfAdditionalDataIsNonempty(): void
     {
         $sender_keypair = EncryptionKeyPair::generate();
         $recipient_keypair = EncryptionKeyPair::generate();
@@ -105,7 +105,7 @@ final class X25519XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function seal_throw_exception_if_additional_data_is_nonempty(): void
+    public function sealThrowExceptionIfAdditionalDataIsNonempty(): void
     {
         $recipient_keypair = EncryptionKeyPair::generate();
 
@@ -115,7 +115,7 @@ final class X25519XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function unseal_throw_exception_if_additional_data_is_nonempty(): void
+    public function unsealThrowExceptionIfAdditionalDataIsNonempty(): void
     {
         $recipient_keypair = EncryptionKeyPair::generate();
 
@@ -125,7 +125,7 @@ final class X25519XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function sodium_crypto_box_compatiblity_regression_test_sender(): void
+    public function sodiumCryptoBoxCompatiblityRegressionTestSender(): void
     {
         // We generate a keypair using our own implementation and provide our public key
         // to the recipient as a hex/base64/base64url encoded string.
@@ -164,7 +164,7 @@ final class X25519XSalsa20Poly1305Test extends TestCase
     }
 
     #[Test]
-    public function sodium_crypto_box_compatiblity_regression_test_recipient(): void
+    public function sodiumCryptoBoxCompatiblityRegressionTestRecipient(): void
     {
         // We generate a keypair using our own implementation and provide our public key
         // to the recipient as a hex/base64/base64url encoded string.

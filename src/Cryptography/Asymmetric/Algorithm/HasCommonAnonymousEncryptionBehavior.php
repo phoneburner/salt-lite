@@ -7,8 +7,8 @@ namespace PhoneBurner\SaltLite\Cryptography\Asymmetric\Algorithm;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\AsymmetricEncryptionAlgorithm;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\EncryptionKeyPair;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\EncryptionPublicKey;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
 use PhoneBurner\SaltLite\Cryptography\String\Ciphertext;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 
 /**
  * @phpstan-require-implements AsymmetricEncryptionAlgorithm

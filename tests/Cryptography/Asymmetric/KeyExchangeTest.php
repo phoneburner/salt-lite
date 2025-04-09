@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class KeyExchangeTest extends TestCase
 {
     #[Test]
-    public function happy_path_for_simplified_bidirectional_key_exchange(): void
+    public function happyPathForSimplifiedBidirectionalKeyExchange(): void
     {
         // Alice and Bob generate their key pairs and exchange public keys
         $alice_key_pair = EncryptionKeyPair::generate();
@@ -36,7 +36,7 @@ final class KeyExchangeTest extends TestCase
     }
 
     #[Test]
-    public function happy_path_for_server_and_client_bidirectional_key_exchange(): void
+    public function happyPathForServerAndClientBidirectionalKeyExchange(): void
     {
         $server_key_pair = EncryptionKeyPair::generate();
         $client_key_pair = EncryptionKeyPair::generate();

@@ -12,70 +12,76 @@ use PHPUnit\Framework\TestCase;
 final class ContentTypeTest extends TestCase
 {
     #[Test]
-    public function constants(): void
+    #[DataProvider('provideConstants')]
+    public function constants(string $expected, string $actual): void
     {
-        self::assertSame('application/json', ContentType::JSON);
-        self::assertSame('application/hal+json', ContentType::HAL_JSON);
-        self::assertSame('application/health+json', ContentType::HEALTH_JSON);
-        self::assertSame('image/png', ContentType::PNG);
-        self::assertSame('text/html', ContentType::HTML);
-        self::assertSame('application/problem+json', ContentType::PROBLEM_DETAILS_JSON);
-        self::assertSame('text/plain', ContentType::TEXT);
-        self::assertSame('text/csv', ContentType::CSV);
-        self::assertSame('application/octet-stream', ContentType::OCTET_STREAM);
-        self::assertSame('application/zip', ContentType::ZIP);
-        self::assertSame('application/x-php', ContentType::PHP);
-        self::assertSame('image/gif', ContentType::GIF);
-        self::assertSame('text/css', ContentType::CSS);
-        self::assertSame('text/javascript', ContentType::JS);
-        self::assertSame('audio/x-aiff', ContentType::AIFF);
-        self::assertSame('video/avi', ContentType::AVI);
-        self::assertSame('image/bmp', ContentType::BMP);
-        self::assertSame('application/x-bz2', ContentType::BZ2);
-        self::assertSame('application/x-apple-diskimage', ContentType::DMG);
-        self::assertSame('application/msword', ContentType::DOC);
-        self::assertSame('application/vnd.openxmlformats-officedocument.wordprocessingml.document', ContentType::DOCX);
-        self::assertSame('image/jpeg', ContentType::JPEG);
-        self::assertSame('video/x-flv', ContentType::FLV);
-        self::assertSame('application/gzip', ContentType::GZ);
-        self::assertSame('message/rfc822', ContentType::EML);
-        self::assertSame('application/postscript', ContentType::PS);
-        self::assertSame('application/xml', ContentType::XML);
-        self::assertSame('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', ContentType::XLSX);
-        self::assertSame('audio/wav', ContentType::WAV);
-        self::assertSame('application/excel', ContentType::XLS);
-        self::assertSame('audio/x-ms-wmv', ContentType::WMV);
-        self::assertSame('audio/x-ms-wma', ContentType::WMA);
-        self::assertSame('text/x-vcard', ContentType::VCF);
-        self::assertSame('application/x-font-truetype', ContentType::TTF);
-        self::assertSame('image/tiff', ContentType::TIFF);
-        self::assertSame('image/svg+xml', ContentType::SVG);
-        self::assertSame('application/x-stuffit', ContentType::SIT);
-        self::assertSame('application/x-tar', ContentType::TAR);
-        self::assertSame('application/rtf', ContentType::RTF);
-        self::assertSame('application/x-rar-compressed', ContentType::RAR);
-        self::assertSame('application/vnd.openxmlformats-officedocument.presentationml.presentation', ContentType::PPTX);
-        self::assertSame('application/vnd.ms-powerpoint', ContentType::PPT);
-        self::assertSame('application/pdf', ContentType::PDF);
-        self::assertSame('audio/ogg', ContentType::OGG);
-        self::assertSame('application/vnd.oasis.opendocument.spreadsheet', ContentType::ODS);
-        self::assertSame('application/vnd.oasis.opendocument.text', ContentType::ODT);
-        self::assertSame('application/vnd.oasis.opendocument.presentation', ContentType::ODP);
-        self::assertSame('application/vnd.oasis.opendocument.graphics', ContentType::ODG);
-        self::assertSame('audio/mpeg', ContentType::MP3);
-        self::assertSame('video/mp4', ContentType::MP4);
-        self::assertSame('video/mpeg', ContentType::MPEG);
-        self::assertSame('video/quicktime', ContentType::MOV);
-        self::assertSame('audio/midi', ContentType::MIDI);
-        self::assertSame('application/x-ms-dos-executable', ContentType::EXE);
-        self::assertSame('application/stuffit', ContentType::HQX);
-        self::assertSame('application/x-java-archive', ContentType::JAR);
-        self::assertSame('audio/x-mpegurl', ContentType::M3U);
-        self::assertSame('audio/mp4', ContentType::M4A);
-        self::assertSame('application/x-msaccess', ContentType::MDB);
-        self::assertSame('image/x-icon', ContentType::ICO);
-        self::assertSame('application/yaml', ContentType::YAML);
-        self::assertSame('text/calendar', ContentType::ICS);
+        self::assertSame($expected, $actual);
+    }
+
+    public static function provideConstants(): iterable
+    {
+        yield 'JSON' => ['application/json', ContentType::JSON];
+        yield 'HAL_JSON' => ['application/hal+json', ContentType::HAL_JSON];
+        yield 'HEALTH_JSON' => ['application/health+json', ContentType::HEALTH_JSON];
+        yield 'PNG' => ['image/png', ContentType::PNG];
+        yield 'HTML' => ['text/html', ContentType::HTML];
+        yield 'PROBLEM_DETAILS_JSON' => ['application/problem+json', ContentType::PROBLEM_DETAILS_JSON];
+        yield 'TEXT' => ['text/plain', ContentType::TEXT];
+        yield 'CSV' => ['text/csv', ContentType::CSV];
+        yield 'OCTET_STREAM' => ['application/octet-stream', ContentType::OCTET_STREAM];
+        yield 'ZIP' => ['application/zip', ContentType::ZIP];
+        yield 'PHP' => ['application/x-php', ContentType::PHP];
+        yield 'GIF' => ['image/gif', ContentType::GIF];
+        yield 'CSS' => ['text/css', ContentType::CSS];
+        yield 'JS' => ['text/javascript', ContentType::JS];
+        yield 'AIFF' => ['audio/x-aiff', ContentType::AIFF];
+        yield 'AVI' => ['video/avi', ContentType::AVI];
+        yield 'BMP' => ['image/bmp', ContentType::BMP];
+        yield 'BZ2' => ['application/x-bz2', ContentType::BZ2];
+        yield 'DMG' => ['application/x-apple-diskimage', ContentType::DMG];
+        yield 'DOC' => ['application/msword', ContentType::DOC];
+        yield 'DOCX' => ['application/vnd.openxmlformats-officedocument.wordprocessingml.document', ContentType::DOCX];
+        yield 'JPEG' => ['image/jpeg', ContentType::JPEG];
+        yield 'FLV' => ['video/x-flv', ContentType::FLV];
+        yield 'GZ' => ['application/gzip', ContentType::GZ];
+        yield 'EML' => ['message/rfc822', ContentType::EML];
+        yield 'PS' => ['application/postscript', ContentType::PS];
+        yield 'XML' => ['application/xml', ContentType::XML];
+        yield 'XLSX' => ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', ContentType::XLSX];
+        yield 'WAV' => ['audio/wav', ContentType::WAV];
+        yield 'XLS' => ['application/excel', ContentType::XLS];
+        yield 'WMV' => ['audio/x-ms-wmv', ContentType::WMV];
+        yield 'WMA' => ['audio/x-ms-wma', ContentType::WMA];
+        yield 'VCF' => ['text/x-vcard', ContentType::VCF];
+        yield 'TTF' => ['application/x-font-truetype', ContentType::TTF];
+        yield 'TIFF' => ['image/tiff', ContentType::TIFF];
+        yield 'SVG' => ['image/svg+xml', ContentType::SVG];
+        yield 'SIT' => ['application/x-stuffit', ContentType::SIT];
+        yield 'TAR' => ['application/x-tar', ContentType::TAR];
+        yield 'RTF' => ['application/rtf', ContentType::RTF];
+        yield 'RAR' => ['application/x-rar-compressed', ContentType::RAR];
+        yield 'PPTX' => ['application/vnd.openxmlformats-officedocument.presentationml.presentation', ContentType::PPTX];
+        yield 'PPT' => ['application/vnd.ms-powerpoint', ContentType::PPT];
+        yield 'PDF' => ['application/pdf', ContentType::PDF];
+        yield 'OGG' => ['audio/ogg', ContentType::OGG];
+        yield 'ODS' => ['application/vnd.oasis.opendocument.spreadsheet', ContentType::ODS];
+        yield 'ODT' => ['application/vnd.oasis.opendocument.text', ContentType::ODT];
+        yield 'ODP' => ['application/vnd.oasis.opendocument.presentation', ContentType::ODP];
+        yield 'ODG' => ['application/vnd.oasis.opendocument.graphics', ContentType::ODG];
+        yield 'MP3' => ['audio/mpeg', ContentType::MP3];
+        yield 'MP4' => ['video/mp4', ContentType::MP4];
+        yield 'MPEG' => ['video/mpeg', ContentType::MPEG];
+        yield 'MOV' => ['video/quicktime', ContentType::MOV];
+        yield 'MIDI' => ['audio/midi', ContentType::MIDI];
+        yield 'EXE' => ['application/x-ms-dos-executable', ContentType::EXE];
+        yield 'HQX' => ['application/stuffit', ContentType::HQX];
+        yield 'JAR' => ['application/x-java-archive', ContentType::JAR];
+        yield 'M3U' => ['audio/x-mpegurl', ContentType::M3U];
+        yield 'M4A' => ['audio/mp4', ContentType::M4A];
+        yield 'MDB' => ['application/x-msaccess', ContentType::MDB];
+        yield 'ICO' => ['image/x-icon', ContentType::ICO];
+        yield 'YAML' => ['application/yaml', ContentType::YAML];
+        yield 'ICS' => ['text/calendar', ContentType::ICS];
     }
 
     #[Test]

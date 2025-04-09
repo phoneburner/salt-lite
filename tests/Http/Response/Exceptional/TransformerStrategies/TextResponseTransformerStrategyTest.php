@@ -29,7 +29,7 @@ final class TextResponseTransformerStrategyTest extends TestCase
     }
 
     #[Test]
-    public function transform_creates_api_problem_response(): void
+    public function transformCreatesApiProblemResponse(): void
     {
         $exception = new NotFoundResponse();
         $request = $this->createMock(ServerRequestInterface::class);

@@ -24,7 +24,7 @@ final class Version1Test extends TestCase
 
     #[Test]
     #[DataProvider('provideTestVectorsEncryptPass')]
-    public function paseto_standard_test_vectors_encrypt_pass(array $test_vector): void
+    public function pasetoStandardTestVectorsEncryptPass(array $test_vector): void
     {
         $key = SharedKey::import($test_vector['key'], Encoding::Hex);
 
@@ -35,7 +35,7 @@ final class Version1Test extends TestCase
 
     #[Test]
     #[DataProvider('provideTestVectorsSignPass')]
-    public function paseto_standard_test_vectors_sign_pass(array $test_vector): void
+    public function pasetoStandardTestVectorsSignPass(array $test_vector): void
     {
         $public_key = SignatureKeyPair::generate()->public;
         $this->expectException(PasetoCryptoException::class);
@@ -45,7 +45,7 @@ final class Version1Test extends TestCase
 
     #[Test]
     #[DataProvider('provideTestVectorsEncryptFail')]
-    public function paseto_standard_test_vectors_encrypt_fail(array $test_vector): void
+    public function pasetoStandardTestVectorsEncryptFail(array $test_vector): void
     {
         $key = SharedKey::import($test_vector['key'], Encoding::Hex);
 
@@ -55,7 +55,7 @@ final class Version1Test extends TestCase
 
     #[Test]
     #[DataProvider('provideTestVectorsSignFail')]
-    public function paseto_standard_test_vectors_sign_fail(array $test_vector): void
+    public function pasetoStandardTestVectorsSignFail(array $test_vector): void
     {
         $public_key = SignatureKeyPair::generate()->public;
         $this->expectException(PasetoCryptoException::class);

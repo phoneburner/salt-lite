@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class MessageBodyPartTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_properties(): void
+    public function constructorSetsProperties(): void
     {
         $part = new MessageBodyPart('Test content', 'iso-8859-1');
 
@@ -20,7 +20,7 @@ final class MessageBodyPartTest extends TestCase
     }
 
     #[Test]
-    public function constructor_uses_default_charset_when_not_specified(): void
+    public function constructorUsesDefaultCharsetWhenNotSpecified(): void
     {
         $part = new MessageBodyPart('Test content');
 
@@ -30,7 +30,7 @@ final class MessageBodyPartTest extends TestCase
     }
 
     #[Test]
-    public function empty_constructor_creates_empty_content(): void
+    public function emptyConstructorCreatesEmptyContent(): void
     {
         $part = new MessageBodyPart();
 

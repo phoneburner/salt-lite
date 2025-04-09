@@ -7,7 +7,7 @@ namespace PhoneBurner\SaltLite\Tests\Configuration;
 use PhoneBurner\SaltLite\App\Environment;
 use PhoneBurner\SaltLite\Configuration\ConfigurationFactory;
 use PhoneBurner\SaltLite\Configuration\ImmutableConfiguration;
-use PhoneBurner\SaltLite\Tests\Fixtures\TestEnvironment;
+use PhoneBurner\SaltLite\Tests\Fixtures\MockEnvironment;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -29,7 +29,7 @@ final class ConfigurationFactoryTest extends TestCase
         $this->cache_file = new \SplFileInfo($this->root_dir->getPathname() . '/storage/bootstrap/config.cache.php');
         \mkdir(\dirname($this->cache_file->getPathname()), 0777, true);
 
-        $this->environment = new TestEnvironment($this->root_dir->getPathname(), env: ['SALT_ENABLE_CONFIG_CACHE' => 'true']);
+        $this->environment = new MockEnvironment($this->root_dir->getPathname(), env: ['SALT_ENABLE_CONFIG_CACHE' => 'true']);
     }
 
     protected function tearDown(): void
@@ -48,14 +48,14 @@ final class ConfigurationFactoryTest extends TestCase
     }
 
     #[Test]
-    public function make_returns_immutable_configuration(): void
+    public function makeReturnsImmutableConfiguration(): void
     {
         $config = ConfigurationFactory::make($this->environment);
         self::assertInstanceOf(ImmutableConfiguration::class, $config);
     }
 
     #[Test]
-    public function make_loads_configuration_from_files(): void
+    public function makeLoadsConfigurationFromFiles(): void
     {
         $config_file = $this->config_dir->getPathname() . '/test.php';
         \file_put_contents($config_file, '<?php return ["foo" => "bar"];');
@@ -65,7 +65,7 @@ final class ConfigurationFactoryTest extends TestCase
     }
 
     #[Test]
-    public function make_merges_configuration_from_multiple_files(): void
+    public function makeMergesConfigurationFromMultipleFiles(): void
     {
         \file_put_contents($this->config_dir->getPathname() . '/first.php', '<?php return ["foo" => "bar"];');
         \file_put_contents($this->config_dir->getPathname() . '/second.php', '<?php return ["baz" => "qux"];');
@@ -76,7 +76,7 @@ final class ConfigurationFactoryTest extends TestCase
     }
 
     #[Test]
-    public function make_uses_cached_configuration_when_enabled(): void
+    public function makeUsesCachedConfigurationWhenEnabled(): void
     {
         $cached_config = ['foo' => 'bar'];
         \file_put_contents($this->cache_file->getPathname(), '<?php return ' . \var_export($cached_config, true) . ';');
@@ -86,9 +86,9 @@ final class ConfigurationFactoryTest extends TestCase
     }
 
     #[Test]
-    public function make_regenerates_cache_when_disabled(): void
+    public function makeRegeneratesCacheWhenDisabled(): void
     {
-        $environment = new TestEnvironment($this->root_dir->getPathname(), env: ['SALT_ENABLE_CONFIG_CACHE' => 'false']);
+        $environment = new MockEnvironment($this->root_dir->getPathname(), env: ['SALT_ENABLE_CONFIG_CACHE' => 'false']);
 
         $cached_config = ['foo' => 'bar'];
         \file_put_contents($this->cache_file->getPathname(), '<?php return ' . \var_export($cached_config, true) . ';');
@@ -101,7 +101,7 @@ final class ConfigurationFactoryTest extends TestCase
     }
 
     #[Test]
-    public function make_regenerates_cache_when_invalid(): void
+    public function makeRegeneratesCacheWhenInvalid(): void
     {
         \file_put_contents($this->cache_file->getPathname(), '<?php return "invalid";');
 

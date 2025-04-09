@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class NullPhoneNumberTest extends TestCase
 {
     #[Test]
-    public function NullPhoneNumber_represents_empty_phone_number(): void
+    public function nullPhoneNumberRepresentsEmptyPhoneNumber(): void
     {
         $sut = NullPhoneNumber::make();
         self::assertNull($sut->toE164());

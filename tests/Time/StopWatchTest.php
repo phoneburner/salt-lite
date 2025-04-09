@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class StopWatchTest extends TestCase
 {
     #[Test]
-    public function elapsed_returns_the_duration(): void
+    public function elapsedReturnsTheDuration(): void
     {
         $stopwatch = StopWatch::start();
         self::assertLessThan(1, $stopwatch->elapsed()->inSeconds());

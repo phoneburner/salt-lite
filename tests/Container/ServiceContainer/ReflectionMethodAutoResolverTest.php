@@ -30,9 +30,9 @@ final class ReflectionMethodAutoResolverTest extends TestCase
     }
 
     #[Test]
-    public function resolves_parameter_by_position(): void
+    public function resolvesParameterByPosition(): void
     {
-        $method = new \ReflectionMethod(MethodFixture::class, 'method_with_parameters');
+        $method = new \ReflectionMethod(MethodFixture::class, 'methodWithParameters');
         $parameter = $method->getParameters()[0]; // First parameter: $first
 
         $override_value = 'position override';
@@ -41,13 +41,13 @@ final class ReflectionMethodAutoResolverTest extends TestCase
 
         $resolver = new ReflectionMethodAutoResolver($this->container, $overrides);
 
-        self::assertSame($override_value, $resolver->__invoke($parameter));
+        self::assertSame($override_value, $resolver($parameter));
     }
 
     #[Test]
-    public function resolves_parameter_by_name(): void
+    public function resolvesParameterByName(): void
     {
-        $method = new \ReflectionMethod(MethodFixture::class, 'method_with_parameters');
+        $method = new \ReflectionMethod(MethodFixture::class, 'methodWithParameters');
         $parameter = $method->getParameters()[1]; // Second parameter: $second
 
         $override_value = 'name override';
@@ -56,13 +56,13 @@ final class ReflectionMethodAutoResolverTest extends TestCase
 
         $resolver = new ReflectionMethodAutoResolver($this->container, $overrides);
 
-        self::assertSame($override_value, $resolver->__invoke($parameter));
+        self::assertSame($override_value, $resolver($parameter));
     }
 
     #[Test]
-    public function resolves_parameter_by_type(): void
+    public function resolvesParameterByType(): void
     {
-        $method = new \ReflectionMethod(MethodFixture::class, 'method_with_type_hint');
+        $method = new \ReflectionMethod(MethodFixture::class, 'methodWithTypeHint');
         $parameter = $method->getParameters()[0]; // Parameter: LoggerInterface $logger
 
         $logger = new NullLogger();
@@ -71,13 +71,13 @@ final class ReflectionMethodAutoResolverTest extends TestCase
 
         $resolver = new ReflectionMethodAutoResolver($this->container, $overrides);
 
-        self::assertSame($logger, $resolver->__invoke($parameter));
+        self::assertSame($logger, $resolver($parameter));
     }
 
     #[Test]
-    public function resolves_parameter_from_container(): void
+    public function resolvesParameterFromContainer(): void
     {
-        $method = new \ReflectionMethod(MethodFixture::class, 'method_with_type_hint');
+        $method = new \ReflectionMethod(MethodFixture::class, 'methodWithTypeHint');
         $parameter = $method->getParameters()[0]; // Parameter: LoggerInterface $logger
 
         $logger = new NullLogger();
@@ -94,32 +94,32 @@ final class ReflectionMethodAutoResolverTest extends TestCase
 
         $resolver = new ReflectionMethodAutoResolver($container);
 
-        self::assertSame($logger, $resolver->__invoke($parameter));
+        self::assertSame($logger, $resolver($parameter));
     }
 
     #[Test]
-    public function uses_default_value_when_no_type_and_default_available(): void
+    public function usesDefaultValueWhenNoTypeAndDefaultAvailable(): void
     {
-        $method = new \ReflectionMethod(MethodFixture::class, 'method_with_default_value');
+        $method = new \ReflectionMethod(MethodFixture::class, 'methodWithDefaultValue');
         $parameter = $method->getParameters()[0]; // Parameter: $param = 'default'
 
-        self::assertSame('default', $this->resolver->__invoke($parameter));
+        self::assertSame('default', ($this->resolver)($parameter));
     }
 
     #[Test]
-    public function throws_when_no_type_and_no_default_available(): void
+    public function throwsWhenNoTypeAndNoDefaultAvailable(): void
     {
-        $method = new \ReflectionMethod(MethodFixture::class, 'method_with_parameters');
+        $method = new \ReflectionMethod(MethodFixture::class, 'methodWithParameters');
         $parameter = $method->getParameters()[0]; // Parameter: $first
 
         $this->expectException(UnableToAutoResolveParameter::class);
-        $this->resolver->__invoke($parameter);
+        ($this->resolver)($parameter);
     }
 
     #[Test]
-    public function prefers_default_value_over_autowiring(): void
+    public function prefersDefaultValueOverAutowiring(): void
     {
-        $method = new \ReflectionMethod(MethodFixture::class, 'method_with_default_and_type');
+        $method = new \ReflectionMethod(MethodFixture::class, 'methodWithDefaultAndType');
         $parameter = $method->getParameters()[0]; // Parameter: LoggerInterface $logger = null
 
         // Container should not be called
@@ -133,13 +133,13 @@ final class ReflectionMethodAutoResolverTest extends TestCase
 
         $resolver = new ReflectionMethodAutoResolver($container);
 
-        self::assertNull($resolver->__invoke($parameter));
+        self::assertNull($resolver($parameter));
     }
 
     #[Test]
-    public function falls_back_to_container_resolve_when_no_other_options(): void
+    public function fallsBackToContainerResolveWhenNoOtherOptions(): void
     {
-        $method = new \ReflectionMethod(MethodFixture::class, 'method_with_type_hint');
+        $method = new \ReflectionMethod(MethodFixture::class, 'methodWithTypeHint');
         $parameter = $method->getParameters()[0]; // Parameter: LoggerInterface $logger
 
         $logger = new NullLogger();
@@ -156,43 +156,43 @@ final class ReflectionMethodAutoResolverTest extends TestCase
 
         $resolver = new ReflectionMethodAutoResolver($container);
 
-        self::assertSame($logger, $resolver->__invoke($parameter));
+        self::assertSame($logger, $resolver($parameter));
     }
 
     #[Test]
-    public function handles_non_named_type(): void
+    public function handlesNonNamedType(): void
     {
-        $method = new \ReflectionMethod(MethodFixture::class, 'method_with_union_type');
+        $method = new \ReflectionMethod(MethodFixture::class, 'methodWithUnionType');
         $parameter = $method->getParameters()[0]; // Parameter: string|int $param
 
         $this->expectException(UnableToAutoResolveParameter::class);
-        $this->resolver->__invoke($parameter);
+        ($this->resolver)($parameter);
     }
 
     #[Test]
-    public function handles_builtin_type(): void
+    public function handlesBuiltinType(): void
     {
-        $method = new \ReflectionMethod(MethodFixture::class, 'method_with_builtin_type');
+        $method = new \ReflectionMethod(MethodFixture::class, 'methodWithBuiltinType');
         $parameter = $method->getParameters()[0]; // Parameter: string $param
 
         $this->expectException(UnableToAutoResolveParameter::class);
-        $this->resolver->__invoke($parameter);
+        ($this->resolver)($parameter);
     }
 
     #[Test]
-    public function handles_self_type(): void
+    public function handlesSelfType(): void
     {
-        $method = new \ReflectionMethod(MethodFixture::class, 'method_with_self_type');
+        $method = new \ReflectionMethod(MethodFixture::class, 'methodWithSelfType');
         $parameter = $method->getParameters()[0]; // Parameter: self $param
 
         $this->expectException(UnableToAutoResolveParameter::class);
-        $this->resolver->__invoke($parameter);
+        ($this->resolver)($parameter);
     }
 
     #[Test]
-    public function supports_non_service_container(): void
+    public function supportsNonServiceContainer(): void
     {
-        $method = new \ReflectionMethod(MethodFixture::class, 'method_with_type_hint');
+        $method = new \ReflectionMethod(MethodFixture::class, 'methodWithTypeHint');
         $parameter = $method->getParameters()[0]; // Parameter: LoggerInterface $logger
 
         $logger = new NullLogger();
@@ -209,6 +209,6 @@ final class ReflectionMethodAutoResolverTest extends TestCase
 
         $resolver = new ReflectionMethodAutoResolver($container);
 
-        self::assertSame($logger, $resolver->__invoke($parameter));
+        self::assertSame($logger, $resolver($parameter));
     }
 }

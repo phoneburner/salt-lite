@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Cryptography\Asymmetric;
 
-use PhoneBurner\SaltLite\Cryptography\String\FixedLengthBinaryString;
+use PhoneBurner\SaltLite\Cryptography\String\FixedLengthSensitiveBinaryString;
 
 /**
  * Note: this class is intentionally not readonly, as this allows us to explicitly
  * zero out the key in memory when the object is destroyed.
  */
-final class SignaturePublicKey extends FixedLengthBinaryString implements PublicKey
+final class SignaturePublicKey extends FixedLengthSensitiveBinaryString implements PublicKey
 {
     public const int LENGTH = \SODIUM_CRYPTO_SIGN_PUBLICKEYBYTES; // 256-bit string
 }

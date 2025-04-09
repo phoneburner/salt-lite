@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 final class ApiProblemResponseTest extends TestCase
 {
     #[Test]
-    public function response_has_expected_defaults(): void
+    public function responseHasExpectedDefaults(): void
     {
         $sut = new ApiProblemResponse();
 
@@ -30,7 +30,7 @@ final class ApiProblemResponseTest extends TestCase
     }
 
     #[Test]
-    public function response_can_include_additional_parameters(): void
+    public function responseCanIncludeAdditionalParameters(): void
     {
         $additional = [
             'detail' => 'Invalid input provided for authentication',
@@ -51,7 +51,7 @@ final class ApiProblemResponseTest extends TestCase
     }
 
     #[Test]
-    public function can_apply_custom_headers(): void
+    public function canApplyCustomHeaders(): void
     {
         $headers = [
             'X-Custom-Header' => 'custom-value',

@@ -8,6 +8,6 @@ class UnableToCreateDirectory extends \RuntimeException
 {
     public static function atLocation(string $location, string $reason = '', \Throwable|null $previous = null): self
     {
-        return new self(\rtrim("Unable to create directory at location: {$location}. {$reason}"), previous: $previous);
+        return new self(\rtrim(\sprintf('Unable to create directory at location: %s. %s', $location, $reason)), previous: $previous);
     }
 }

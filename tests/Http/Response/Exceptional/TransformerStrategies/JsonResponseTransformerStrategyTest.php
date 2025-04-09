@@ -31,7 +31,7 @@ final class JsonResponseTransformerStrategyTest extends TestCase
     }
 
     #[Test]
-    public function transform_creates_api_problem_response(): void
+    public function transformCreatesApiProblemResponse(): void
     {
         $exception = $this->createMock(HttpExceptionResponse::class);
         $exception->method('getStatusCode')->willReturn(HttpStatus::NOT_FOUND);
@@ -59,7 +59,7 @@ final class JsonResponseTransformerStrategyTest extends TestCase
     }
 
     #[Test]
-    public function transform_handles_null_detail(): void
+    public function transformHandlesNullDetail(): void
     {
         $exception = $this->createMock(HttpExceptionResponse::class);
         $exception->method('getStatusCode')->willReturn(HttpStatus::NOT_FOUND);

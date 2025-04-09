@@ -15,7 +15,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 final class FallbackHandlerHandlingCompleteTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_public_properties(): void
+    public function constructorSetsPublicProperties(): void
     {
         $request = new ServerRequest();
         $response = new Response();
@@ -33,7 +33,7 @@ final class FallbackHandlerHandlingCompleteTest extends TestCase
     }
 
     #[Test]
-    public function getLogEntry_returns_log_entry_with_fallback_handler_class(): void
+    public function getLogEntryReturnsLogEntryWithFallbackHandlerClass(): void
     {
         $request = new ServerRequest();
         $response = new Response();

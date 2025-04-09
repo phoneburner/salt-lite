@@ -41,13 +41,13 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function read_returns_file_contents(): void
+    public function readReturnsFileContents(): void
     {
         self::assertSame($this->test_file_content, File::read($this->test_file_path));
     }
 
     #[Test]
-    public function read_accepts_stringable(): void
+    public function readAcceptsStringable(): void
     {
         $stringable = new class ($this->test_file_path) implements \Stringable {
             public function __construct(private readonly string $path)
@@ -64,14 +64,14 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function read_accepts_SplFileInfo(): void
+    public function readAcceptsSplFileInfo(): void
     {
         $file_info = new SplFileInfo($this->test_file_path);
         self::assertSame($this->test_file_content, File::read($file_info));
     }
 
     #[Test]
-    public function read_throws_for_non_existent_file(): void
+    public function readThrowsForNonExistentFile(): void
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Unable to read file at location:');
@@ -79,7 +79,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function write_writes_content_to_file(): void
+    public function writeWritesContentToFile(): void
     {
         $new_content = 'New content';
         $bytes_written = File::write($this->test_file_path, $new_content);
@@ -89,7 +89,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function write_accepts_stringable(): void
+    public function writeAcceptsStringable(): void
     {
         $stringable = new class ($this->test_file_path) implements \Stringable {
             public function __construct(private readonly string $path)
@@ -110,7 +110,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function write_accepts_spl_file_info(): void
+    public function writeAcceptsSplFileInfo(): void
     {
         $file_info = new SplFileInfo($this->test_file_path);
         $new_content = 'SplFileInfo content';
@@ -121,7 +121,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function stream_returns_file_stream(): void
+    public function streamReturnsFileStream(): void
     {
         $stream = File::stream($this->test_file_path);
 
@@ -130,9 +130,16 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function stream_with_write_mode_allows_writing(): void
+    public function streamReturnsNull(): void
+    {
+        self::assertNull(File::stream('not-a-file.txt'));
+    }
+
+    #[Test]
+    public function streamWithWriteModeAllowsWriting(): void
     {
         $stream = File::stream($this->test_file_path, FileMode::WriteCreateOrTruncateExisting);
+        self::assertInstanceOf(FileStream::class, $stream);
 
         $new_content = 'New stream content';
         $stream->write($new_content);
@@ -142,7 +149,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function open_returns_stream_resource(): void
+    public function openReturnsStreamResource(): void
     {
         $stream = File::open($this->test_file_path);
 
@@ -153,7 +160,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function open_with_context_accepts_stream_context(): void
+    public function openWithContextAcceptsStreamContext(): void
     {
         $context = \stream_context_create([
             'http' => [
@@ -168,7 +175,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function open_throws_for_invalid_context(): void
+    public function openThrowsForInvalidContext(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('context must be null or stream-context resource');
@@ -177,7 +184,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function open_throws_for_non_existent_file(): void
+    public function openThrowsForNonExistentFile(): void
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Could Not Create Stream');
@@ -186,7 +193,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function size_with_stream_resource_returns_file_size(): void
+    public function sizeWithStreamResourceReturnsFileSize(): void
     {
         $stream = File::open($this->test_file_path);
 
@@ -198,7 +205,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function size_with_StreamInterface_returns_file_size(): void
+    public function sizeWithStreamInterfaceReturnsFileSize(): void
     {
         $stream_mock = $this->createMock(StreamInterface::class);
         $stream_mock->expects($this->once())
@@ -211,7 +218,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function size_with_spl_file_info_returns_file_size(): void
+    public function sizeWithSplFileInfoReturnsFileSize(): void
     {
         $file_info = new SplFileInfo($this->test_file_path);
 
@@ -221,7 +228,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function size_with_string_path_returns_file_size(): void
+    public function sizeWithStringPathReturnsFileSize(): void
     {
         $size = File::size($this->test_file_path);
 
@@ -229,7 +236,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function size_throws_for_unsupported_type(): void
+    public function sizeThrowsForUnsupportedType(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Unsupported Type:stdClass');
@@ -238,7 +245,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function close_closes_stream_resource(): void
+    public function closeClosesStreamResource(): void
     {
         $stream = File::open($this->test_file_path);
 
@@ -248,7 +255,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function close_closes_stream_interface(): void
+    public function closeClosesStreamInterface(): void
     {
         $stream_mock = $this->createMock(StreamInterface::class);
         $stream_mock->expects($this->once())
@@ -258,7 +265,7 @@ final class FileTest extends TestCase
     }
 
     #[Test]
-    public function close_handles_unsupported_type_gracefully(): void
+    public function closeHandlesUnsupportedTypeGracefully(): void
     {
         // This should not throw any exception
         File::close('not a stream');

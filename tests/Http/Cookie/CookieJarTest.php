@@ -19,14 +19,14 @@ final class CookieJarTest extends TestCase
     }
 
     #[Test]
-    public function it_starts_empty(): void
+    public function itStartsEmpty(): void
     {
         self::assertCount(0, $this->jar);
         self::assertTrue($this->jar->isEmpty());
     }
 
     #[Test]
-    public function it_can_add_cookies(): void
+    public function itCanAddCookies(): void
     {
         $cookie1 = new Cookie('test1', 'value1');
         $cookie2 = new Cookie('test2', 'value2');
@@ -43,7 +43,7 @@ final class CookieJarTest extends TestCase
     }
 
     #[Test]
-    public function adding_cookie_with_same_name_replaces_previous(): void
+    public function addingCookieWithSameNameReplacesPrevious(): void
     {
         $cookie1 = new Cookie('test', 'value1');
         $cookie2 = new Cookie('test', 'value2');
@@ -56,7 +56,7 @@ final class CookieJarTest extends TestCase
     }
 
     #[Test]
-    public function it_can_remove_cookies(): void
+    public function itCanRemoveCookies(): void
     {
         $cookie = new Cookie('test', 'value');
         $this->jar->add($cookie);
@@ -75,7 +75,7 @@ final class CookieJarTest extends TestCase
     }
 
     #[Test]
-    public function it_can_be_iterated(): void
+    public function itCanBeIterated(): void
     {
         $cookie1 = new Cookie('test1', 'value1');
         $cookie2 = new Cookie('test2', 'value2');

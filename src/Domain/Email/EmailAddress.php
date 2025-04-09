@@ -62,7 +62,7 @@ readonly class EmailAddress implements PhpSerializable, \JsonSerializable, \Stri
     public function __toString(): string
     {
         if ($this->name) {
-            return "{$this->name} <{$this->address}>";
+            return \sprintf('%s <%s>', $this->name, $this->address);
         }
 
         return $this->address;

@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class RedirectResponseTest extends TestCase
 {
     #[Test]
-    public function creates_redirect_with_default_status(): void
+    public function createsRedirectWithDefaultStatus(): void
     {
         $uri = 'https://example.com/destination';
         $response = new RedirectResponse($uri);
@@ -25,8 +25,8 @@ final class RedirectResponseTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('redirect_status_codes')]
-    public function creates_redirect_with_custom_status(int $status): void
+    #[DataProvider('redirectStatusCodes')]
+    public function createsRedirectWithCustomStatus(int $status): void
     {
         $uri = 'https://example.com/destination';
         $response = new RedirectResponse($uri, $status);
@@ -37,7 +37,7 @@ final class RedirectResponseTest extends TestCase
     }
 
     #[Test]
-    public function creates_redirect_with_custom_headers(): void
+    public function createsRedirectWithCustomHeaders(): void
     {
         $uri = 'https://example.com/destination';
         $headers = [
@@ -57,7 +57,7 @@ final class RedirectResponseTest extends TestCase
     /**
      * @return \Iterator<(int | string), array<int>>
      */
-    public static function redirect_status_codes(): \Iterator
+    public static function redirectStatusCodes(): \Iterator
     {
         yield [HttpStatus::MOVED_PERMANENTLY];
         yield [HttpStatus::FOUND];

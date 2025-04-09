@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 final class EmailTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_subject_and_default_priority(): void
+    public function constructorSetsSubjectAndDefaultPriority(): void
     {
         $email = new Email('Test Subject');
 
@@ -25,7 +25,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function constructor_sets_custom_priority(): void
+    public function constructorSetsCustomPriority(): void
     {
         $email = new Email('Test Subject', Priority::High);
 
@@ -34,7 +34,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function new_email_has_empty_recipients(): void
+    public function newEmailHasEmptyRecipients(): void
     {
         $email = new Email('Test Subject');
 
@@ -46,7 +46,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function add_to_adds_recipients(): void
+    public function addToAddsRecipients(): void
     {
         $email = new Email('Test Subject');
         $address1 = new EmailAddress('test1@example.com');
@@ -61,7 +61,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function add_cc_adds_cc_recipients(): void
+    public function addCcAddsCcRecipients(): void
     {
         $email = new Email('Test Subject');
         $address1 = new EmailAddress('test1@example.com');
@@ -76,7 +76,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function add_bcc_adds_bcc_recipients(): void
+    public function addBccAddsBccRecipients(): void
     {
         $email = new Email('Test Subject');
         $address1 = new EmailAddress('test1@example.com');
@@ -91,7 +91,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function add_from_adds_from_addresses(): void
+    public function addFromAddsFromAddresses(): void
     {
         $email = new Email('Test Subject');
         $address1 = new EmailAddress('test1@example.com');
@@ -106,7 +106,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function add_reply_to_adds_reply_to_addresses(): void
+    public function addReplyToAddsReplyToAddresses(): void
     {
         $email = new Email('Test Subject');
         $address1 = new EmailAddress('test1@example.com');
@@ -121,7 +121,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function set_text_body_sets_text_only_body(): void
+    public function setTextBodySetsTextOnlyBody(): void
     {
         $email = new Email('Test Subject');
 
@@ -136,7 +136,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function set_html_body_sets_html_only_body(): void
+    public function setHtmlBodySetsHtmlOnlyBody(): void
     {
         $email = new Email('Test Subject');
 
@@ -151,7 +151,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function set_text_body_preserves_html_body(): void
+    public function setTextBodyPreservesHtmlBody(): void
     {
         $email = new Email('Test Subject');
         $email->setHtmlBody('<p>HTML content</p>');
@@ -166,7 +166,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function set_html_body_preserves_text_body(): void
+    public function setHtmlBodyPreservesTextBody(): void
     {
         $email = new Email('Test Subject');
         $email->setTextBody('Plain text content');
@@ -181,7 +181,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function set_body_sets_message_body(): void
+    public function setBodySetsMessageBody(): void
     {
         $email = new Email('Test Subject');
         $body = new MessageBody(
@@ -196,7 +196,7 @@ final class EmailTest extends TestCase
     }
 
     #[Test]
-    public function attach_adds_attachment(): void
+    public function attachAddsAttachment(): void
     {
         $email = new Email('Test Subject');
         $attachment1 = Attachment::fromPath('test1.txt');

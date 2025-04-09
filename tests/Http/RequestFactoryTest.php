@@ -24,7 +24,7 @@ final class RequestFactoryTest extends TestCase
     }
 
     #[Test]
-    public function create_request_with_string_uri(): void
+    public function createRequestWithStringUri(): void
     {
         $uri = 'https://example.com/test';
         $request = $this->factory->createRequest(HttpMethod::Get, $uri);
@@ -35,7 +35,7 @@ final class RequestFactoryTest extends TestCase
     }
 
     #[Test]
-    public function create_request_with_uri_object(): void
+    public function createRequestWithUriObject(): void
     {
         $uri = new Uri('https://example.com/test');
         $request = $this->factory->createRequest(HttpMethod::Post, $uri);
@@ -46,7 +46,7 @@ final class RequestFactoryTest extends TestCase
     }
 
     #[Test]
-    public function create_request_with_string_method(): void
+    public function createRequestWithStringMethod(): void
     {
         $request = $this->factory->createRequest('PUT', 'https://example.com/test');
 
@@ -55,7 +55,7 @@ final class RequestFactoryTest extends TestCase
     }
 
     #[Test]
-    public function create_request_with_custom_body_and_headers(): void
+    public function createRequestWithCustomBodyAndHeaders(): void
     {
         $body = new Stream('php://temp', 'w+b');
         $body->write('test body');
@@ -75,7 +75,7 @@ final class RequestFactoryTest extends TestCase
     }
 
     #[Test]
-    public function create_server_request_with_string_uri(): void
+    public function createServerRequestWithStringUri(): void
     {
         $uri = 'https://example.com/test';
         $request = $this->factory->createServerRequest(HttpMethod::Get, $uri);
@@ -86,7 +86,7 @@ final class RequestFactoryTest extends TestCase
     }
 
     #[Test]
-    public function create_server_request_with_uri_object(): void
+    public function createServerRequestWithUriObject(): void
     {
         $uri = new Uri('https://example.com/test');
         $request = $this->factory->createServerRequest(HttpMethod::Post, $uri);
@@ -97,7 +97,7 @@ final class RequestFactoryTest extends TestCase
     }
 
     #[Test]
-    public function create_server_request_with_server_params(): void
+    public function createServerRequestWithServerParams(): void
     {
         $serverParams = ['SERVER_NAME' => 'example.com', 'REMOTE_ADDR' => '127.0.0.1'];
         $request = $this->factory->createServerRequest(
@@ -110,7 +110,7 @@ final class RequestFactoryTest extends TestCase
     }
 
     #[Test]
-    public function server_creates_server_request_with_all_options(): void
+    public function serverCreatesServerRequestWithAllOptions(): void
     {
         $uri = new Uri('https://example.com/test');
         $body = new Stream('php://temp', 'w+b');
@@ -154,7 +154,7 @@ final class RequestFactoryTest extends TestCase
     }
 
     #[Test]
-    public function from_globals_adds_ip_address_attribute(): void
+    public function fromGlobalsAddsIpAddressAttribute(): void
     {
         // Save original server vars
         $original_server = $_SERVER;

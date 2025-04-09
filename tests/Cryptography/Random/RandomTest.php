@@ -20,7 +20,7 @@ final class RandomTest extends TestCase
     #[TestWith([1])]
     #[TestWith([16])]
     #[TestWith([256])]
-    public function bytes_returns_expected_length_of_random_bytes(int $length): void
+    public function bytesReturnsExpectedLengthOfRandomBytes(int $length): void
     {
         $bytes = Random::make()->bytes($length);
         self::assertSame($length, \strlen($bytes));
@@ -29,7 +29,7 @@ final class RandomTest extends TestCase
     #[Test]
     #[TestWith([0])]
     #[TestWith([-1])]
-    public function bytes_throws_exceptions_when_length_lte_0(int $length): void
+    public function bytesThrowsExceptionsWhenLengthLte0(int $length): void
     {
         $this->expectException(\UnexpectedValueException::class);
         Random::make()->bytes($length);
@@ -39,7 +39,7 @@ final class RandomTest extends TestCase
     #[TestWith([1])]
     #[TestWith([16])]
     #[TestWith([256])]
-    public function hex_returns_expected_length_of_hex_bytes(int $length): void
+    public function hexReturnsExpectedLengthOfHexBytes(int $length): void
     {
         $bytes = Random::make()->hex($length);
         self::assertSame($length * 2, \strlen($bytes));
@@ -49,20 +49,20 @@ final class RandomTest extends TestCase
     #[Test]
     #[TestWith([0])]
     #[TestWith([-1])]
-    public function hex_throws_exceptions_when_length_lte_0(int $length): void
+    public function hexThrowsExceptionsWhenLengthLte0(int $length): void
     {
         $this->expectException(\UnexpectedValueException::class);
         Random::make()->bytes($length);
     }
 
     #[Test]
-    public function int_returns_random_int_silly_case(): void
+    public function intReturnsRandomIntSillyCase(): void
     {
         self::assertSame(42, Random::make()->int(42, 42));
     }
 
     #[Test]
-    public function int_returns_random_int_small_range_case(): void
+    public function intReturnsRandomIntSmallRangeCase(): void
     {
         $int = Random::make()->int(0, 1);
         self::assertGreaterThanOrEqual(0, $int);
@@ -70,7 +70,7 @@ final class RandomTest extends TestCase
     }
 
     #[Test]
-    public function int_returns_random_int_large_range_case(): void
+    public function intReturnsRandomIntLargeRangeCase(): void
     {
         $int = Random::make()->int();
         self::assertGreaterThanOrEqual(\PHP_INT_MIN, $int);
@@ -78,14 +78,14 @@ final class RandomTest extends TestCase
     }
 
     #[Test]
-    public function int_throws_exceptions_when_min_gt_max(): void
+    public function intThrowsExceptionsWhenMinGtMax(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         Random::make()->int(43, 42);
     }
 
     #[Test]
-    public function enum_returns_an_enum_instance_from_passed_enum_class(): void
+    public function enumReturnsAnEnumInstanceFromPassedEnumClass(): void
     {
         $random = Random::make()->enum(LogLevel::class);
         self::assertInstanceOf(LogLevel::class, $random);
@@ -93,7 +93,7 @@ final class RandomTest extends TestCase
     }
 
     #[Test]
-    public function enum_returns_a_random_instance_from_entire_enum_enumeration(): void
+    public function enumReturnsARandomInstanceFromEntireEnumEnumeration(): void
     {
         $enums = \array_column(LogLevel::cases(), null, 'name');
         $count = \count($enums);
@@ -114,7 +114,7 @@ final class RandomTest extends TestCase
     }
 
     #[Test]
-    public function enum_throws_exception_if_passed_not_enum(): void
+    public function enumThrowsExceptionIfPassedNotEnum(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         /** @phpstan-ignore argument.type, argument.templateType (intentional defect for testing) */
@@ -122,7 +122,7 @@ final class RandomTest extends TestCase
     }
 
     #[Test]
-    public function enum_throws_exception_if_enum_has_no_cases(): void
+    public function enumThrowsExceptionIfEnumHasNoCases(): void
     {
         $this->expectException(\LogicException::class);
         $this->expectExceptionMessage('Enum has no cases');

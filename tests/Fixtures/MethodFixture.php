@@ -8,31 +8,31 @@ use Psr\Log\LoggerInterface;
 
 class MethodFixture
 {
-    public function method_with_parameters(mixed $first, mixed $second): void
+    public function methodWithParameters(mixed $first, mixed $second): void
     {
     }
 
-    public function method_with_type_hint(LoggerInterface $logger): void
+    public function methodWithTypeHint(LoggerInterface $logger): void
     {
     }
 
-    public function method_with_default_value(mixed $param = 'default'): void
+    public function methodWithDefaultValue(mixed $param = 'default'): void
     {
     }
 
-    public function method_with_default_and_type(LoggerInterface|null $logger = null): void
+    public function methodWithDefaultAndType(LoggerInterface|null $logger = null): void
     {
     }
 
-    public function method_with_union_type(string|int $param): void
+    public function methodWithUnionType(string|int $param): void
     {
     }
 
-    public function method_with_builtin_type(string $param): void
+    public function methodWithBuiltinType(string $param): void
     {
     }
 
-    public function method_with_self_type(self $param): void
+    public function methodWithSelfType(self $param): void
     {
     }
 }

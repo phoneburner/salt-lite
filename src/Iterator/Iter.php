@@ -90,7 +90,7 @@ final readonly class Iter
     /**
      * @return \AppendIterator<mixed, mixed, \Iterator<mixed>>
      */
-    public static function chain(iterable ...$iterables): \AppendIterator
+    public static function chain(array|\Traversable|Arrayable ...$iterables): \AppendIterator
     {
         $append_iterator = new \AppendIterator();
         foreach ($iterables as $iter) {

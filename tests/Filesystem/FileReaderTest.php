@@ -15,7 +15,7 @@ final class FileReaderTest extends TestCase
 {
     #[Test]
     #[DataProvider('providesTestCases')]
-    public function toString_returns_file_contents(string|\Stringable $file): void
+    public function toStringReturnsFileContents(string|\Stringable $file): void
     {
         $reader = FileReader::make($file);
         self::assertStringEqualsFile(UNIT_TEST_ROOT . '/Fixtures/lorem.txt', (string)$reader);
@@ -23,7 +23,7 @@ final class FileReaderTest extends TestCase
 
     #[Test]
     #[DataProvider('providesEmptyTestCases')]
-    public function toString_returns_file_contents_empty_case(string|\Stringable $file): void
+    public function toStringReturnsFileContentsEmptyCase(string|\Stringable $file): void
     {
         $reader = FileReader::make($file);
         self::assertSame('', (string)$reader);
@@ -31,7 +31,7 @@ final class FileReaderTest extends TestCase
 
     #[Test]
     #[DataProvider('providesTestCases')]
-    public function iterating_returns_file_contents(string|\Stringable $file): void
+    public function iteratingReturnsFileContents(string|\Stringable $file): void
     {
         $reader = FileReader::make($file);
         self::assertStringEqualsFile(UNIT_TEST_ROOT . '/Fixtures/lorem.txt', \implode('', [...$reader]));
@@ -39,14 +39,14 @@ final class FileReaderTest extends TestCase
 
     #[Test]
     #[DataProvider('providesEmptyTestCases')]
-    public function iterating_returns_file_contents_empty_case(string|\Stringable $file): void
+    public function iteratingReturnsFileContentsEmptyCase(string|\Stringable $file): void
     {
         $reader = FileReader::make($file);
         self::assertSame('', \implode('', [...$reader]));
     }
 
     #[Test]
-    public function make_checks_if_file_exists(): void
+    public function makeChecksIfFileExists(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         FileReader::make(UNIT_TEST_ROOT . '/Fixtures/does-not-exist.txt');

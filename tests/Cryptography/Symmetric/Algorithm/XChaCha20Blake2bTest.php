@@ -22,7 +22,7 @@ final class XChaCha20Blake2bTest extends TestCase
     public const string ADDITIONAL_DATA = 'Some Random Metadata Not Sent in the Message';
 
     #[Test]
-    public function symmetric_encryption_happy_path(): void
+    public function symmetricEncryptionHappyPath(): void
     {
         $shared_key = SharedKey::generate();
 
@@ -41,7 +41,7 @@ final class XChaCha20Blake2bTest extends TestCase
     }
 
     #[Test]
-    public function symmetric_encryption_regression_test(): void
+    public function symmetricEncryptionRegressionTest(): void
     {
         $shared_key = SharedKey::import(self::KNOWN_KEY);
         $ciphertext = CipherText::import(File::read(__DIR__ . '/../../Fixtures/lorem_xchacha20blake2b.txt'));
@@ -53,7 +53,7 @@ final class XChaCha20Blake2bTest extends TestCase
     }
 
     #[Test]
-    public function aead_happy_path(): void
+    public function aeadHappyPath(): void
     {
         $shared_key = SharedKey::generate();
 
@@ -66,7 +66,7 @@ final class XChaCha20Blake2bTest extends TestCase
     }
 
     #[Test]
-    public function aead_missing_on_encryption(): void
+    public function aeadMissingOnEncryption(): void
     {
         $shared_key = SharedKey::generate();
 
@@ -78,7 +78,7 @@ final class XChaCha20Blake2bTest extends TestCase
     }
 
     #[Test]
-    public function aead_missing_on_decryption(): void
+    public function aeadMissingOnDecryption(): void
     {
         $shared_key = SharedKey::generate();
 
@@ -90,7 +90,7 @@ final class XChaCha20Blake2bTest extends TestCase
     }
 
     #[Test]
-    public function aead_does_not_match(): void
+    public function aeadDoesNotMatch(): void
     {
         $shared_key = SharedKey::generate();
 
@@ -102,7 +102,7 @@ final class XChaCha20Blake2bTest extends TestCase
     }
 
     #[Test]
-    public function decrypt_returns_null_with_wrong_key(): void
+    public function decryptReturnsNullWithWrongKey(): void
     {
         $shared_key = SharedKey::generate();
 
@@ -116,7 +116,7 @@ final class XChaCha20Blake2bTest extends TestCase
     }
 
     #[Test]
-    public function decrypt_returns_null_with_wrong_tag(): void
+    public function decryptReturnsNullWithWrongTag(): void
     {
         $shared_key = SharedKey::generate();
 
@@ -131,7 +131,7 @@ final class XChaCha20Blake2bTest extends TestCase
     #[Test]
     #[TestWith([''])]
     #[TestWith(['short'])]
-    public function decrypt_returns_null_when_message_is_too_short(string $ciphertext): void
+    public function decryptReturnsNullWhenMessageIsTooShort(string $ciphertext): void
     {
         // Pass a deliberately short message to trigger error condition.
         $plaintext = Aes256Gcm::decrypt(SharedKey::generate(), new Ciphertext($ciphertext));

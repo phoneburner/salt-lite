@@ -12,13 +12,13 @@ use PHPUnit\Framework\TestCase;
 final class MathTest extends TestCase
 {
     #[Test]
-    #[DataProvider('floor_provider')]
-    public function floor_returns_integer_floor(int|float $input, int $expected): void
+    #[DataProvider('floorProvider')]
+    public function floorReturnsIntegerFloor(int|float $input, int $expected): void
     {
         self::assertSame($expected, Math::floor($input));
     }
 
-    public static function floor_provider(): \Iterator
+    public static function floorProvider(): \Iterator
     {
         yield 'integer' => [5, 5];
         yield 'negative integer' => [-5, -5];
@@ -30,13 +30,13 @@ final class MathTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('ceil_provider')]
-    public function ceil_returns_integer_ceiling(int|float $input, int $expected): void
+    #[DataProvider('ceilProvider')]
+    public function ceilReturnsIntegerCeiling(int|float $input, int $expected): void
     {
         self::assertSame($expected, Math::ceil($input));
     }
 
-    public static function ceil_provider(): \Iterator
+    public static function ceilProvider(): \Iterator
     {
         yield 'integer' => [5, 5];
         yield 'negative integer' => [-5, -5];
@@ -48,8 +48,8 @@ final class MathTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('clamp_provider')]
-    public function clamp_constrains_value_within_range(
+    #[DataProvider('clampProvider')]
+    public function clampConstrainsValueWithinRange(
         int|float $value,
         int|float $min,
         int|float $max,
@@ -58,7 +58,7 @@ final class MathTest extends TestCase
         self::assertSame($expected, Math::clamp($value, $min, $max));
     }
 
-    public static function clamp_provider(): \Iterator
+    public static function clampProvider(): \Iterator
     {
         yield 'within range' => [5, 0, 10, 5];
         yield 'at min' => [0, 0, 10, 0];
@@ -73,7 +73,7 @@ final class MathTest extends TestCase
     }
 
     #[Test]
-    public function clamp_throws_exception_when_max_less_than_min(): void
+    public function clampThrowsExceptionWhenMaxLessThanMin(): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('max must be greater than or equal to min');
@@ -81,13 +81,13 @@ final class MathTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('iclamp_provider')]
-    public function iclamp_returns_integer_clamped_value(int|float $value, int $min, int $max, int $expected): void
+    #[DataProvider('iclampProvider')]
+    public function iclampReturnsIntegerClampedValue(int|float $value, int $min, int $max, int $expected): void
     {
         self::assertSame($expected, Math::iclamp($value, $min, $max));
     }
 
-    public static function iclamp_provider(): \Iterator
+    public static function iclampProvider(): \Iterator
     {
         yield 'integer within range' => [5, 0, 10, 5];
         yield 'integer below min' => [-5, 0, 10, 0];
@@ -98,8 +98,8 @@ final class MathTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('fclamp_provider')]
-    public function fclamp_returns_float_clamped_value(
+    #[DataProvider('fclampProvider')]
+    public function fclampReturnsFloatClampedValue(
         int|float $value,
         int|float $min,
         int|float $max,
@@ -108,7 +108,7 @@ final class MathTest extends TestCase
         self::assertSame($expected, Math::fclamp($value, $min, $max));
     }
 
-    public static function fclamp_provider(): \Iterator
+    public static function fclampProvider(): \Iterator
     {
         yield 'integer within range' => [5, 0, 10, 5.0];
         yield 'integer below min' => [-5, 0, 10, 0.0];

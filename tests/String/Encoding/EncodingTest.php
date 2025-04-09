@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class EncodingTest extends TestCase
 {
     #[Test]
-    public function prefix_returns_expected_value(): void
+    public function prefixReturnsExpectedValue(): void
     {
         self::assertSame('hex:', Encoding::Hex->prefix());
         self::assertSame('base64:', Encoding::Base64->prefix());
@@ -21,7 +21,7 @@ final class EncodingTest extends TestCase
     }
 
     #[Test]
-    public function regex_returns_expected_value(): void
+    public function regexReturnsExpectedValue(): void
     {
         self::assertSame('/^[A-Fa-f0-9]+$/', Encoding::Hex->regex());
         self::assertSame('/^[A-Za-z0-9+\/]+={0,2}$/', Encoding::Base64->regex());

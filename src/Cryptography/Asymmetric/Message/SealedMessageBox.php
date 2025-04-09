@@ -6,9 +6,9 @@ namespace PhoneBurner\SaltLite\Cryptography\Asymmetric\Message;
 
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\AsymmetricAlgorithm;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\EncryptionPublicKey;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
 use PhoneBurner\SaltLite\Cryptography\String\Ciphertext;
-use PhoneBurner\SaltLite\Cryptography\String\Traits\BinaryStringExportBehavior;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringExportBehavior;
 use PhoneBurner\SaltLite\String\Encoding\Encoding;
 
 /**

@@ -22,27 +22,27 @@ use ReflectionMethod;
 final class ReflectTest extends TestCase
 {
     #[Test]
-    public function object_returns_ReflectionClass_for_fully_qualified_classname(): void
+    public function objectReturnsReflectionClassForFullyQualifiedClassname(): void
     {
         self::assertEquals(new ReflectionClass(Mirror::class), Reflect::object(Mirror::class));
     }
 
     #[Test]
-    public function object_returns_ReflectionClass_for_object_instance(): void
+    public function objectReturnsReflectionClassForObjectInstance(): void
     {
         $mirror = new Mirror();
         self::assertEquals(new ReflectionClass($mirror::class), Reflect::object($mirror));
     }
 
     #[Test]
-    public function method_returns_ReflectionMethod_for_fully_qualified_classname_and_method(): void
+    public function methodReturnsReflectionMethodForFullyQualifiedClassnameAndMethod(): void
     {
         $expected = new ReflectionMethod(Mirror::class, 'getBar');
         self::assertEquals($expected, Reflect::method(Mirror::class, 'getBar'));
     }
 
     #[Test]
-    public function method_returns_ReflectionMethod_for_object_instance_and_method(): void
+    public function methodReturnsReflectionMethodForObjectInstanceAndMethod(): void
     {
         $mirror = new Mirror();
         $expected = new ReflectionMethod($mirror, 'getBar');
@@ -50,7 +50,7 @@ final class ReflectTest extends TestCase
     }
 
     #[Test]
-    public function setProperty_sets_nonpublic_property_and_returns_object(): void
+    public function setPropertySetsNonpublicPropertyAndReturnsObject(): void
     {
         $mirror = new Mirror();
         $reflection = Reflect::setProperty($mirror, 'foo', 'bazqux');
@@ -59,13 +59,13 @@ final class ReflectTest extends TestCase
     }
 
     #[Test]
-    public function getProperty_returns_value_of_nonpublic_property(): void
+    public function getPropertyReturnsValueOfNonpublicProperty(): void
     {
         self::assertSame(7654321, Reflect::getProperty(new Mirror(), 'bar'));
     }
 
     #[Test]
-    public function getConstants_returns_all_class_constants_for_fully_qualified_classname(): void
+    public function getConstantsReturnsAllClassConstantsForFullyQualifiedClassname(): void
     {
         self::assertSame([
             'RED' => 1,
@@ -77,7 +77,7 @@ final class ReflectTest extends TestCase
     }
 
     #[Test]
-    public function getConstants_returns_all_class_constants_for_object_instance(): void
+    public function getConstantsReturnsAllClassConstantsForObjectInstance(): void
     {
         self::assertSame([
             'RED' => 1,
@@ -89,7 +89,7 @@ final class ReflectTest extends TestCase
     }
 
     #[Test]
-    public function getPublicConstants_returns_public_class_constants_for_fully_qualified_classname(): void
+    public function getPublicConstantsReturnsPublicClassConstantsForFullyQualifiedClassname(): void
     {
         self::assertSame([
             'RED' => 1,
@@ -99,7 +99,7 @@ final class ReflectTest extends TestCase
     }
 
     #[Test]
-    public function getPublicConstants_returns_public_class_constants_for_object_instance(): void
+    public function getPublicConstantsReturnsPublicClassConstantsForObjectInstance(): void
     {
         self::assertSame([
             'RED' => 1,
@@ -114,7 +114,7 @@ final class ReflectTest extends TestCase
      */
     #[DataProvider('providesInvalidInterfaceStringTestCases')]
     #[Test]
-    public function implements_throws_exception_when_passed_bad_interface(
+    public function implementsThrowsExceptionWhenPassedBadInterface(
         object|string $class_or_object,
         string $interface,
     ): void {
@@ -150,7 +150,7 @@ final class ReflectTest extends TestCase
     #[TestWith([true, ReflectsLightWaves::class])]
     #[TestWith([false, AbsorbsLightWaves::class])]
     #[Test]
-    public function implements_returns_true_if_object_implements_interface(bool $expected, string $interface): void
+    public function implementsReturnsTrueIfObjectImplementsInterface(bool $expected, string $interface): void
     {
         self::assertSame($expected, Reflect::implements(new Mirror(), $interface));
     }
@@ -158,7 +158,7 @@ final class ReflectTest extends TestCase
     #[TestWith([true, ReflectsLightWaves::class])]
     #[TestWith([false,AbsorbsLightWaves::class])]
     #[Test]
-    public function implements_returns_true_if_class_implements_interface(bool $expected, string $interface): void
+    public function implementsReturnsTrueIfClassImplementsInterface(bool $expected, string $interface): void
     {
         self::assertSame($expected, Reflect::implements(Mirror::class, $interface));
     }
@@ -168,13 +168,13 @@ final class ReflectTest extends TestCase
      */
     #[DataProvider('providesInvalidClassOrObjectTestCases')]
     #[Test]
-    public function implement_returns_false_if_passed_invalid_class_or_object(mixed $class): void
+    public function implementReturnsFalseIfPassedInvalidClassOrObject(mixed $class): void
     {
         self::assertFalse(Reflect::implements($class, ReflectsLightWaves::class));
     }
 
     #[Test]
-    public function shortName_returns_class_or_object_short_name(): void
+    public function shortNameReturnsClassOrObjectShortName(): void
     {
         self::assertSame('Mirror', Reflect::shortName(Mirror::class));
         self::assertSame('Mirror', Reflect::shortName(new Mirror()));
@@ -202,7 +202,7 @@ final class ReflectTest extends TestCase
      */
     #[DataProvider('providesHasPropertyTestCases')]
     #[Test]
-    public function hasProperty_returns_true_if_class_or_object_has_property(
+    public function hasPropertyReturnsTrueIfClassOrObjectHasProperty(
         object|string $class_or_object,
         string $property,
         bool $expected,

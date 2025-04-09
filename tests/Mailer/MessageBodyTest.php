@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class MessageBodyTest extends TestCase
 {
     #[Test]
-    public function constructor_sets_properties(): void
+    public function constructorSetsProperties(): void
     {
         $html = new MessageBodyPart('<p>HTML content</p>', 'utf-8');
         $text = new MessageBodyPart('Plain text content', 'utf-8');
@@ -24,7 +24,7 @@ final class MessageBodyTest extends TestCase
     }
 
     #[Test]
-    public function constructor_accepts_null_values(): void
+    public function constructorAcceptsNullValues(): void
     {
         $html = new MessageBodyPart('<p>HTML content</p>', 'utf-8');
         $body1 = new MessageBody($html, null);
@@ -38,7 +38,7 @@ final class MessageBodyTest extends TestCase
     }
 
     #[Test]
-    public function empty_constructor_creates_null_body_parts(): void
+    public function emptyConstructorCreatesNullBodyParts(): void
     {
         $body = new MessageBody();
         self::assertNull($body->html);

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Cryptography\Symmetric;
 
 use PhoneBurner\SaltLite\Cryptography\KeyManagement\Key;
-use PhoneBurner\SaltLite\Cryptography\String\FixedLengthBinaryString;
-use PhoneBurner\SaltLite\Cryptography\String\Traits\BinaryStringFromRandomBytes;
-use PhoneBurner\SaltLite\Cryptography\String\Traits\BinaryStringProhibitsSerialization;
+use PhoneBurner\SaltLite\Cryptography\String\FixedLengthSensitiveBinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringFromRandomBytes;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringProhibitsSerialization;
 
 /**
  * 256-bit symmetric key for use with XChaCha20 or AEGIS-256 ciphers
@@ -15,7 +15,7 @@ use PhoneBurner\SaltLite\Cryptography\String\Traits\BinaryStringProhibitsSeriali
  * Note: this class is intentionally not readonly, as this allows us to explicitly
  * zero out the key in memory when the object is destroyed.
  */
-final class SharedKey extends FixedLengthBinaryString implements Key
+final class SharedKey extends FixedLengthSensitiveBinaryString implements Key
 {
     use BinaryStringProhibitsSerialization;
     use BinaryStringFromRandomBytes;

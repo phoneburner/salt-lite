@@ -6,6 +6,9 @@ use Rector\CodeQuality\Rector\ClassMethod\LocallyCalledStaticMethodToNonStaticRe
 use Rector\CodeQuality\Rector\Expression\InlineIfToExplicitIfRector;
 use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
+use Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector;
+use Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector;
+use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\ClassConst\RemoveUnusedPrivateClassConstantRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector;
@@ -27,7 +30,7 @@ return RectorConfig::configure()
     ->withPreparedSets(
         deadCode: true,
         codeQuality: true,
-        codingStyle: false,
+        codingStyle: true,
         typeDeclarations: true,
         privatization: true,
         naming: false,
@@ -37,7 +40,6 @@ return RectorConfig::configure()
         carbon: false,
         rectorPreset: true,
         phpunitCodeQuality: true,
-        doctrineCodeQuality: true,
     )->withSkip([
         ClosureToArrowFunctionRector::class,
         FlipTypeControlToUseExclusiveTypeRector::class,
@@ -45,6 +47,9 @@ return RectorConfig::configure()
         InlineIfToExplicitIfRector::class,
         LocallyCalledStaticMethodToNonStaticRector::class,
         ExplicitBoolCompareRector::class,
+        NewlineAfterStatementRector::class,
+        NewlineBeforeNewAssignSetRector::class,
+        CatchExceptionNameMatchingTypeRector::class,
 
         // intentionally dead code used for testing
         RemoveUnusedPrivatePropertyRector::class => [

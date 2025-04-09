@@ -13,9 +13,9 @@ use PhoneBurner\SaltLite\Cryptography\Asymmetric\EncryptionPublicKey;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\Message\EncryptedMessageBox;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\Message\SealedMessageBox;
 use PhoneBurner\SaltLite\Cryptography\Exception\CryptoLogicException;
-use PhoneBurner\SaltLite\Cryptography\String\BinaryString;
 use PhoneBurner\SaltLite\Cryptography\String\Ciphertext;
 use PhoneBurner\SaltLite\Cryptography\String\Nonce;
+use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 
 /**
  * Implements the X25519-XSalsa20-Poly1305 encryption algorithm using the default

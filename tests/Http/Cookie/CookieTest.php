@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 final class CookieTest extends TestCase
 {
     #[Test]
-    public function constructor_validates_empty_name(): void
+    public function constructorValidatesEmptyName(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Cookie name cannot be empty');
@@ -24,7 +24,7 @@ final class CookieTest extends TestCase
     }
 
     #[Test]
-    public function constructor_validates_name_with_reserved_chars(): void
+    public function constructorValidatesNameWithReservedChars(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The cookie name "invalid=name" contains invalid characters.');
@@ -32,7 +32,7 @@ final class CookieTest extends TestCase
     }
 
     #[Test]
-    public function constructor_validates_same_site_none_requires_secure(): void
+    public function constructorValidatesSameSiteNoneRequiresSecure(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('SameSite=None requires Secure Setting');
@@ -40,7 +40,7 @@ final class CookieTest extends TestCase
     }
 
     #[Test]
-    public function removal_cookie_has_empty_value(): void
+    public function removalCookieHasEmptyValue(): void
     {
         $cookie = Cookie::remove('test_cookie', '/path', 'example.com');
 
@@ -51,7 +51,7 @@ final class CookieTest extends TestCase
     }
 
     #[Test]
-    public function with_value_returns_new_instance_with_updated_value(): void
+    public function withValueReturnsNewInstanceWithUpdatedValue(): void
     {
         $cookie = new Cookie('test', 'original');
         $updated_cookie = $cookie->withValue('new_value');
@@ -67,7 +67,7 @@ final class CookieTest extends TestCase
     }
 
     #[Test]
-    public function value_converts_stringable_to_string(): void
+    public function valueConvertsStringableToString(): void
     {
         $cookie = new Cookie('test', new class implements \Stringable {
             public function __toString(): string
@@ -80,7 +80,7 @@ final class CookieTest extends TestCase
     }
 
     #[Test]
-    public function set_adds_cookie_to_response(): void
+    public function setAddsCookieToResponse(): void
     {
         $response = new Response();
         $cookie = new Cookie('test', 'value');
@@ -96,8 +96,8 @@ final class CookieTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('cookie_string_provider')]
-    public function to_string_formats_cookie_correctly(
+    #[DataProvider('cookieStringProvider')]
+    public function toStringFormatsCookieCorrectly(
         Cookie $cookie,
         string $expected_string,
     ): void {
@@ -108,7 +108,7 @@ final class CookieTest extends TestCase
     /**
      * @return \Iterator<string, array{Cookie, string}>
      */
-    public static function cookie_string_provider(): \Iterator
+    public static function cookieStringProvider(): \Iterator
     {
         yield 'basic cookie' => [
             new Cookie('test', 'value'),

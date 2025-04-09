@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class SystemHighResolutionTimerTest extends TestCase
 {
     #[Test]
-    public function happy_path(): void
+    public function happyPath(): void
     {
         $timer = new SystemHighResolutionTimer();
         $now = $timer->now();

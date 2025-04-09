@@ -30,9 +30,13 @@ final readonly class File
             ?: throw UnableToWriteFile::atLocation((string)$filename);
     }
 
-    public static function stream(\Stringable|string $filename, FileMode $mode = FileMode::Read): FileStream
+    public static function stream(\Stringable|string $filename, FileMode $mode = FileMode::Read): FileStream|null
     {
-        return new FileStream($filename, $mode);
+        try {
+            return new FileStream(self::filename($filename), $mode);
+        } catch (\Exception) {
+            return null;
+        }
     }
 
     /**

@@ -13,7 +13,7 @@ final class NonEmptyONullableCastTest extends TestCase
 {
     #[DataProvider('providesIntegerTestCases')]
     #[Test]
-    public function integer_returns_expected_value(mixed $input, int|null $expected): void
+    public function integerReturnsExpectedValue(mixed $input, int|null $expected): void
     {
         self::assertSame($expected, NonEmptyNullableCast::integer($input));
     }
@@ -37,7 +37,7 @@ final class NonEmptyONullableCastTest extends TestCase
 
     #[DataProvider('providesFloatTestCases')]
     #[Test]
-    public function float_returns_expected_value(mixed $input, float|null $expected): void
+    public function floatReturnsExpectedValue(mixed $input, float|null $expected): void
     {
         self::assertSame($expected, NonEmptyNullableCast::float($input));
     }
@@ -62,7 +62,7 @@ final class NonEmptyONullableCastTest extends TestCase
 
     #[DataProvider('providesStringTestCases')]
     #[Test]
-    public function string_returns_expected_value(mixed $input, string|null $expected): void
+    public function stringReturnsExpectedValue(mixed $input, string|null $expected): void
     {
         self::assertSame($expected, NonEmptyNullableCast::string($input));
     }
@@ -87,7 +87,7 @@ final class NonEmptyONullableCastTest extends TestCase
 
     #[DataProvider('providesBooleanTestCases')]
     #[Test]
-    public function boolean_returns_expected_value(mixed $input, bool|null $expected): void
+    public function booleanReturnsExpectedValue(mixed $input, bool|null $expected): void
     {
         self::assertSame($expected, NonEmptyNullableCast::boolean($input));
     }
@@ -115,7 +115,7 @@ final class NonEmptyONullableCastTest extends TestCase
 
     #[DataProvider('providesArrayTestCases')]
     #[Test]
-    public function array_returns_expected_value(mixed $input, array|null $expected): void
+    public function arrayReturnsExpectedValue(mixed $input, array|null $expected): void
     {
         self::assertSame($expected, NonEmptyNullableCast::array($input));
     }

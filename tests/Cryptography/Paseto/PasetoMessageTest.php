@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class PasetoMessageTest extends TestCase
 {
     #[Test]
-    public function null_case(): void
+    public function nullCase(): void
     {
         $message = PasetoMessage::make([], []);
 
@@ -23,7 +23,7 @@ final class PasetoMessageTest extends TestCase
     }
 
     #[Test]
-    public function simple_case(): void
+    public function simpleCase(): void
     {
         $message = PasetoMessage::make([
             'foo' => 42,
@@ -37,7 +37,7 @@ final class PasetoMessageTest extends TestCase
     }
 
     #[Test]
-    public function with_footer_and_additional_data(): void
+    public function withFooterAndAdditionalData(): void
     {
         $message = PasetoMessage::make(
             ['foo' => 42],

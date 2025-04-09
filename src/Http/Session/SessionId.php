@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Http\Session;
 
-use PhoneBurner\SaltLite\Cryptography\String\FixedLengthBinaryString;
-use PhoneBurner\SaltLite\Cryptography\String\Traits\BinaryStringFromRandomBytes;
+use PhoneBurner\SaltLite\Cryptography\String\FixedLengthSensitiveBinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringFromRandomBytes;
 use PhoneBurner\SaltLite\String\Encoding\Encoding;
 
 /**
@@ -14,7 +14,7 @@ use PhoneBurner\SaltLite\String\Encoding\Encoding;
  * Note: this class is intentionally not readonly to allow for the sensitive id
  * value to be overwritten in memory when the object is destroyed.
  */
-final class SessionId extends FixedLengthBinaryString
+final class SessionId extends FixedLengthSensitiveBinaryString
 {
     use BinaryStringFromRandomBytes;
 
@@ -29,5 +29,5 @@ final class SessionId extends FixedLengthBinaryString
      * bugs more likely. The conversion would not be reversible, so we would not be able
      * to recover the original session id from the cache key. So, hex it is.
      */
-    final public const Encoding DEFAULT_ENCODING = Encoding::Hex;
+    public const Encoding DEFAULT_ENCODING = Encoding::Hex;
 }

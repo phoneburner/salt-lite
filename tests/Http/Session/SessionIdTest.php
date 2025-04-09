@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class SessionIdTest extends TestCase
 {
     #[Test]
-    public function session_id_encodes_and_decodes_with_hex_encoding_by_default(): void
+    public function sessionIdEncodesAndDecodesWithHexEncodingByDefault(): void
     {
         $raw_bytes = \random_bytes(SessionId::LENGTH);
         $hex_bytes = \bin2hex($raw_bytes);
@@ -38,7 +38,7 @@ final class SessionIdTest extends TestCase
     #[TestWith(['invalid_hex'], 'invalid_hex')]
     #[TestWith([null], 'null')]
     #[TestWith(['deadbee'], 'odd_length_hex')]
-    public function tryImport_returns_null_on_invalid_input(string|null $input): void
+    public function tryImportReturnsNullOnInvalidInput(string|null $input): void
     {
         self::assertNull(SessionId::tryImport($input));
     }

@@ -22,7 +22,7 @@ final class TimeZoneFactoryTest extends TestCase
      */
     #[DataProvider('providesTimeZoneNames')]
     #[Test]
-    public function make_returns_memoized_time_zone(string $time_zone_name): void
+    public function makeReturnsMemoizedTimeZone(string $time_zone_name): void
     {
         $tz = TimeZoneFactory::make($time_zone_name);
         self::assertSame($tz, TimeZoneFactory::make($time_zone_name));
@@ -35,7 +35,7 @@ final class TimeZoneFactoryTest extends TestCase
     }
 
     #[Test]
-    public function collect_returns_empty_time_zone_collection(): void
+    public function collectReturnsEmptyTimeZoneCollection(): void
     {
         $collection = TimeZoneFactory::collect();
         self::assertEmpty($collection);
@@ -44,7 +44,7 @@ final class TimeZoneFactoryTest extends TestCase
     }
 
     #[Test]
-    public function collect_returns_memoized_time_zone_collection(): void
+    public function collectReturnsMemoizedTimeZoneCollection(): void
     {
         $collection = TimeZoneFactory::collect(
             Tz::NewYork,
@@ -71,7 +71,7 @@ final class TimeZoneFactoryTest extends TestCase
     }
 
     #[Test]
-    public function default_returns_expected_memoized_timezone(): void
+    public function defaultReturnsExpectedMemoizedTimezone(): void
     {
         $default = TimeZoneFactory::default();
         self::assertSame($default, TimeZoneFactory::default());

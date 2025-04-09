@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class ObservableIteratorTest extends TestCase
 {
     #[Test]
-    public function getIterator_notifies_observers_on_each_iteration(): void
+    public function getIteratorNotifiesObserversOnEachIteration(): void
     {
         $foo = ['foo' => 2343, 'bar' => 23, 'baz' => 32];
         $observer = self::getObserver();
@@ -32,7 +32,7 @@ final class ObservableIteratorTest extends TestCase
     }
 
     #[Test]
-    public function detach_removes_observers(): void
+    public function detachRemovesObservers(): void
     {
         $foo = ['foo' => 2343, 'bar' => 23, 'baz' => 32, 'qux' => 42];
 
@@ -67,7 +67,7 @@ final class ObservableIteratorTest extends TestCase
     }
 
     #[Test]
-    public function getIterator_does_empty_case(): void
+    public function getIteratorDoesEmptyCase(): void
     {
         $foo = [];
         $observer = self::getObserver();

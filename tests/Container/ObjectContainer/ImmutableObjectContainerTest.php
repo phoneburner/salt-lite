@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class ImmutableObjectContainerTest extends TestCase
 {
     #[Test]
-    public function happy_path_tests(): void
+    public function happyPathTests(): void
     {
         $a = new \stdClass();
         $b = new \stdClass();
@@ -44,7 +44,7 @@ final class ImmutableObjectContainerTest extends TestCase
     }
 
     #[Test]
-    public function throws_exception_when_key_not_found(): void
+    public function throwsExceptionWhenKeyNotFound(): void
     {
         $container = new ImmutableObjectContainer([]);
         self::assertEmpty($container);
@@ -57,7 +57,7 @@ final class ImmutableObjectContainerTest extends TestCase
     }
 
     #[Test]
-    public function throws_exception_when_setting_through_array_access(): void
+    public function throwsExceptionWhenSettingThroughArrayAccess(): void
     {
         $container = new ImmutableObjectContainer([]);
 
@@ -67,7 +67,7 @@ final class ImmutableObjectContainerTest extends TestCase
     }
 
     #[Test]
-    public function throws_exception_when_unsetting_through_array_access(): void
+    public function throwsExceptionWhenUnsettingThroughArrayAccess(): void
     {
         $container = new ImmutableObjectContainer([
             'a' => new \stdClass(),

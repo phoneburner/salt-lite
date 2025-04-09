@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 final class AreaCodeTest extends TestCase
 {
     #[Test]
-    public function all_returns_collection_of_all_area_codes(): void
+    public function allReturnsCollectionOfAllAreaCodes(): void
     {
         $area_codes = AreaCode::all();
         self::assertCount(800, $area_codes);
@@ -40,7 +40,7 @@ final class AreaCodeTest extends TestCase
     }
 
     #[Test]
-    public function active_returns_collection_of_active_area_codes(): void
+    public function activeReturnsCollectionOfActiveAreaCodes(): void
     {
         $area_codes = AreaCode::active();
         self::assertCount(467, $area_codes);
@@ -54,7 +54,7 @@ final class AreaCodeTest extends TestCase
     #[TestWith([100])]
     #[TestWith([-314])]
     #[Test]
-    public function bad_hydrate(int $area_code): void
+    public function badHydrate(int $area_code): void
     {
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Invalid Area Code NPA Value');
@@ -68,14 +68,14 @@ final class AreaCodeTest extends TestCase
     #[TestWith([100])]
     #[TestWith([-314])]
     #[Test]
-    public function bad_hydrate_with_tryFrom_returns_null(int $area_code): void
+    public function badHydrateWithTryFromReturnsNull(int $area_code): void
     {
         self::assertNull(AreaCode::tryFrom($area_code));
     }
 
     #[DataProvider('providesValidAreaCodeNpaValues')]
     #[Test]
-    public function can_hydrate_memoized_area_code(int $npa): void
+    public function canHydrateMemoizedAreaCode(int $npa): void
     {
         $area_code = AreaCode::make($npa);
 
@@ -91,7 +91,7 @@ final class AreaCodeTest extends TestCase
 
     #[DataProvider('providesValidAreaCodeNpaValues')]
     #[Test]
-    public function can_hydrate_from_area_code_aware(int $npa): void
+    public function canHydrateFromAreaCodeAware(int $npa): void
     {
         $test = new class ($npa) implements AreaCodeAware {
             public function __construct(private readonly int $npa)
@@ -109,7 +109,7 @@ final class AreaCodeTest extends TestCase
 
     #[DataProvider('providesValidAreaCodeNpaValues')]
     #[Test]
-    public function it_can_be_serialized_and_deserialized(int $npa): void
+    public function itCanBeSerializedAndDeserialized(int $npa): void
     {
         $area_code = AreaCode::make($npa);
 
@@ -127,7 +127,7 @@ final class AreaCodeTest extends TestCase
 
     #[DataProvider('providesAreaCodeMetadata')]
     #[Test]
-    public function area_codes_have_expected_metadata(AreaCodeMetadata $metadata): void
+    public function areaCodesHaveExpectedMetadata(AreaCodeMetadata $metadata): void
     {
         $area_code = AreaCode::make($metadata->npa);
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Http\Session;
 
-use PhoneBurner\SaltLite\Cryptography\String\FixedLengthBinaryString;
-use PhoneBurner\SaltLite\Cryptography\String\Traits\BinaryStringFromRandomBytes;
+use PhoneBurner\SaltLite\Cryptography\String\FixedLengthSensitiveBinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringFromRandomBytes;
 use PhoneBurner\SaltLite\String\Encoding\Encoding;
 
 /**
@@ -14,7 +14,7 @@ use PhoneBurner\SaltLite\String\Encoding\Encoding;
  * Note: this class is intentionally not readonly to allow for the sensitive token
  * value to be overwritten in memory when the object is destroyed.
  */
-final class CsrfToken extends FixedLengthBinaryString
+final class CsrfToken extends FixedLengthSensitiveBinaryString
 {
     use BinaryStringFromRandomBytes;
 
