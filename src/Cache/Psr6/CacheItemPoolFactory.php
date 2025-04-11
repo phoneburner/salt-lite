@@ -11,9 +11,5 @@ use Psr\Cache\CacheItemPoolInterface;
 #[Contract]
 interface CacheItemPoolFactory
 {
-    public function make(
-        CacheDriver $driver,
-        string|null $namespace = null,
-        array $options = [],
-    ): CacheItemPoolInterface;
+    public function make(CacheDriver $driver, string|null $namespace = null,): CacheItemPoolInterface;
 }
