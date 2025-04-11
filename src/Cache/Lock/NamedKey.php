@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace PhoneBurner\SaltLite\Cache\Lock;
+
+interface NamedKey extends \Stringable
+{
+    // phpcs:ignore
+    public string $name { get; }
+
+    public function __serialize(): array;
+
+    public function __unserialize(array $data): void;
+}

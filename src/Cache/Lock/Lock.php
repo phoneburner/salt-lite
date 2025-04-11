@@ -7,6 +7,7 @@ namespace PhoneBurner\SaltLite\Cache\Lock;
 use PhoneBurner\SaltLite\Attribute\Usage\Contract;
 use PhoneBurner\SaltLite\Cache\Lock\SharedLockMode;
 use PhoneBurner\SaltLite\Time\Ttl;
+use PhoneBurner\SaltLite\Time\TtlRemaining;
 
 #[Contract]
 interface Lock
@@ -57,5 +58,5 @@ interface Lock
      * Returns the remaining time-to-live of the lock, or null if the lock has
      * expired or has not been acquired.
      */
-    public function ttl(): Ttl|null;
+    public function ttl(): TtlRemaining|null;
 }
