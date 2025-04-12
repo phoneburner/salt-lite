@@ -32,6 +32,8 @@ interface AppendOnlyCache
 
     /**
      * Set multiple items in the cache in a single operation
+     *
+     * @param iterable<mixed> $values (key => value)
      */
     public function setMultiple(iterable $values): bool;
 

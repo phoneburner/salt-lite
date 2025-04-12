@@ -12,6 +12,10 @@ use PhoneBurner\SaltLite\Http\Domain\HttpStatus;
 
 class ApiProblemResponse extends JsonResponse
 {
+    /**
+     * @param iterable<string, mixed> $additional
+     * @param array<string, string|array<string>> $headers
+     */
     public function __construct(
         int $status = HttpStatus::BAD_REQUEST,
         string $title = HttpReasonPhrase::BAD_REQUEST,

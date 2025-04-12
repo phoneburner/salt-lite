@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Http\Routing\Definition;
 
-use Generator;
 use IteratorAggregate;
 use PhoneBurner\SaltLite\Http\Routing\Definition\DefinitionList;
 use PhoneBurner\SaltLite\Http\Routing\Definition\InMemoryDefinitionList;
@@ -17,22 +16,31 @@ use PhoneBurner\SaltLite\Iterator\Arr;
 class LazyConfigDefinitionList implements DefinitionList, IteratorAggregate
 {
     /**
-     * @var array<callable>
+     * @var array<callable(): (Definition|iterable<Definition>)>
      */
     private readonly array $callables;
 
     private InMemoryDefinitionList|null $definition_list = null;
 
+    /**
+     * @param callable(): (Definition|iterable<Definition>) ...$callables
+     */
     public function __construct(callable ...$callables)
     {
         $this->callables = $callables;
     }
 
+    /**
+     * @param array<callable(): (Definition|iterable<Definition>)> $route_factories
+     */
     public static function makeFromArray(array $route_factories): self
     {
         return new self(...\array_values($route_factories));
     }
 
+    /**
+     * @param callable(): Definition ...$callables
+     */
     public static function makeFromCallable(callable ...$callables): self
     {
         return new self(...$callables);
@@ -43,10 +51,17 @@ class LazyConfigDefinitionList implements DefinitionList, IteratorAggregate
         return $this->definition_list ??= InMemoryDefinitionList::make(...$this->load());
     }
 
-    private function load(): Generator
+    /**
+     * @return \Generator<Definition>
+     */
+    private function load(): \Generator
     {
         foreach ($this->callables as $loader) {
-            yield from Arr::wrap($loader());
+            \assert(\is_callable($loader));
+            foreach (Arr::wrap($loader()) as $definition) {
+                \assert($definition instanceof Definition);
+                yield $definition;
+            }
         }
     }
 
@@ -63,7 +78,7 @@ class LazyConfigDefinitionList implements DefinitionList, IteratorAggregate
     }
 
     #[\Override]
-    public function getIterator(): Generator
+    public function getIterator(): \Generator
     {
         yield from $this->getWrapped();
     }

@@ -52,6 +52,7 @@ class CacheAdapter implements Cache, CacheInterface, CacheItemPoolInterface
     {
         $ttl = self::ttl($ttl);
         foreach ($values as $key => $value) {
+            \assert(\is_string($key) || $key instanceof \Stringable);
             $item = $this->pool->getItem(self::normalize($key))->set($value)->expiresAfter($ttl);
             $this->pool->saveDeferred($item);
         }

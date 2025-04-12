@@ -9,27 +9,27 @@ use PhoneBurner\SaltLite\Domain\Email\EmailAddress;
 class Email implements MailableMessage
 {
     /**
-     * @var array<EmailAddress>
+     * @var array<string, EmailAddress>
      */
     private array $to = [];
 
     /**
-     * @var array<EmailAddress>
+     * @var array<string, EmailAddress>
      */
     private array $cc = [];
 
     /**
-     * @var array<EmailAddress>
+     * @var array<string, EmailAddress>
      */
     private array $bcc = [];
 
     /**
-     * @var array<EmailAddress>
+     * @var array<string, EmailAddress>
      */
     private array $from = [];
 
     /**
-     * @var array<EmailAddress>
+     * @var array<string, EmailAddress>
      */
     private array $reply_to = [];
 
@@ -64,7 +64,7 @@ class Email implements MailableMessage
     }
 
     /**
-     * @return array<EmailAddress>
+     * @return array<string, EmailAddress>
      */
     #[\Override]
     public function getTo(): array
@@ -78,7 +78,7 @@ class Email implements MailableMessage
     }
 
     /**
-     * @return array<EmailAddress>
+     * @return array<string, EmailAddress>
      */
     #[\Override]
     public function getCc(): array
@@ -92,7 +92,7 @@ class Email implements MailableMessage
     }
 
     /**
-     * @return array<EmailAddress>
+     * @return array<string, EmailAddress>
      */
     #[\Override]
     public function getBcc(): array
@@ -106,7 +106,7 @@ class Email implements MailableMessage
     }
 
     /**
-     * @return array<EmailAddress>
+     * @return array<string, EmailAddress>
      */
     #[\Override]
     public function getFrom(): array
@@ -120,7 +120,7 @@ class Email implements MailableMessage
     }
 
     /**
-     * @return array<EmailAddress>
+     * @return array<string, EmailAddress>
      */
     #[\Override]
     public function getReplyTo(): array
@@ -177,6 +177,10 @@ class Email implements MailableMessage
         return $this->attachments;
     }
 
+    /**
+     * @param array<string, EmailAddress> $property
+     * @param array<EmailAddress> $addresses
+     */
     private function mapAddresses(array &$property, array $addresses): static
     {
         foreach ($addresses as $address) {

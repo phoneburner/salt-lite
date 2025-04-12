@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Http\Session;
 
+use PhoneBurner\SaltLite\Http\Cookie\Cookie;
 use PhoneBurner\SaltLite\Http\Session\Exception\SessionAlreadyStarted;
 use PhoneBurner\SaltLite\Http\Session\Exception\SessionNotStarted;
 use Psr\Http\Message\ServerRequestInterface;
@@ -76,7 +77,7 @@ interface SessionManager
     public function started(): bool;
 
     /**
-     * array<Cookie>
+     * @return array<Cookie>
      */
     public function cookies(): array;
 

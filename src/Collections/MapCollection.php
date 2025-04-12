@@ -12,6 +12,8 @@ use PhoneBurner\SaltLite\Iterator\Arrayable;
  * @template TValue
  * @extends \ArrayAccess<string, TValue>
  * @extends \IteratorAggregate<string, TValue>
+ * @extends Arrayable<string, TValue>
+ * @extends MutableContainer<TValue>
  */
 interface MapCollection extends \ArrayAccess, \Countable, \IteratorAggregate, MutableContainer, Arrayable
 {
@@ -46,6 +48,7 @@ interface MapCollection extends \ArrayAccess, \Countable, \IteratorAggregate, Mu
 
     /**
      * @param callable(): TValue $callback
+     * @return TValue
      */
     public function remember(\Stringable|string $id, callable $callback): mixed;
 
@@ -58,7 +61,7 @@ interface MapCollection extends \ArrayAccess, \Countable, \IteratorAggregate, Mu
 
     /**
      * @template T
-     * @param callable(TValue $value): T $callback
+     * @param (callable(TValue): T)|(callable(TValue, string): T) $callback
      * @return MapCollection<T> mapping does not necessarily preserve the type of the map implementation
      */
     public function map(callable $callback): self;
@@ -103,6 +106,9 @@ interface MapCollection extends \ArrayAccess, \Countable, \IteratorAggregate, Mu
 
     public function clear(): void;
 
+    /**
+     * @return list<string>
+     */
     public function keys(): array;
 
     public function isEmpty(): bool;

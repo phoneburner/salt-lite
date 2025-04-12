@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Cryptography\Paseto\Claims;
 
+use PhoneBurner\SaltLite\Serialization\Json;
 use PhoneBurner\SaltLite\Type\Cast\NullableCast;
 
 /**
@@ -11,6 +12,9 @@ use PhoneBurner\SaltLite\Type\Cast\NullableCast;
  */
 readonly class DecodedFooterClaims implements \ArrayAccess
 {
+    /**
+     * @param array<string, mixed> $claims
+     */
     public function __construct(
         public string|null $kid = null,
         public string|null $wpk = null,
@@ -28,7 +32,7 @@ readonly class DecodedFooterClaims implements \ArrayAccess
         // before decoding it, in order to prevent potential DDOS and similar attacks.
         \json_validate($json_encoded_claims) || throw new \InvalidArgumentException('Invalid JSON in footer');
 
-        $claims = \json_decode($json_encoded_claims, true, 512, \JSON_THROW_ON_ERROR) ?: [];
+        $claims = Json::decode($json_encoded_claims);
 
         return new self(
             NullableCast::string($claims[RegisteredFooterClaim::KeyId->value] ?? null),

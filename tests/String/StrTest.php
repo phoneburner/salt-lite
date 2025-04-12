@@ -114,6 +114,9 @@ final class StrTest extends TestCase
         yield 'resource' => [$resource];
     }
 
+    /**
+     * @param array{input: string, trim: string, rtrim: string, ltrim: string} $test
+     */
     #[DataProvider('providesTrimTestCases')]
     #[Test]
     public function trimWillTrimWhitespaceCharacters(array $test): void
@@ -122,6 +125,9 @@ final class StrTest extends TestCase
         self::assertSame($test['trim'], $trimmed);
     }
 
+    /**
+     * @param array{ characters: array<string>, input: string, trim: string, rtrim: string, ltrim: string} $test
+     */
     #[DataProvider('providesAdditionalCharacterTrimTestCases')]
     #[Test]
     public function trimWillTrimAdditionalCharacters(array $test): void
@@ -130,6 +136,9 @@ final class StrTest extends TestCase
         self::assertSame($test['trim'], $trimmed);
     }
 
+    /**
+     * @param array{input: string, trim: string, rtrim: string, ltrim: string} $test
+     */
     #[DataProvider('providesTrimTestCases')]
     #[Test]
     public function rtrimWillTrimWhitespaceCharacters(array $test): void
@@ -138,6 +147,9 @@ final class StrTest extends TestCase
         self::assertSame($test['rtrim'], $trimmed);
     }
 
+    /**
+     * @param array{ characters: array<string>, input: string, trim: string, rtrim: string, ltrim: string} $test
+     */
     #[DataProvider('providesAdditionalCharacterTrimTestCases')]
     #[Test]
     public function rtrimWillTrimAdditionalCharacters(array $test): void
@@ -146,6 +158,9 @@ final class StrTest extends TestCase
         self::assertSame($test['rtrim'], $trimmed);
     }
 
+    /**
+     * @param array{input: string, trim: string, rtrim: string, ltrim: string} $test
+     */
     #[DataProvider('providesTrimTestCases')]
     #[Test]
     public function ltrimWillTrimWhitespaceCharacters(array $test): void
@@ -154,6 +169,9 @@ final class StrTest extends TestCase
         self::assertSame($test['ltrim'], $trimmed);
     }
 
+    /**
+     * @param array{ characters: array<string>, input: string, trim: string, rtrim: string, ltrim: string} $test
+     */
     #[DataProvider('providesAdditionalCharacterTrimTestCases')]
     #[Test]
     public function ltrimWillTrimAdditionalCharacters(array $test): void
@@ -162,6 +180,14 @@ final class StrTest extends TestCase
         self::assertSame($test['ltrim'], $trimmed);
     }
 
+    /**
+     * @return Generator<string, array{0: array{
+     *     input: string,
+     *     trim: string,
+     *     rtrim: string,
+     *     ltrim: string,
+     * }}>
+     */
     public static function providesTrimTestCases(): Generator
     {
         yield 'no_trim' => [[
@@ -169,33 +195,43 @@ final class StrTest extends TestCase
             'trim' => 'Hello, World!',
             'rtrim' => 'Hello, World!',
             'ltrim' => 'Hello, World!',
-        ],];
+        ]];
 
         yield 'spaces_trim' => [[
             'input' => '  Hello, World!  ',
             'trim' => 'Hello, World!',
             'rtrim' => '  Hello, World!',
             'ltrim' => 'Hello, World!  ',
-        ],];
+        ]];
 
         yield 'line_breaks_trim' => [[
             'input' => "\n\n\r Hello, World! \r\r\n",
             'trim' => "Hello, World!",
             'rtrim' => "\n\n\r Hello, World!",
             'ltrim' => "Hello, World! \r\r\n",
-        ],];
+        ]];
 
         yield 'all_the_whitespace' => [[
             'input' => " \t\n\r\0\x0B \t\n\r\0\x0BHello, \t\n\r\0\x0B World! \t\n\r\0\x0B \t\n\r\0\x0B",
             'trim' => "Hello, \t\n\r\0\x0B World!",
             'rtrim' => " \t\n\r\0\x0B \t\n\r\0\x0BHello, \t\n\r\0\x0B World!",
             'ltrim' => "Hello, \t\n\r\0\x0B World! \t\n\r\0\x0B \t\n\r\0\x0B",
-        ],];
+        ]];
     }
 
+    /**
+     * @return Generator<string, array{0: array{
+     *     characters: array<string>,
+     *     input: string,
+     *     trim: string,
+     *     rtrim: string,
+     *     ltrim: string,
+     *     }}>
+     */
     public static function providesAdditionalCharacterTrimTestCases(): Generator
     {
         foreach (self::providesTrimTestCases() as $test_name => $test) {
+            \assert(\is_array($test));
             $test[0]['characters'] = [];
             yield $test_name . '_no_chars' => $test;
         }
@@ -206,7 +242,7 @@ final class StrTest extends TestCase
             'trim' => '',
             'rtrim' => '',
             'ltrim' => '',
-        ],];
+        ]];
 
         yield 'trim_almost_everything' => [[
             'characters' => \str_split('Hello, World!'),
@@ -214,7 +250,7 @@ final class StrTest extends TestCase
             'trim' => '|',
             'rtrim' => 'Hello, |',
             'ltrim' => '| World!',
-        ],];
+        ]];
 
         yield 'all_the_whitespace_with_symbol' => [[
             'characters' => ['$'],
@@ -222,7 +258,7 @@ final class StrTest extends TestCase
             'trim' => "12.42",
             'rtrim' => " \t\n\r\0\x0B \t\n\r\0\x0B$12.42",
             'ltrim' => "12.42\t\n\r\0\x0B \t\n\r\0\x0B",
-        ],];
+        ]];
 
         yield 'trim_quotes_single' => [[
             'characters' => ['"', "'"],
@@ -230,7 +266,7 @@ final class StrTest extends TestCase
             'trim' => 'Hello, World!',
             'rtrim' => "'Hello, World!",
             'ltrim' => "Hello, World!'",
-        ],];
+        ]];
 
         yield 'trim_quotes_double' => [[
             'characters' => ['"', "'"],
@@ -238,9 +274,12 @@ final class StrTest extends TestCase
             'trim' => 'Hello, World!',
             'rtrim' => '"Hello, World!',
             'ltrim' => 'Hello, World!"',
-        ],];
+        ]];
     }
 
+    /**
+     * @param array{haystack: string, expected: bool, needle: string, case_sensitive: bool} $test
+     */
     #[DataProvider('providesContainsTestCases')]
     #[Test]
     public function containsReturnsIfStringContainsString(array $test): void
@@ -252,7 +291,10 @@ final class StrTest extends TestCase
         ));
     }
 
-    public static function providesContainsTestCases(): Generator
+    /**
+     * @return \Generator<array<array{ haystack: string, expected: bool, needle: string, case_sensitive: bool}>>
+     */
+    public static function providesContainsTestCases(): \Generator
     {
         $test = static function (bool $expected, bool $case_sensitive, string $needle, string|null $haystack = null): array {
             $haystack ??= 'The Quick Brown Fox Jumped Over The Lazy Dog.';
@@ -303,6 +345,9 @@ final class StrTest extends TestCase
         yield $test(true, false, '', 'foo');
     }
 
+    /**
+     * @param array{haystack: string, expected: bool, needle: string, case_sensitive: bool} $test
+     */
     #[DataProvider('providesStartsWithTestCases')]
     #[Test]
     public function startsWithReturnsIfStringStartsWithString(array $test): void
@@ -314,6 +359,9 @@ final class StrTest extends TestCase
         ));
     }
 
+    /**
+     * @return Generator<array<array{haystack: string, expected: bool, needle: string, case_sensitive:bool}>>
+     */
     public static function providesStartsWithTestCases(): Generator
     {
         $test = static function (bool $expected, bool $case_sensitive, string $needle, string|null $haystack = null): array {
@@ -345,6 +393,9 @@ final class StrTest extends TestCase
         yield $test(false, false, '🏒 🎯 🍣 ⏳ 📀 🐌', '🍩 🏒 🎯 🍣 ⏳ 📀 🐌 🅾️ 😺 💷 📅 🔋 🌴 ⛷ 💣 💚 🌄 ⚡️ ⚫️ ↙️');
     }
 
+    /**
+     * @param array{haystack: string, expected: bool, needle: string, case_sensitive: bool} $test
+     */
     #[DataProvider('providesEndsWithTestCases')]
     #[Test]
     public function endsWithReturnsIfStringEndsWithString(array $test): void
@@ -356,6 +407,9 @@ final class StrTest extends TestCase
         ));
     }
 
+    /**
+     * @return Generator<array<array{haystack: string, expected: bool, needle: string, case_sensitive:bool}>>
+     */
     public static function providesEndsWithTestCases(): Generator
     {
         $test = static function (bool $expected, bool $case_sensitive, string $needle, string|null $haystack = null): array {
@@ -386,6 +440,9 @@ final class StrTest extends TestCase
         yield $test(true, false, 'D! 👻😃👻', 'Hello, World! 👻😃👻');
     }
 
+    /**
+     * @param array{input: string, prefix: string, expected: string} $test
+     */
     #[DataProvider('providesStartTestCases')]
     #[Test]
     public function startPrependsIfStringDoesNotStartWithValue(array $test): void
@@ -393,6 +450,9 @@ final class StrTest extends TestCase
         self::assertSame($test['expected'], Str::start($test['input'], $test['prefix']));
     }
 
+    /**
+     * @return Generator<array<array{ input: string, prefix: string, expected: string}>>
+     */
     public static function providesStartTestCases(): Generator
     {
         $test = static fn($input, $prefix, $expected): array => [['input' => $input, 'prefix' => $prefix, 'expected' => $expected]];
@@ -408,6 +468,9 @@ final class StrTest extends TestCase
         yield $test('📡😘🏕', '📍️🎳', '📍️🎳📡😘🏕');
     }
 
+    /**
+     * @param array{input: string, suffix: string, expected: string} $test
+     */
     #[DataProvider('providesEndTestCases')]
     #[Test]
     public function endAppendsIfStringDoesNotEndWithValue(array $test): void
@@ -415,6 +478,9 @@ final class StrTest extends TestCase
         self::assertSame($test['expected'], Str::end($test['input'], $test['suffix']));
     }
 
+    /**
+     * @return Generator<array<array{input: string, suffix: string, expected: string}>>
+     */
     public static function providesEndTestCases(): Generator
     {
         $test = static fn($input, $suffix, $expected): array => [['input' => $input, 'suffix' => $suffix, 'expected' => $expected]];
@@ -440,6 +506,9 @@ final class StrTest extends TestCase
         self::assertSame($expected, Str::strip($string, $search));
     }
 
+    /**
+     * @return Generator<array{0: string, 1: string, 2: string}>
+     */
     public static function providesStripTestByStringCases(): Generator
     {
         yield ['', '', ''];
@@ -472,6 +541,9 @@ final class StrTest extends TestCase
         self::assertSame($expected, Str::strip($string, $regexp));
     }
 
+    /**
+     * @return Generator<array{0: string, 1: RegExp, 2: string}>
+     */
     public static function providesStripTestCasesByRegExp(): Generator
     {
         yield ['', RegExp::make(''), ''];
@@ -495,6 +567,9 @@ final class StrTest extends TestCase
         self::assertSame($expected, Str::shortname($classname));
     }
 
+    /**
+     * @return Generator<string, array{0: string, 1: string}>
+     */
     public static function providesShortnameTestCases(): Generator
     {
         $expected = 'ShinyThing';
@@ -504,6 +579,10 @@ final class StrTest extends TestCase
         yield 'shortname' => [$expected, 'ShinyThing'];
     }
 
+    /**
+     * @param array{snake: string, screaming: string, kabob: string, pascal: string, camel: string, dot: string,
+     *     ucwords: string} $expected
+     */
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
     public function snakeCovertsStringToSnakeCase(array $expected, string $input): void
@@ -511,6 +590,10 @@ final class StrTest extends TestCase
         self::assertSame($expected['snake'], Str::snake($input));
     }
 
+    /**
+     * @param array{snake: string, screaming: string, kabob: string, pascal: string, camel: string, dot: string,
+     *     ucwords: string} $expected
+     */
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
     public function kabobCovertsStringToKabobCase(array $expected, string $input): void
@@ -518,6 +601,10 @@ final class StrTest extends TestCase
         self::assertSame($expected['kabob'], Str::kabob($input));
     }
 
+    /**
+     * @param array{snake: string, screaming: string, kabob: string, pascal: string, camel: string, dot: string,
+     *     ucwords: string} $expected
+     */
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
     public function pascalCovertsStringToPascalCase(array $expected, string $input): void
@@ -525,6 +612,10 @@ final class StrTest extends TestCase
         self::assertSame($expected['pascal'], Str::pascal($input));
     }
 
+    /**
+     * @param array{snake: string, screaming: string, kabob: string, pascal: string, camel: string, dot: string,
+     *     ucwords: string} $expected
+     */
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
     public function camelCovertsStringToCamelCase(array $expected, string $input): void
@@ -532,6 +623,10 @@ final class StrTest extends TestCase
         self::assertSame($expected['camel'], Str::camel($input));
     }
 
+    /**
+     * @param array{snake: string, screaming: string, kabob: string, pascal: string, camel: string, dot: string,
+     *     ucwords: string} $expected
+     */
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
     public function screamingCovertsStringToScreamingSnakeCase(array $expected, string $input): void
@@ -539,6 +634,10 @@ final class StrTest extends TestCase
         self::assertSame($expected['screaming'], Str::screaming($input));
     }
 
+    /**
+     * @param array{snake: string, screaming: string, kabob: string, pascal: string, camel: string, dot: string,
+     *     ucwords: string} $expected
+     */
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
     public function dotCovertsStringToDotCase(array $expected, string $input): void
@@ -546,6 +645,10 @@ final class StrTest extends TestCase
         self::assertSame($expected['dot'], Str::dot($input));
     }
 
+    /**
+     * @param array{snake: string, screaming: string, kabob: string, pascal: string, camel: string, dot: string,
+     *     ucwords: string} $expected
+     */
     #[DataProvider('providesStringCaseConversionTestCases')]
     #[Test]
     public function ucwordsCovertsStringToUcwordsCase(array $expected, string $input): void
@@ -553,6 +656,9 @@ final class StrTest extends TestCase
         self::assertSame($expected['ucwords'], Str::ucwords($input));
     }
 
+    /**
+     * @return Generator<array{0: array<string, string>, 1: string}>
+     */
     public static function providesStringCaseConversionTestCases(): Generator
     {
         $expected = [

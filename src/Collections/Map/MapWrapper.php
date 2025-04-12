@@ -9,11 +9,13 @@ use PhoneBurner\SaltLite\Collections\Map\HasMutableContainerArrayAccessBehavior;
 use PhoneBurner\SaltLite\Collections\MapCollection;
 
 /**
+ * @template TValue
  * @phpstan-require-implements MapCollection
  */
 trait MapWrapper
 {
     use HasMutableContainerArrayAccessBehavior;
+    /** @use HasMutableContainerArrayableBehavior<TValue> */
     use HasMutableContainerArrayableBehavior;
 
     abstract private function wrapped(): MapCollection;
@@ -54,6 +56,9 @@ trait MapWrapper
         $this->wrapped()->clear();
     }
 
+    /**
+     * @return array<string, TValue>
+     */
     public function toArray(): array
     {
         return $this->wrapped()->toArray();

@@ -77,11 +77,17 @@ final readonly class TtlRemaining
         return new \DateInterval('PT' . $this->seconds . 'S');
     }
 
+    /**
+     * @return array{0: int|float}
+     */
     public function __serialize(): array
     {
         return [$this->seconds];
     }
 
+    /**
+     * @param array{0: int|float} $data
+     */
     public function __unserialize(array $data): void
     {
         [$this->seconds] = $data;

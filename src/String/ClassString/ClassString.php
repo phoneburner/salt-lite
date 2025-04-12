@@ -82,11 +82,17 @@ final readonly class ClassString implements \Stringable
         return $this->value;
     }
 
+    /**
+     * @return array{0: class-string<T>}
+     */
     public function __serialize(): array
     {
         return [$this->value];
     }
 
+    /**
+     * @param array{0: class-string<T>} $data
+     */
     public function __unserialize(array $data): void
     {
         $this->__construct($data[0]);

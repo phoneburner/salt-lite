@@ -9,6 +9,7 @@ use PhoneBurner\SaltLite\Http\Routing\Definition\RouteDefinition;
 use PhoneBurner\SaltLite\Http\Routing\RequestHandler\NotFoundRequestHandler;
 use PhoneBurner\SaltLite\Http\Routing\Route;
 use PhoneBurner\SaltLite\Iterator\Arr;
+use PhoneBurner\SaltLite\Type\Type;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -17,6 +18,9 @@ class RouteMatch implements Route
 {
     use UriWrapper;
 
+    /**
+     * @param array<string, string> $path_vars
+     */
     public static function make(RouteDefinition $definition, array $path_vars = []): self
     {
         // the route definition provides ways to set these, but they aren't required
@@ -37,16 +41,25 @@ class RouteMatch implements Route
         );
     }
 
+    /**
+     * @param array<string, string> $path_vars
+     */
     private function __construct(public readonly RouteDefinition $definition, public readonly array $path_vars)
     {
         $this->setWrapped($this->definition->getWrapped());
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getAttributes(): array
     {
         return $this->definition->getAttributes();
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getPathParameters(): array
     {
         return $this->path_vars;
@@ -62,7 +75,9 @@ class RouteMatch implements Route
      */
     public function getHandler(): string
     {
-        return $this->getAttributes()[RequestHandlerInterface::class];
+        $handler = $this->getAttributes()[RequestHandlerInterface::class];
+        \assert(Type::isClassStringOf(RequestHandlerInterface::class, $handler));
+        return $handler;
     }
 
     /**
@@ -70,7 +85,12 @@ class RouteMatch implements Route
      */
     public function getMiddleware(): array
     {
-        return $this->getAttributes()[MiddlewareInterface::class];
+        /** @var array<class-string<MiddlewareInterface>> $middleware */
+        $middleware = $this->getAttributes()[MiddlewareInterface::class];
+        \assert(\is_array($middleware) && \array_all($middleware, static function (mixed $value, string|int $key): bool {
+            return Type::isClassStringOf(MiddlewareInterface::class, $value);
+        }));
+        return $middleware;
     }
 
     #[\Override]
@@ -79,6 +99,9 @@ class RouteMatch implements Route
         return new self($this->definition->withPathParameter($name, $value), $this->path_vars);
     }
 
+    /**
+     * @param array<string, string> $params
+     */
     #[\Override]
     public function withPathParameters(array $params): self
     {

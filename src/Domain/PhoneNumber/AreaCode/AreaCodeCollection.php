@@ -14,6 +14,7 @@ use PhoneBurner\SaltLite\Iterator\Arrayable;
 
 /**
  * @implements IteratorAggregate<AreaCode>
+ * @implements Arrayable<int<200,999>, AreaCode>
  */
 #[Contract]
 final readonly class AreaCodeCollection implements

@@ -9,7 +9,9 @@ use PhoneBurner\SaltLite\Container\ParameterOverride\OverrideCollection;
 use PhoneBurner\SaltLite\Container\ServiceContainer\ReflectionMethodAutoResolver;
 use PhoneBurner\SaltLite\Type\Type;
 
-/** @phpstan-require-implements InvokingContainer */
+/**
+ * @phpstan-require-implements InvokingContainer
+ */
 trait HasInvokingContainerBehavior
 {
     public function call(

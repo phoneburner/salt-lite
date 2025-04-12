@@ -19,6 +19,7 @@ use PhoneBurner\SaltLite\Iterator\Arrayable;
  *
  * @template TValue
  * @extends \IteratorAggregate<int, TValue>
+ * @extends Arrayable<int, TValue>
  */
 interface ListCollection extends \Countable, \IteratorAggregate, Arrayable
 {

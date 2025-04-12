@@ -25,6 +25,9 @@ class RequestFactory implements RequestFactoryInterface, ServerRequestFactoryInt
             ->withAttribute(IpAddress::class, IpAddress::marshall($_SERVER));
     }
 
+    /**
+     * @param array<string, string|array<string>> $headers
+     */
     public function createRequest(
         HttpMethod|string $method,
         mixed $uri,
@@ -39,6 +42,9 @@ class RequestFactory implements RequestFactoryInterface, ServerRequestFactoryInt
         );
     }
 
+    /**
+     * @param array<mixed> $serverParams
+     */
     public function createServerRequest(
         HttpMethod|string $method,
         mixed $uri,
@@ -48,6 +54,15 @@ class RequestFactory implements RequestFactoryInterface, ServerRequestFactoryInt
         return $this->server($method, $uri, server: $serverParams);
     }
 
+    /**
+     * @param array<string, string|array<string>> $headers
+     * @param array<string, mixed> $server
+     * @param array<string, mixed> $query
+     * @param array<string, string> $cookies
+     * @param array<string, mixed> $files
+     * @param array<string, mixed>|object|null $parsed
+     * @param array<string, mixed> $attributes
+     */
     public function server(
         HttpMethod|string $method,
         UriInterface|string $uri,

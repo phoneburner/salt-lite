@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Iterator;
 
-use ArrayAccess;
-use Countable;
-use IteratorAggregate;
 use PhoneBurner\SaltLite\Iterator\Arrayable;
 
 /**
- * @template TKey
+ * @template TKey of array-key
  * @template TValue
- * @template-implements IteratorAggregate<TKey, TValue>
- * @template-implements ArrayAccess<TKey, TValue>
+ * @implements \IteratorAggregate<TKey, TValue>
+ * @implements \ArrayAccess<TKey, TValue>
+ * @implements \ArrayAccess<TKey, TValue>
+ * @implements Arrayable<TKey, TValue>
  */
-class NullableArrayAccess implements ArrayAccess, IteratorAggregate, Countable, Arrayable
+class NullableArrayAccess implements \ArrayAccess, \IteratorAggregate, \Countable, Arrayable
 {
     /**
      * @param array<TKey, TValue> $array
@@ -42,12 +41,17 @@ class NullableArrayAccess implements ArrayAccess, IteratorAggregate, Countable, 
     }
 
     /**
-     * @param TKey $offset
+     * @param TKey|null $offset
      * @param TValue $value
      */
     #[\Override]
     public function offsetSet(mixed $offset, mixed $value): void
     {
+        if ($offset === null) {
+            $this->array[] = $value;
+            return;
+        }
+
         $this->array[$offset] = $value;
     }
 

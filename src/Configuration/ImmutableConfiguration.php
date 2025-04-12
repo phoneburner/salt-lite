@@ -8,6 +8,9 @@ use PhoneBurner\SaltLite\Configuration\Configuration;
 
 final readonly class ImmutableConfiguration implements Configuration
 {
+    /**
+     * @param array<string, mixed> $values
+     */
     public function __construct(public array $values = [])
     {
     }
@@ -33,9 +36,13 @@ final readonly class ImmutableConfiguration implements Configuration
         $key_parts = \explode('.', $id);
         return $this->values[$id] ?? match (\count($key_parts)) {
             1 => $this->values[$key_parts[0]] ?? null,
+            /** @phpstan-ignore offsetAccess.nonOffsetAccessible */
             2 => $this->values[$key_parts[0]][$key_parts[1]] ?? null,
+            /** @phpstan-ignore offsetAccess.nonOffsetAccessible, offsetAccess.nonOffsetAccessible */
             3 => $this->values[$key_parts[0]][$key_parts[1]][$key_parts[2]] ?? null,
+            /** @phpstan-ignore offsetAccess.nonOffsetAccessible, offsetAccess.nonOffsetAccessible, offsetAccess.nonOffsetAccessible */
             4 => $this->values[$key_parts[0]][$key_parts[1]][$key_parts[2]][$key_parts[3]] ?? null,
+            /** @phpstan-ignore offsetAccess.nonOffsetAccessible, offsetAccess.nonOffsetAccessible, offsetAccess.nonOffsetAccessible, offsetAccess.nonOffsetAccessible */
             5 => $this->values[$key_parts[0]][$key_parts[1]][$key_parts[2]][$key_parts[3]][$key_parts[4]] ?? null,
             default => (function (array $key_parts): mixed {
                 $value = $this->values;

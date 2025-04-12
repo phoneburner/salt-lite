@@ -14,5 +14,8 @@ interface Route extends UriInterface
 {
     public function withPathParameter(string $name, string $value): self;
 
+    /**
+     * @param array<string, string> $params
+     */
     public function withPathParameters(array $params): self;
 }

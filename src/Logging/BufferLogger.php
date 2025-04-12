@@ -43,6 +43,9 @@ class BufferLogger implements LoggerInterface, \Countable
         return $entries;
     }
 
+    /**
+     * @return array<int, LogEntry>
+     */
     public function read(int|null $max = null): array
     {
         if ($this->entries === []) {

@@ -8,6 +8,7 @@ use PhoneBurner\Http\Message\ResponseWrapper;
 use PhoneBurner\SaltLite\Http\Domain\HttpReasonPhrase;
 use PhoneBurner\SaltLite\Http\Domain\HttpStatus;
 use PhoneBurner\SaltLite\Http\Response\TextResponse;
+use PhoneBurner\SaltLite\Type\Type;
 
 class GenericHttpExceptionResponse extends ResponseException implements HttpExceptionResponse
 {
@@ -17,8 +18,13 @@ class GenericHttpExceptionResponse extends ResponseException implements HttpExce
     protected string $title = HttpReasonPhrase::INTERNAL_SERVER_ERROR;
     protected string|null $http_reason_phrase = null;
     protected string $detail = '';
+    /** @var array<string, mixed> */
     protected array $additional = [];
 
+    /**
+     * @param array<string, mixed> $additional
+     * @param array<string, string|array<string>> $headers
+     */
     public function __construct(
         int|null $status_code = null,
         string|null $title = null,
@@ -45,10 +51,12 @@ class GenericHttpExceptionResponse extends ResponseException implements HttpExce
     #[\Override]
     public function getStatusDetail(): string
     {
-        return $this->additional['detail'] ?? $this->detail;
+        return Type::ofString($this->additional['detail'] ?? $this->detail);
     }
 
-    #[\Override]
+    /**
+     * @return array<string, mixed>
+     */
     public function getAdditional(): array
     {
         return $this->additional;

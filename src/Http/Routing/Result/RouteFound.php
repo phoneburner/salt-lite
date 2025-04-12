@@ -12,11 +12,17 @@ final readonly class RouteFound implements RouterResult
 {
     private RouteMatch $match;
 
+    /**
+     * @param array<string, string> $path_parameters
+     */
     public function __construct(RouteDefinition $definition, array $path_parameters)
     {
         $this->match = RouteMatch::make($definition, $path_parameters);
     }
 
+    /**
+     * @param array<string, string> $path_parameters
+     */
     public static function make(RouteDefinition $definition, array $path_parameters = []): self
     {
         return new self($definition, $path_parameters);

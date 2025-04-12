@@ -26,13 +26,23 @@ use PhoneBurner\SaltLite\Serialization\PhpSerializable;
  */
 final class SessionData implements MapCollection, PhpSerializable
 {
+    /**
+     * @use MapWrapper<mixed>
+     */
     use MapWrapper;
 
     private CsrfToken $csrf_token;
 
     private readonly KeyValueStore $attributes;
 
+    /**
+     * @var array<string, mixed>
+     */
     private array $new_flash_data = [];
+
+    /**
+     * @var array<string, mixed>
+     */
     private array $old_flash_data = [];
 
     public function __construct()

@@ -9,10 +9,12 @@ use PhoneBurner\SaltLite\Cryptography\Paseto\Paseto;
 use PhoneBurner\SaltLite\Cryptography\Paseto\PasetoPurpose;
 use PhoneBurner\SaltLite\Cryptography\Paseto\PasetoVersion;
 use PhoneBurner\SaltLite\Filesystem\File;
+use PhoneBurner\SaltLite\Serialization\Json;
 use PhoneBurner\SaltLite\Tests\Cryptography\Paseto\Protocol\Version1Test;
 use PhoneBurner\SaltLite\Tests\Cryptography\Paseto\Protocol\Version2Test;
 use PhoneBurner\SaltLite\Tests\Cryptography\Paseto\Protocol\Version3Test;
 use PhoneBurner\SaltLite\Tests\Cryptography\Paseto\Protocol\Version4Test;
+use PhoneBurner\SaltLite\Type\Type;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -34,10 +36,12 @@ final class PasetoTest extends TestCase
     public static function providesHappyPathTestCases(): \Generator
     {
         foreach ([Version1Test::class, Version2Test::class, Version3Test::class, Version4Test::class] as $test_class) {
-            $test_vectors = \json_decode(File::read($test_class::TEST_VECTOR_FILE), true, 512, \JSON_THROW_ON_ERROR);
-            foreach ($test_vectors['tests'] as $test_vector) {
+            $test_vectors = Json::decode(File::read($test_class::TEST_VECTOR_FILE));
+            foreach (Type::ofIterable($test_vectors['tests']) as $test_vector) {
+                self::assertIsArray($test_vector);
+                self::assertIsString($test_vector['name']);
                 if ($test_vector['expect-fail'] === false) {
-                    $name = (string)$test_vector['name'];
+                    $name = $test_vector['name'];
                     yield $name => [
                         $test_vector['token'],
                         $test_class::VERSION,

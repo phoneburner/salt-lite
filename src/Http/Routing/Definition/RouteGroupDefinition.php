@@ -5,47 +5,41 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Http\Routing\Definition;
 
 use Generator;
-use Iterator;
 use PhoneBurner\SaltLite\Http\Domain\HttpMethod;
 use PhoneBurner\SaltLite\Http\Routing\Definition\Definition;
 use PhoneBurner\SaltLite\Http\Routing\Definition\DefinitionBehaviour;
 use PhoneBurner\SaltLite\Http\Routing\Definition\RouteDefinition;
 use PhoneBurner\SaltLite\Http\Routing\Route;
+use PhoneBurner\SaltLite\Serialization\PhpSerializable;
+use PhoneBurner\SaltLite\Type\Type;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * @implements \IteratorAggregate<RouteDefinition>
+ * @implements PhpSerializable<array{
+ *     path: string,
+ *     methods: list<value-of<HttpMethod>>,
+ *     attributes: array<string,mixed>,
+ *     routes: array<RouteDefinition>,
+ *     groups: array<RouteGroupDefinition>,
+ * }>
  */
-class RouteGroupDefinition implements Definition, \IteratorAggregate
+class RouteGroupDefinition implements Definition, \IteratorAggregate, PhpSerializable
 {
     use DefinitionBehaviour;
 
-    private function getRoutes(): Generator
-    {
-        yield from $this->routes;
-
-        foreach ($this->groups as $group) {
-            yield from $group;
-        }
-    }
-
-    public static function make(string $path, array $methods = [], array $attributes = []): self
-    {
-        return new self($path, $methods, $attributes, [], []);
-    }
-
+    /**
+     * @param array<HttpMethod|value-of<HttpMethod>> $methods
+     * @param array<string,mixed> $attributes
+     * @param array<RouteDefinition> $routes
+     * @param array<RouteGroupDefinition> $groups
+     */
     private function __construct(
         string $path,
         array $methods,
         array $attributes,
-        /**
-         * @var array<RouteDefinition>
-         */
         private array $routes,
-        /**
-         * @var array<RouteGroupDefinition>
-         */
         private array $groups,
     ) {
         $this->path = $path;
@@ -53,10 +47,33 @@ class RouteGroupDefinition implements Definition, \IteratorAggregate
         $this->setAttributes($attributes);
     }
 
-    #[\Override]
-    public function getIterator(): Iterator
+    /**
+     * @return \Generator<RouteDefinition>
+     */
+    private function getRoutes(): Generator
     {
-        yield from \array_map(function (RouteDefinition $route): RouteDefinition {
+        yield from $this->routes;
+        foreach ($this->groups as $group) {
+            yield from $group;
+        }
+    }
+
+    /**
+     * @param array<HttpMethod|value-of<HttpMethod>> $methods
+     * @param array<string,mixed> $attributes
+     */
+    public static function make(string $path, array $methods = [], array $attributes = []): self
+    {
+        return new self($path, $methods, $attributes, [], []);
+    }
+
+    /**
+     * @return \Iterator<RouteDefinition>
+     */
+    #[\Override]
+    public function getIterator(): \Iterator
+    {
+        return new \ArrayIterator(\array_map(function (RouteDefinition $route): RouteDefinition {
             $attributes = $this->attributes;
             $route_attributes = $route->getAttributes();
 
@@ -70,8 +87,8 @@ class RouteGroupDefinition implements Definition, \IteratorAggregate
             }
 
             $middleware = \array_merge(
-                $attributes[MiddlewareInterface::class] ?? [],
-                $route_attributes[MiddlewareInterface::class] ?? [],
+                Type::ofArray($attributes[MiddlewareInterface::class] ?? []),
+                Type::ofArray($route_attributes[MiddlewareInterface::class] ?? []),
             );
 
             if ($middleware) {
@@ -81,7 +98,7 @@ class RouteGroupDefinition implements Definition, \IteratorAggregate
             return $route->withRoutePath($this->path . $route->getRoutePath())
                 ->withAddedMethod(...\array_map(HttpMethod::instance(...), $this->methods))
                 ->withAddedAttributes($attributes);
-        }, \iterator_to_array($this->getRoutes(), false));
+        }, \iterator_to_array($this->getRoutes(), false)));
     }
 
     #[\Override]

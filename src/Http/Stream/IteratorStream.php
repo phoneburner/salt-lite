@@ -17,12 +17,18 @@ class IteratorStream implements StreamInterface, \Stringable, \IteratorAggregate
 {
     public const int CHUNK_BYTES = 8192;
 
+    /**
+     * @var \Iterator<string>
+     */
     private readonly \Iterator $iterator;
 
     private int|null $position = null;
 
     private string $buffer = '';
 
+    /**
+     * @param iterable<mixed, string> $iterable
+     */
     public function __construct(iterable $iterable)
     {
         $this->iterator = match (true) {
@@ -156,6 +162,9 @@ class IteratorStream implements StreamInterface, \Stringable, \IteratorAggregate
         return $contents;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     #[\Override]
     public function getMetadata(string|null $key = null): array|null
     {

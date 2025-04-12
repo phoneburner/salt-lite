@@ -1,8 +1,18 @@
 {
   "name": "phoneburner/salt-lite",
-  "description": "Salt-Lite Common Library",
+  "description": "Salt-Lite Components Library",
   "type": "library",
-  "license": "proprietary",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tim Lytle",
+      "email": "tim@phoneburner.com"
+    },
+    {
+      "name": "Andy Snell",
+      "email": "andy@phoneburner.com"
+    }
+  ],
   "config": {
     "platform": {
       "php": "8.4"
@@ -46,13 +56,14 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "PhoneBurner\\SaltLite\\Tests\\": "tests/",
-      "PhoneBurner\\SaltLite\\Testing\\": "tests/Testing/"
+      "PhoneBurner\\SaltLite\\Tests\\": "tests/"
     }
   },
   "provide": {
     "psr/cache-implementation": "3.0",
-    "psr/simple-cache-implementation": "3.0"
+    "psr/container-implementation": "1.1 || 2.0",
+    "psr/simple-cache-implementation": "3.0",
+    "psr/clock-implementation": "1.0"
   },
   "require": {
     "php": "^8.4",
@@ -74,7 +85,6 @@
     "crell/attributeutils": "^1.2",
     "laminas/laminas-diactoros": "^3.5.0",
     "nesbot/carbon": "^2.73.0 || ^3.8.4",
-    "phoneburner/composer-replacements": "dev-main",
     "phoneburner/http-tortilla": "dev-develop",
     "phoneburner/link-tortilla": "dev-main",
     "psr/cache": "^3.0.0",
@@ -94,6 +104,7 @@
   },
   "require-dev": {
     "phoneburner/coding-standard": "dev-main",
+    "phoneburner/composer-replacements": "dev-main",
     "phoneburner/salt-lite-phpstan": "dev-main",
     "php-parallel-lint/php-parallel-lint": "^1.4",
     "phpunit/phpunit": "^12.1.2",

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Http\Routing\Definition;
 
-use JsonSerializable;
 use Laminas\Diactoros\Uri;
 use PhoneBurner\Http\Message\UriWrapper;
 use PhoneBurner\SaltLite\Http\Domain\HttpHeader;
@@ -17,29 +16,39 @@ use PhoneBurner\SaltLite\Http\Routing\Domain\StaticFile;
 use PhoneBurner\SaltLite\Http\Routing\RequestHandler\RedirectRequestHandler;
 use PhoneBurner\SaltLite\Http\Routing\RequestHandler\StaticFileRequestHandler;
 use PhoneBurner\SaltLite\Http\Routing\Route;
-use PhoneBurner\SaltLite\Iterator\Arr;
+use PhoneBurner\SaltLite\Serialization\PhpSerializable;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class RouteDefinition implements Route, Definition, JsonSerializable
+/**
+ * @implements PhpSerializable<array{
+ *     path: string,
+ *     methods: list<value-of<HttpMethod>>,
+ *     attributes: array<string,mixed>,
+ * }>
+ */
+class RouteDefinition implements Route, Definition, \JsonSerializable, PhpSerializable
 {
     use UriWrapper;
     use DefinitionBehaviour;
 
+    /**
+     * @var array<string, string>
+     */
     private array $params = [];
 
     /**
-     * @param iterable<HttpMethod|HttpMethod::*> $methods
-     * @param iterable<string,mixed> $attributes
+     * @param iterable<HttpMethod|value-of<HttpMethod>> $methods
+     * @param iterable<string, mixed> $attributes
      */
     public static function make(string $path, iterable $methods = [], iterable $attributes = []): self
     {
-        return new self($path, Arr::wrap($methods), Arr::wrap($attributes));
+        return new self($path, [...$methods], [...$attributes]);
     }
 
     /**
-     * @param iterable<string,mixed> $attributes
+     * @param iterable<string, mixed> $attributes
      */
     public static function all(string $path, iterable $attributes = []): self
     {
@@ -115,13 +124,15 @@ class RouteDefinition implements Route, Definition, JsonSerializable
             ->withAttribute(RedirectRequestHandler::STATUS_CODE, $status);
     }
 
-    private function __construct(string $path, array $methods, array $attributes)
+    /**
+     * @param array<HttpMethod|value-of<HttpMethod>> $methods
+     * @param array<string, mixed> $attributes
+     */
+    public function __construct(string $path, array $methods, array $attributes)
     {
         $this->path = $path;
-
-        $this->setMethods(...\array_values($methods));
-        $this->setAttributes($attributes);
-
+        $this->setMethods(...\array_values([...$methods]));
+        $this->setAttributes([...$attributes]);
         $this->syncUri();
     }
 
@@ -135,6 +146,9 @@ class RouteDefinition implements Route, Definition, JsonSerializable
         return isset($this->attributes[$name]);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getAttributes(): array
     {
         return $this->attributes;
@@ -145,6 +159,9 @@ class RouteDefinition implements Route, Definition, JsonSerializable
         return $this->attributes[$name] ?? null;
     }
 
+    /**
+     * @return array<int, value-of<HttpMethod>>
+     */
     public function getMethods(): array
     {
         return $this->methods;
@@ -157,6 +174,9 @@ class RouteDefinition implements Route, Definition, JsonSerializable
         ));
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     #[\Override]
     public function jsonSerialize(): array
     {
@@ -195,7 +215,9 @@ class RouteDefinition implements Route, Definition, JsonSerializable
         ]));
     }
 
-    #[\Override]
+    /**
+     * @param array<string, string> $params
+     */
     public function withPathParameters(array $params): self
     {
         $new = new self($this->path, $this->methods, $this->attributes);
@@ -256,6 +278,9 @@ class RouteDefinition implements Route, Definition, JsonSerializable
         ]));
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     #[\Override]
     public function withAttributes(array $attributes): self
     {
@@ -266,6 +291,9 @@ class RouteDefinition implements Route, Definition, JsonSerializable
         );
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     #[\Override]
     public function withAddedAttributes(array $attributes): self
     {

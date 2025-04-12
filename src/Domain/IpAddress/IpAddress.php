@@ -25,20 +25,13 @@ readonly class IpAddress implements \Stringable
 
     public static function tryFrom(mixed $address): self|null
     {
-        if ($address instanceof self) {
-            return $address;
-        }
-
-        if ($address instanceof \Stringable) {
-            $address = (string)$address;
-        }
-
-        if (! \is_string($address)) {
-            return null;
-        }
-
         try {
-            return new self($address);
+            return match (true) {
+                $address instanceof self => $address,
+                \is_string($address) => $address !== '' ? new self($address) : null,
+                $address instanceof \Stringable => self::tryFrom((string)$address),
+                default => null,
+            };
         } catch (\InvalidArgumentException) {
             return null;
         }
@@ -55,11 +48,17 @@ readonly class IpAddress implements \Stringable
         return ['value' => $this->value];
     }
 
+    /**
+     * @param array{value: string} $data
+     */
     public function __unserialize(array $data): void
     {
         $this->__construct($data['value']);
     }
 
+    /**
+     * @param array<string, mixed> $data Often $_SERVER, but could be any array with IP address headers
+     */
     public static function marshall(array $data): self|null
     {
         $addresses = $data['HTTP_TRUE_CLIENT_IP']
@@ -70,6 +69,8 @@ readonly class IpAddress implements \Stringable
         if ($addresses === null) {
             return null;
         }
+
+        \assert(\is_scalar($addresses));
 
         // use left-most address since the ones to the right are the prox(y|ies).
         $addresses = \explode(',', (string)$addresses);

@@ -21,5 +21,8 @@ interface ConfigStruct extends \ArrayAccess
 {
     public function __serialize(): array;
 
+    /**
+     * @phpstan-ignore missingType.iterableValue
+     */
     public function __unserialize(array $data): void;
 }

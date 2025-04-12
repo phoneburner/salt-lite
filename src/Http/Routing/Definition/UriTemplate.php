@@ -10,6 +10,9 @@ class UriTemplate implements \Stringable
     {
     }
 
+    /**
+     * @param array<string, string> $variables
+     */
     public function render(array $variables): string
     {
         return (string)$this->applyVariables($variables)
@@ -18,6 +21,9 @@ class UriTemplate implements \Stringable
             ->removeBracketsFromOptionalSegments();
     }
 
+    /**
+     * @param array<string, string> $variables
+     */
     private function applyVariables(array $variables): self
     {
         $pattern = [];

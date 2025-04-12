@@ -16,6 +16,9 @@ trait ConfigStructSerialization
         return \get_object_vars($this);
     }
 
+    /**
+     * @phpstan-ignore missingType.iterableValue
+     */
     public function __unserialize(array $data): void
     {
         $this->__construct(...$data);

@@ -83,6 +83,9 @@ class InMemoryDefinitionList implements DefinitionList, \IteratorAggregate
         }
     }
 
+    /**
+     * @return array{definitions: array<Definition>}
+     */
     public function __serialize(): array
     {
         return [
@@ -90,6 +93,9 @@ class InMemoryDefinitionList implements DefinitionList, \IteratorAggregate
         ];
     }
 
+    /**
+     * @param array{definitions: array<Definition>} $data
+     */
     public function __unserialize(array $data): void
     {
         $this->definitions = $data['definitions'];

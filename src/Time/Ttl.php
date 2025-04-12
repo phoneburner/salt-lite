@@ -95,11 +95,17 @@ final readonly class Ttl
         return new \DateInterval('PT' . $this->seconds . 'S');
     }
 
+    /**
+     * @return array{0: int}
+     */
     public function __serialize(): array
     {
         return [$this->seconds];
     }
 
+    /**
+     * @param array{0: int} $data
+     */
     public function __unserialize(array $data): void
     {
         [$this->seconds] = $data;

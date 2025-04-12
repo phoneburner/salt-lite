@@ -20,6 +20,9 @@ final readonly class Json
         return $json;
     }
 
+    /**
+     * @return array<array-key, mixed>
+     */
     public static function decode(string $json, int $flags = \JSON_THROW_ON_ERROR): array
     {
         $value = \json_decode($json, true, 512, $flags);

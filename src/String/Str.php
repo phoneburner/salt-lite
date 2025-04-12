@@ -78,6 +78,8 @@ final readonly class Str
     /**
      * Trim whitespace characters from both sides of a given string. An array of
      * additional characters to trim off can be passed as the second parameter.
+     *
+     * @param array<string> $additional_chars
      */
     public static function trim(string $string, array $additional_chars = []): string
     {
@@ -87,6 +89,8 @@ final readonly class Str
     /**
      * Trim whitespace characters from the right side of a string. An array of
      * additional characters to trim off can be passed as the second parameter.
+     *
+     * @param array<string> $additional_chars
      */
     public static function rtrim(string $string, array $additional_chars = []): string
     {
@@ -96,6 +100,8 @@ final readonly class Str
     /**
      * Trim whitespace characters from the left side of a string. An array of
      * additional characters to trim off can be passed as the second parameter.
+     *
+     * @param array<string> $additional_chars
      */
     public static function ltrim(string $string, array $additional_chars = []): string
     {
@@ -204,6 +210,9 @@ final readonly class Str
         return \ltrim((string)\strrchr($classname, '\\'), '\\');
     }
 
+    /**
+     * @return array<int, string>
+     */
     private static function tokenize(string $string): array
     {
         $string = self::trim($string, ['-', '_', '.']);

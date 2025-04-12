@@ -16,8 +16,13 @@ final class MapWrapperTest extends TestCase
     /** @return MapCollection<mixed> */
     public static function getMockMap(array $data = []): MapCollection
     {
-        /** @var MapCollection<mixed> $map */
+        /**
+         * @var MapCollection<mixed> $map
+         */
         $map = new class ($data) implements MapCollection {
+            /**
+             * @use MapWrapper<mixed>
+             */
             use MapWrapper;
 
             private readonly KeyValueStore $map;

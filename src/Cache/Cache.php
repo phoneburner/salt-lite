@@ -47,6 +47,8 @@ interface Cache
 
     /**
      * Set multiple items in the cache in a single operation
+     *
+     * @param iterable<mixed> $values (key => value pairs)
      */
     public function setMultiple(iterable $values, Ttl $ttl = new Ttl()): bool;
 

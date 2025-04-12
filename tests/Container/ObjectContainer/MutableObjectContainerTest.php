@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Tests\Container\ObjectContainer;
 
-use PhoneBurner\SaltLite\Collections\Map\KeyValueStore;
+use PhoneBurner\SaltLite\Collections\Map\GenericMapCollection;
 use PhoneBurner\SaltLite\Container\Exception\NotFound;
 use PhoneBurner\SaltLite\Container\ObjectContainer\MutableObjectContainer;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -14,12 +14,13 @@ use stdClass;
 
 final class MutableObjectContainerTest extends TestCase
 {
-    /** @var MutableObjectContainer<stdClass> */
+    /**
+     * @var MutableObjectContainer<stdClass>
+     */
     private MutableObjectContainer $container;
 
     protected function setUp(): void
     {
-        parent::setUp();
         $this->container = new MutableObjectContainer();
     }
 
@@ -163,7 +164,9 @@ final class MutableObjectContainerTest extends TestCase
     {
         $obj = new stdClass();
         $this->container->set('exists', $obj);
+        /** @phpstan-ignore argument.type (generics expectations differ, possible phpstan bug) */
         self::assertArrayHasKey('exists', $this->container);
+        /** @phpstan-ignore argument.type (generics expectations differ, possible phpstan bug) */
         self::assertArrayNotHasKey('does_not_exist', $this->container);
     }
 
@@ -217,7 +220,7 @@ final class MutableObjectContainerTest extends TestCase
     #[Test]
     public function callInvokesCallableEntry(): void
     {
-        $callable_entry = new class {
+        $callable_entry = new class extends \stdClass {
             public bool $invoked = false;
 
             public function __invoke(): string
@@ -238,7 +241,7 @@ final class MutableObjectContainerTest extends TestCase
     #[Test]
     public function callInvokesMethodOnObjectEntry(): void
     {
-        $object_entry = new class {
+        $object_entry = new class extends \stdClass {
             public bool $method_called = false;
 
             public function targetMethod(): string
@@ -259,6 +262,7 @@ final class MutableObjectContainerTest extends TestCase
     #[Test]
     public function callThrowsExceptionForNonCallableString(): void
     {
+        /** @phpstan-ignore argument.type (intentional defect) */
         $this->container->set('string_id', 'not_callable');
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Expected $object to be object, class string, or callable, got "string"');
@@ -392,10 +396,10 @@ final class MutableObjectContainerTest extends TestCase
         $this->container->set('key1', $obj1);
         $this->container->set('key2', $obj2);
 
-        $result = $this->container->map(fn(stdClass $obj, string $key): string => $key . '_' . $obj->value);
+        $result = $this->container->map(static fn(stdClass $obj, string $key): string => $key . '_' . $obj->value);
 
-        self::assertInstanceOf(KeyValueStore::class, $result);
-        $expected = [0 => 'key1_1', 1 => 'key2_2'];
+        self::assertInstanceOf(GenericMapCollection::class, $result);
+        $expected = ['key1' => 'key1_1', 'key2' => 'key2_2'];
         self::assertSame($expected, $result->toArray());
     }
 
@@ -426,9 +430,9 @@ final class MutableObjectContainerTest extends TestCase
         // Note: MutableObjectContainer expects objects, so testing falsy values
         // requires a container that allows mixed types, or careful object setup.
         // Using boolean objects for simplicity.
-        $trueObj = new class { public bool $value = true;
+        $trueObj = new class extends stdClass { public bool $value = true;
         };
-        $falseObj = new class { public bool $value = false;
+        $falseObj = new class extends stdClass { public bool $value = false;
         }; // Treat as non-empty object
 
         $container = new MutableObjectContainer();

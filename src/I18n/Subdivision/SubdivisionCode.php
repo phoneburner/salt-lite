@@ -132,6 +132,9 @@ final readonly class SubdivisionCode implements \Stringable
         );
     }
 
+    /**
+     * @return array<string, self::*&string>
+     */
     private static function constants(): array
     {
         static $constants = new ReflectionClass(self::class)->getConstants();

@@ -17,23 +17,26 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
 /**
- * @template T of object
- * @implements ObjectContainer<T>
+ * @template TValue of object
+ * @implements MutableContainer<TValue>
+ * @implements ObjectContainer<string, TValue>
+ * @implements Arrayable<string, TValue>
  */
 #[Contract]
-class MutableObjectContainer implements ObjectContainer, MutableContainer, Arrayable
+class MutableObjectContainer implements MutableContainer, ObjectContainer, Arrayable
 {
     use HasInvokingContainerBehavior;
     use HasMutableContainerArrayAccessBehavior;
+    /** @use HasMutableContainerArrayableBehavior<TValue> */
     use HasMutableContainerArrayableBehavior;
 
-    /** @param array<string, T> $entries */
+    /** @param array<string, TValue> $entries */
     public function __construct(protected array $entries = [])
     {
     }
 
     /**
-     * @return T&object
+     * @return TValue&object
      * @throws NotFoundExceptionInterface No entry was found for **this** identifier.
      * @throws ContainerExceptionInterface Error while retrieving the entry.
      */
@@ -42,6 +45,9 @@ class MutableObjectContainer implements ObjectContainer, MutableContainer, Array
         return $this->entries[(string)$id] ?? throw new NotFound();
     }
 
+    /**
+     * @param TValue $value
+     */
     public function set(\Stringable|string $id, mixed $value): void
     {
         $this->entries[(string)$id] = $value;
@@ -58,7 +64,7 @@ class MutableObjectContainer implements ObjectContainer, MutableContainer, Array
     }
 
     /**
-     * @param array<string, T>|MapCollection<T> $map
+     * @param array<string, TValue>|MapCollection<TValue> $map
      */
     public function replace(array|MapCollection $map): static
     {
@@ -71,6 +77,9 @@ class MutableObjectContainer implements ObjectContainer, MutableContainer, Array
         $this->entries = [];
     }
 
+    /**
+     * @return array<string, TValue>
+     */
     public function toArray(): array
     {
         return $this->entries;

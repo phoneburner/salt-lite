@@ -5,24 +5,15 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Http\Routing\Definition;
 
 use PhoneBurner\SaltLite\Http\Domain\HttpMethod;
-use PhoneBurner\SaltLite\Http\Routing\Definition\RouteDefinition;
-use PhoneBurner\SaltLite\Http\Routing\Definition\RouteGroupDefinition;
-use PhoneBurner\SaltLite\Serialization\PhpSerializable;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-/**
- * @extends PhpSerializable<array{
- *     path: string,
- *     methods: array<HttpMethod::*>,
- *     attributes: array<string,string>,
- *     routes?: array<RouteDefinition>,
- *     groups?: array<RouteGroupDefinition>,
- *  }>
- */
-interface Definition extends PhpSerializable
+interface Definition
 {
-    public function with(callable ...$fns): self;
+    /**
+     * @param callable(static): static ...$callbacks
+     */
+    public function with(callable ...$callbacks): self;
 
     public function withRoutePath(string $path): self;
 
@@ -44,7 +35,13 @@ interface Definition extends PhpSerializable
 
     public function withAttribute(string $name, mixed $value): self;
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function withAttributes(array $attributes): self;
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function withAddedAttributes(array $attributes): self;
 }

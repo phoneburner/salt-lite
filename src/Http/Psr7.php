@@ -56,6 +56,9 @@ final readonly class Psr7
         return $attribute instanceof $class ? $attribute : null;
     }
 
+    /**
+     * @return array<array-key, mixed>|null
+     */
     public static function jsonBodyToArray(MessageInterface|StreamInterface $message): array|null
     {
         try {

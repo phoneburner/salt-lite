@@ -50,9 +50,13 @@ class AppendOnlyCacheAdapter implements AppendOnlyCache, CacheInterface, CacheIt
         return $this->save($item);
     }
 
+    /**
+     * @param iterable<mixed> $values (key => value)
+     */
     public function setMultiple(iterable $values, Ttl|\DateInterval|int|null $ttl = null): bool
     {
         foreach ($values as $key => $value) {
+            \assert(\is_string($key) || $key instanceof \Stringable);
             $item = $this->pool->getItem(self::normalize($key))->set($value)->expiresAfter(null);
             $this->pool->saveDeferred($item);
         }

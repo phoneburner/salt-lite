@@ -8,6 +8,7 @@ use PhoneBurner\SaltLite\Http\Domain\HttpStatus;
 use PhoneBurner\SaltLite\Http\Psr7;
 use PhoneBurner\SaltLite\Http\Response\RedirectResponse;
 use PhoneBurner\SaltLite\Http\Routing\Match\RouteMatch;
+use PhoneBurner\SaltLite\Type\Cast\NullableCast;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -32,10 +33,10 @@ final class RedirectRequestHandler implements RequestHandlerInterface
         $route_match = Psr7::attribute(RouteMatch::class, $request)
             ?? throw new \LogicException('Request is Missing Required RouteMatch Attribute');
 
-        $uri = (string)($route_match->getAttributes()[self::URI] ?? null)
+        $uri = NullableCast::string($route_match->getAttributes()[self::URI] ?? null)
             ?: throw new \LogicException('Request has Invalid Redirect URI');
 
-        $status_code = (int)($route_match->getAttributes()[self::STATUS_CODE] ?? 0);
+        $status_code = NullableCast::integer($route_match->getAttributes()[self::STATUS_CODE] ?? 0);
         if (\in_array($status_code, self::ALLOWED_STATUS_CODES, true)) {
             return new RedirectResponse($uri, $status_code);
         }

@@ -28,7 +28,7 @@ final readonly class Iter
      * object like other `Traversable` objects.
      *
      * @template T
-     * @param Arrayable|iterable<T> $value
+     * @param Arrayable<array-key, T>|iterable<T> $value
      * @return \Iterator<T>
      */
     public static function cast(Arrayable|iterable $value): \Iterator
@@ -41,6 +41,11 @@ final readonly class Iter
         };
     }
 
+    /**
+     * @template T
+     * @param iterable<T> $iter
+     * @return T|null
+     */
     public static function first(iterable $iter): mixed
     {
         foreach ($iter as $value) {
@@ -50,6 +55,11 @@ final readonly class Iter
         return null;
     }
 
+    /**
+     * @template T
+     * @param iterable<T> $iter
+     * @return T|null
+     */
     public static function last(iterable $iter): mixed
     {
         $last = null;
@@ -64,7 +74,12 @@ final readonly class Iter
      * Maps a callback on each element of an iterable, where the first parameter
      * of the callback is the value and the second parameter is the key.
      *
-     * @param callable(mixed, int|string): mixed $callback
+     * @template T
+     * @template TKey of int|string
+     * @template TValue
+     * @param callable(T, TKey): TValue $callback
+     * @param iterable<TKey, T> $iter
+     * @return \Generator<TKey, TValue>
      */
     public static function map(callable $callback, iterable $iter): \Generator
     {
@@ -76,7 +91,12 @@ final readonly class Iter
     /**
      * Maps an iterable to an array via a callback
      *
-     * @param callable(mixed): mixed $callback
+     * @template T
+     * @template TKey of int|string
+     * @template TValue
+     * @param callable(T): TValue $callback
+     * @param iterable<TKey, T> $iter
+     * @return array<TKey, TValue>
      */
     public static function amap(callable $callback, iterable $iter): array
     {
@@ -88,9 +108,10 @@ final readonly class Iter
     }
 
     /**
+     * @param iterable<mixed>|Arrayable<array-key, mixed> ...$iterables
      * @return \AppendIterator<mixed, mixed, \Iterator<mixed>>
      */
-    public static function chain(array|\Traversable|Arrayable ...$iterables): \AppendIterator
+    public static function chain(iterable|Arrayable ...$iterables): \AppendIterator
     {
         $append_iterator = new \AppendIterator();
         foreach ($iterables as $iter) {
@@ -98,5 +119,16 @@ final readonly class Iter
         }
 
         return $append_iterator;
+    }
+
+    /**
+     * @template TKey
+     * @template TValue
+     * @param iterable<TKey, TValue> $iter
+     * @return \Generator<TKey, TValue>
+     */
+    public static function generate(iterable $iter): \Generator
+    {
+        yield from $iter;
     }
 }

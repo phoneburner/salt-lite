@@ -17,6 +17,7 @@ final class SubdivisionNameTest extends TestCase
         $names = SubdivisionName::all();
         self::assertNotEmpty($names);
         self::assertCount(\count($names), \array_flip($names));
+        /** @phpstan-ignore arrayFilter.same (intentional test of "impossible" condition) */
         self::assertCount(\count($names), \array_filter($names));
         foreach (\array_keys($names) as $key) {
             self::assertTrue(\defined(SubdivisionCode::class . '::' . $key));

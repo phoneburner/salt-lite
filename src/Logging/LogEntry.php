@@ -11,6 +11,9 @@ use PhoneBurner\SaltLite\Logging\LogLevel;
  */
 readonly class LogEntry
 {
+    /**
+     * @param array<array-key, mixed> $context
+     */
     public function __construct(
         public LogLevel $level = LogLevel::Debug,
         public \Stringable|string $message = '',
