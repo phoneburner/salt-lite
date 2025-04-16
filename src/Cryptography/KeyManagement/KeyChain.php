@@ -31,6 +31,7 @@ final class KeyChain extends GenericMapCollection
         private EncryptionKeyPair|null $encryption_key_pair = null,
         private SignatureKeyPair|null $signature_key_pair = null,
     ) {
+        parent::__construct();
     }
 
     public function shared(string|null $context = null): SharedKey
