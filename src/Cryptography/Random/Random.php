@@ -45,7 +45,7 @@ class Random
 
     public function int(int $min = \PHP_INT_MIN, int $max = \PHP_INT_MAX): int
     {
-        $min <= $max || throw new \UnexpectedValueException('bin must be less than or equal to max');
+        $min <= $max || throw new \UnexpectedValueException('min must be less than or equal to max');
         return $this->randomizer->getInt($min, $max);
     }
 

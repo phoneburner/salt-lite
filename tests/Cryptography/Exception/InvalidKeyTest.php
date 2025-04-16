@@ -15,4 +15,10 @@ final class InvalidKeyTest extends TestCase
     {
         self::assertSame('Key Must Be Exactly 16 Bytes', InvalidKey::length(16)->getMessage());
     }
+
+    #[Test]
+    public function happyPathTestDecoding(): void
+    {
+        self::assertSame('Unable to Decode Key into Binary String of Expected Length', InvalidKey::decoding()->getMessage());
+    }
 }
