@@ -42,8 +42,10 @@ abstract class FixedLengthSensitiveBinaryString implements ImportableBinaryStrin
      */
     public function __destruct()
     {
-        /** @phpstan-ignore-next-line */
-        \sodium_memzero($this->bytes);
+        if (isset($this->bytes)) {
+            /** @phpstan-ignore-next-line */
+            \sodium_memzero($this->bytes);
+        }
     }
 
     /**
