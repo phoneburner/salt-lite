@@ -8,6 +8,7 @@ use IteratorAggregate;
 use PhoneBurner\SaltLite\Http\Routing\Definition\DefinitionList;
 use PhoneBurner\SaltLite\Http\Routing\Definition\InMemoryDefinitionList;
 use PhoneBurner\SaltLite\Http\Routing\Definition\RouteDefinition;
+use PhoneBurner\SaltLite\Http\Routing\RouteProvider;
 use PhoneBurner\SaltLite\Iterator\Arr;
 
 /**
@@ -16,22 +17,22 @@ use PhoneBurner\SaltLite\Iterator\Arr;
 class LazyConfigDefinitionList implements DefinitionList, IteratorAggregate
 {
     /**
-     * @var array<callable(): (Definition|iterable<Definition>)>
+     * @var array<RouteProvider|callable(): (Definition|iterable<Definition>)>
      */
     private readonly array $callables;
 
     private InMemoryDefinitionList|null $definition_list = null;
 
     /**
-     * @param callable(): (Definition|iterable<Definition>) ...$callables
+     * @param RouteProvider|callable(): (Definition|iterable<Definition>) ...$callables
      */
-    public function __construct(callable ...$callables)
+    public function __construct(RouteProvider|callable ...$callables)
     {
         $this->callables = $callables;
     }
 
     /**
-     * @param array<callable(): (Definition|iterable<Definition>)> $route_factories
+     * @param array<RouteProvider|callable(): (Definition|iterable<Definition>)> $route_factories
      */
     public static function makeFromArray(array $route_factories): self
     {
@@ -39,9 +40,9 @@ class LazyConfigDefinitionList implements DefinitionList, IteratorAggregate
     }
 
     /**
-     * @param callable(): Definition ...$callables
+     * @param RouteProvider|callable(): Definition ...$callables
      */
-    public static function makeFromCallable(callable ...$callables): self
+    public static function makeFromCallable(RouteProvider|callable ...$callables): self
     {
         return new self(...$callables);
     }
