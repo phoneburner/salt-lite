@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Time\TimeZone;
 
-use PhoneBurner\SaltLite\Time\TimeZone\TimeZoneFactory;
-
 /**
  * Time Zone Identifiers
  *

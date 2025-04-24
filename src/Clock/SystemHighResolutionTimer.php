@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Clock;
 
-use PhoneBurner\SaltLite\Clock\HighResolutionTimer;
-
 final readonly class SystemHighResolutionTimer implements HighResolutionTimer
 {
     /**

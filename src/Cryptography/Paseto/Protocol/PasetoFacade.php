@@ -14,8 +14,6 @@ use PhoneBurner\SaltLite\Cryptography\Paseto\Exception\PasetoLogicException;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Paseto;
 use PhoneBurner\SaltLite\Cryptography\Paseto\PasetoVersion;
 use PhoneBurner\SaltLite\Cryptography\Paseto\PasetoWithClaims;
-use PhoneBurner\SaltLite\Cryptography\Paseto\Protocol\Version2;
-use PhoneBurner\SaltLite\Cryptography\Paseto\Protocol\Version4;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SharedKey;
 
 /**

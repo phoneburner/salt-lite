@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Http\Routing;
 
-use PhoneBurner\SaltLite\Http\Routing\RouterResult;
 use Psr\Http\Message\ServerRequestInterface;
 
 interface Router

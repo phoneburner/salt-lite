@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Iterator;
 
 use IteratorIterator;
-use PhoneBurner\SaltLite\Iterator\Iter;
 
 /**
  * @template TKey

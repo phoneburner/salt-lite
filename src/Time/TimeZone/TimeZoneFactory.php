@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Time\TimeZone;
 
 use DateTimeZone;
-use PhoneBurner\SaltLite\Time\TimeZone\TimeZoneCollection;
-use PhoneBurner\SaltLite\Time\TimeZone\Tz;
 
 class TimeZoneFactory
 {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Http\Cookie;
 
 use PhoneBurner\SaltLite\Collections\Map\GenericMapCollection;
-use PhoneBurner\SaltLite\Http\Cookie\Cookie;
 
 /**
  * @extends GenericMapCollection<Cookie>

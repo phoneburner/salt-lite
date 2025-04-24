@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Time;
 
-use PhoneBurner\SaltLite\Time\ElapsedTime;
-
 class StopWatch
 {
     private readonly int $start;

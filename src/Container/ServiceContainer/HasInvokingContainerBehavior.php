@@ -6,7 +6,6 @@ namespace PhoneBurner\SaltLite\Container\ServiceContainer;
 
 use PhoneBurner\SaltLite\Container\InvokingContainer;
 use PhoneBurner\SaltLite\Container\ParameterOverride\OverrideCollection;
-use PhoneBurner\SaltLite\Container\ServiceContainer\ReflectionMethodAutoResolver;
 use PhoneBurner\SaltLite\Type\Type;
 
 /**

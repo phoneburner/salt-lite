@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Domain\IpAddress;
 
 use PhoneBurner\SaltLite\Attribute\Usage\Contract;
-use PhoneBurner\SaltLite\Domain\IpAddress\IpAddressType;
 
 #[Contract]
 readonly class IpAddress implements \Stringable

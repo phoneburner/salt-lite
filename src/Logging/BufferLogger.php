@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Logging;
 
-use PhoneBurner\SaltLite\Logging\LogEntry;
-use PhoneBurner\SaltLite\Logging\LogLevel;
+use PhoneBurner\SaltLite\Container\ResettableService;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait;
 
@@ -16,7 +15,7 @@ use Psr\Log\LoggerTrait;
  * before the actual logger can safely be resolved from the container. When the
  * real logger is available, the buffer can be written to it.
  */
-class BufferLogger implements LoggerInterface, \Countable
+class BufferLogger implements LoggerInterface, \Countable, ResettableService
 {
     use LoggerTrait;
 
@@ -39,7 +38,7 @@ class BufferLogger implements LoggerInterface, \Countable
     public function clear(): array
     {
         $entries = $this->entries;
-        $this->entries = [];
+        $this->reset();
         return $entries;
     }
 
@@ -84,5 +83,10 @@ class BufferLogger implements LoggerInterface, \Countable
         foreach ($this->entries as $entry) {
             $logger->log($entry->level->value, $entry->message, $entry->context);
         }
+    }
+
+    public function reset(): void
+    {
+        $this->entries = [];
     }
 }

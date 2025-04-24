@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Filesystem;
 
-use PhoneBurner\SaltLite\Filesystem\File;
 use PhoneBurner\SaltLite\Type\Type;
 use Psr\Http\Message\StreamInterface;
 

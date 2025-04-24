@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Cryptography\Paseto\Claims;
 
-use PhoneBurner\SaltLite\Cryptography\Paseto\Claims\DecodedFooterClaims;
-use PhoneBurner\SaltLite\Cryptography\Paseto\Claims\DecodedPayloadClaims;
-use PhoneBurner\SaltLite\Cryptography\Paseto\Claims\PasetoFooterClaims;
-use PhoneBurner\SaltLite\Cryptography\Paseto\Claims\PasetoPayloadClaims;
-
 /**
  * Note, the Paseto Specification does not restrict the footer to be a JSON object,
  * and it could be an arbitrary string. However, this implementation assumes that

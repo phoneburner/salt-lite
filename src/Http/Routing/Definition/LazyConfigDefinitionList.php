@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Http\Routing\Definition;
 
 use IteratorAggregate;
-use PhoneBurner\SaltLite\Http\Routing\Definition\DefinitionList;
-use PhoneBurner\SaltLite\Http\Routing\Definition\InMemoryDefinitionList;
-use PhoneBurner\SaltLite\Http\Routing\Definition\RouteDefinition;
 use PhoneBurner\SaltLite\Http\Routing\RouteProvider;
 use PhoneBurner\SaltLite\Iterator\Arr;
 

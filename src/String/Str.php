@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\String;
 
 use PhoneBurner\SaltLite\Http\Stream\InMemoryStream;
-use PhoneBurner\SaltLite\String\RegExp;
 use PhoneBurner\SaltLite\Trait\HasNonInstantiableBehavior;
 use Psr\Http\Message\StreamInterface;
 

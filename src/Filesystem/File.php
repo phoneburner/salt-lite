@@ -6,8 +6,6 @@ namespace PhoneBurner\SaltLite\Filesystem;
 
 use PhoneBurner\SaltLite\Filesystem\Exception\UnableToReadFile;
 use PhoneBurner\SaltLite\Filesystem\Exception\UnableToWriteFile;
-use PhoneBurner\SaltLite\Filesystem\FileMode;
-use PhoneBurner\SaltLite\Filesystem\FileStream;
 use PhoneBurner\SaltLite\Trait\HasNonInstantiableBehavior;
 use PhoneBurner\SaltLite\Type\Type;
 use Psr\Http\Message\StreamInterface;

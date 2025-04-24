@@ -7,8 +7,6 @@ namespace PhoneBurner\SaltLite\I18n\Subdivision;
 use PhoneBurner\SaltLite\Enum\EnumCaseAttr;
 use PhoneBurner\SaltLite\I18n\Region\Region;
 use PhoneBurner\SaltLite\I18n\Region\RegionAware;
-use PhoneBurner\SaltLite\I18n\Subdivision\SubdivisionCode;
-use PhoneBurner\SaltLite\I18n\Subdivision\SubdivisionName;
 
 enum CanadianProvince: string implements RegionAware
 {

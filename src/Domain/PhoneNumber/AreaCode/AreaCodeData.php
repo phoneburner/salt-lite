@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode;
 
 use PhoneBurner\SaltLite\Attribute\Usage\Internal;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode\AreaCodeLocation;
 use PhoneBurner\SaltLite\I18n\Region\Region;
 use PhoneBurner\SaltLite\I18n\Subdivision\SubdivisionCode;
 use PhoneBurner\SaltLite\Time\TimeZone\Tz;

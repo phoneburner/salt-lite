@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Collections\Map;
 
-use PhoneBurner\SaltLite\Collections\Map\HasMutableContainerArrayableBehavior;
-use PhoneBurner\SaltLite\Collections\Map\HasMutableContainerArrayAccessBehavior;
 use PhoneBurner\SaltLite\Collections\MapCollection;
 
 /**

@@ -6,8 +6,6 @@ namespace PhoneBurner\SaltLite\Cryptography\Paseto;
 
 use PhoneBurner\SaltLite\Cryptography\ConstantTime;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Exception\PasetoCryptoException;
-use PhoneBurner\SaltLite\Cryptography\Paseto\PasetoPurpose;
-use PhoneBurner\SaltLite\Cryptography\Paseto\PasetoVersion;
 use PhoneBurner\SaltLite\String\Encoding\Encoding;
 
 /**

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Container\ParameterOverride;
 
-use PhoneBurner\SaltLite\Container\ParameterOverride\OverrideType;
-
 interface ParameterOverride
 {
     public function type(): OverrideType;

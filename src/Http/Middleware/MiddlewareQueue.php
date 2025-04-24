@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Http\Middleware;
 
 use PhoneBurner\SaltLite\Attribute\Usage\Contract;
-use PhoneBurner\SaltLite\Http\Middleware\MiddlewareChain;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;

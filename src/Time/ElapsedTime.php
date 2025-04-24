@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Time;
 
-use PhoneBurner\SaltLite\Time\TimeConstant;
-
 readonly class ElapsedTime implements \Stringable
 {
     public function __construct(public int $nanoseconds)

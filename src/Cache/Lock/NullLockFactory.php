@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Cache\Lock;
 
-use PhoneBurner\SaltLite\Cache\Lock\LockFactory;
 use PhoneBurner\SaltLite\Time\Ttl;
 
 final class NullLockFactory implements LockFactory

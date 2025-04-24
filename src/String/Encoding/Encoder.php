@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\String\Encoding;
 
-use PhoneBurner\SaltLite\String\Encoding\Encoding;
-use PhoneBurner\SaltLite\String\Encoding\Rfc4648Encoder;
-
 use function PhoneBurner\SaltLite\null_if_false;
 
 final class Encoder implements Rfc4648Encoder

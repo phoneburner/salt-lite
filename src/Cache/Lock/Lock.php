@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Cache\Lock;
 
 use PhoneBurner\SaltLite\Attribute\Usage\Contract;
-use PhoneBurner\SaltLite\Cache\Lock\SharedLockMode;
 use PhoneBurner\SaltLite\Time\Ttl;
 use PhoneBurner\SaltLite\Time\TtlRemaining;
 

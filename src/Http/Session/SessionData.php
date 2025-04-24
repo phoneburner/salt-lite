@@ -7,7 +7,6 @@ namespace PhoneBurner\SaltLite\Http\Session;
 use PhoneBurner\SaltLite\Collections\Map\KeyValueStore;
 use PhoneBurner\SaltLite\Collections\Map\MapWrapper;
 use PhoneBurner\SaltLite\Collections\MapCollection;
-use PhoneBurner\SaltLite\Http\Session\CsrfToken;
 use PhoneBurner\SaltLite\Serialization\PhpSerializable;
 
 /**

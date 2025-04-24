@@ -6,8 +6,6 @@ namespace PhoneBurner\SaltLite\I18n\Region;
 
 use PhoneBurner\SaltLite\Enum\EnumCaseAttr;
 use PhoneBurner\SaltLite\I18n\IsoLocale;
-use PhoneBurner\SaltLite\I18n\Region\RegionAware;
-use PhoneBurner\SaltLite\I18n\Region\RegionName;
 
 enum Region: string implements RegionAware
 {

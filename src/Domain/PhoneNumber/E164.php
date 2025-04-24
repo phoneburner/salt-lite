@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Domain\PhoneNumber;
 
 use PhoneBurner\SaltLite\Domain\PhoneNumber\Exception\InvalidPhoneNumber;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\NullablePhoneNumber;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\PhoneNumber;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\PhoneNumberAware;
 
 /**
  * This is the lowest level phone number object we should be working with. It

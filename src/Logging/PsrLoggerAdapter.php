@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Logging;
 
-use PhoneBurner\SaltLite\Logging\LogEntry;
-use PhoneBurner\SaltLite\Logging\Loggable;
-use PhoneBurner\SaltLite\Logging\LogLevel;
 use Psr\Log\AbstractLogger;
 use Psr\Log\LoggerInterface;
 

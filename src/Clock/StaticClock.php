@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Clock;
 
 use Carbon\CarbonImmutable;
-use PhoneBurner\SaltLite\Clock\Clock;
 
 final readonly class StaticClock implements Clock
 {

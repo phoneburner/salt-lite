@@ -5,12 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode;
 
 use PhoneBurner\SaltLite\Attribute\Usage\Contract;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode\AreaCodeAware;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode\AreaCodeCollection;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode\AreaCodeData;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode\AreaCodeLocation;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode\AreaCodePurpose;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode\AreaCodeStatus;
 use PhoneBurner\SaltLite\Serialization\PhpSerializable;
 use PhoneBurner\SaltLite\Time\TimeZone\TimeZoneCollection;
 use PhoneBurner\SaltLite\Time\TimeZone\TimeZoneCollectionAware;

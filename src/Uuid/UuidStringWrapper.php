@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Uuid;
 
-use PhoneBurner\SaltLite\Uuid\Uuid;
-use PhoneBurner\SaltLite\Uuid\UuidWrapper;
 use Ramsey\Uuid\UuidInterface;
 
 /**

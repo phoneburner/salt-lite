@@ -6,7 +6,6 @@ namespace PhoneBurner\SaltLite\Container\ObjectContainer;
 
 use PhoneBurner\SaltLite\Attribute\Usage\Contract;
 use PhoneBurner\SaltLite\Container\Exception\NotFound;
-use PhoneBurner\SaltLite\Container\ObjectContainer\ObjectContainer;
 use PhoneBurner\SaltLite\Container\ServiceContainer\HasInvokingContainerBehavior;
 use PhoneBurner\SaltLite\Exception\InvalidStringableOffset;
 use PhoneBurner\SaltLite\String\Str;

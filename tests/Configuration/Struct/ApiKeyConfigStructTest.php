@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Tests\Configuration\Struct;
 
-use PhoneBurner\SaltLite\Tests\Configuration\Struct\TestApiKeyConfigStruct;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 

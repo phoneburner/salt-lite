@@ -11,9 +11,6 @@ use DateTimeZone;
 use Generator;
 use IteratorAggregate;
 use PhoneBurner\SaltLite\Serialization\PhpSerializable;
-use PhoneBurner\SaltLite\Time\TimeZone\TimeZoneCollectionAware;
-use PhoneBurner\SaltLite\Time\TimeZone\TimeZoneFactory;
-use Stringable;
 use UnderflowException;
 
 /**
@@ -25,7 +22,7 @@ final readonly class TimeZoneCollection implements
     Countable,
     TimeZoneCollectionAware,
     PhpSerializable,
-    Stringable
+    \Stringable
 {
     /**
      * @var array<DateTimeZone>
@@ -79,9 +76,10 @@ final readonly class TimeZoneCollection implements
             return null;
         }
 
+        $datetime = CarbonImmutable::instance($datetime);
         $time_zones = self::sortByLocalTime($this->time_zones, $datetime);
 
-        return CarbonImmutable::instance($datetime)->setTimezone(\reset($time_zones));
+        return $datetime->setTimezone(\reset($time_zones));
     }
 
     public function getLatestLocalTime(DateTimeInterface $datetime): CarbonImmutable|null
@@ -90,9 +88,10 @@ final readonly class TimeZoneCollection implements
             return null;
         }
 
+        $datetime = CarbonImmutable::instance($datetime);
         $time_zones = self::sortByLocalTime($this->time_zones, $datetime);
 
-        return CarbonImmutable::instance($datetime)->setTimezone(\end($time_zones));
+        return $datetime->setTimezone(\end($time_zones));
     }
 
     #[\Override]
@@ -168,21 +167,19 @@ final readonly class TimeZoneCollection implements
      * compared offsets can be positive and negative, resulting in out of order
      * local times.
      *
-     * @param non-empty-array<DateTimeZone> $time_zones
-     * @return non-empty-array<DateTimeZone>
+     * @param non-empty-array<\DateTimeZone> $time_zones
+     * @return non-empty-array<\DateTimeZone>
      */
-    private static function sortByLocalTime(array $time_zones, DateTimeInterface $datetime): array
+    private static function sortByLocalTime(array $time_zones, \DateTimeImmutable $datetime): array
     {
+        static $localtime = static fn (\DateTimeImmutable $dt, \DateTimeZone $tz): int => (int)$dt->setTimezone($tz)->format('Gis');
+        static $sorter = static fn (\DateTimeZone $a, \DateTimeZone $b): int => $localtime($datetime, $a) <=> $localtime($datetime, $b);
+
         if (\count($time_zones) === 1) {
             return $time_zones;
         }
 
-        $datetime = CarbonImmutable::instance($datetime);
-        \usort($time_zones, static function (DateTimeZone $a, DateTimeZone $b) use ($datetime): int {
-            $a = (int)$datetime->setTimezone($a)->format('Gis');
-            $b = (int)$datetime->setTimezone($b)->format('Gis');
-            return $a <=> $b;
-        });
+        \usort($time_zones, $sorter);
 
         return $time_zones;
     }

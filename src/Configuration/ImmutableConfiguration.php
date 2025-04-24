@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Configuration;
 
-use PhoneBurner\SaltLite\Configuration\Configuration;
-
 final readonly class ImmutableConfiguration implements Configuration
 {
     /**

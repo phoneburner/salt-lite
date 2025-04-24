@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Cryptography\Paseto\Claims;
 
-use PhoneBurner\SaltLite\Cryptography\Paseto\Claims\DecodedFooterClaims;
-use PhoneBurner\SaltLite\Cryptography\Paseto\Claims\DecodedPayloadClaims;
-use PhoneBurner\SaltLite\Cryptography\Paseto\Claims\PasetoMessage;
-
 final readonly class DecodedPasetoMessage
 {
     public DecodedPayloadClaims $payload;

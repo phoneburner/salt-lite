@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Time;
 
 use PhoneBurner\SaltLite\Math\Math;
-use PhoneBurner\SaltLite\Time\TimeConstant;
 
 final readonly class Ttl
 {

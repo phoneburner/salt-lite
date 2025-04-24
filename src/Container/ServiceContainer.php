@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Container;
 
 use PhoneBurner\SaltLite\Attribute\Usage\Contract;
-use PhoneBurner\SaltLite\Container\InvokingContainer;
-use PhoneBurner\SaltLite\Container\MutableContainer;
 use Psr\Log\LoggerAwareInterface;
 
 /**
@@ -16,7 +14,7 @@ use Psr\Log\LoggerAwareInterface;
 interface ServiceContainer extends MutableContainer, InvokingContainer, LoggerAwareInterface
 {
     /**
-     * Returns true if :
+     * Returns true if:
      *  1) We already have a resolved entry for the $id
      *  2) We have a service factory that can resolve the entry
      *  3) A deferred service provider that can register an entry or service factory

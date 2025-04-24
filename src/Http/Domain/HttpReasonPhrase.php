@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Http\Domain;
 
-use PhoneBurner\SaltLite\Http\Domain\HttpStatus;
-
 /**
  * @see HttpStatus
  */

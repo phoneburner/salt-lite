@@ -8,8 +8,6 @@ use Countable;
 use Generator;
 use IteratorAggregate;
 use PhoneBurner\SaltLite\Attribute\Usage\Contract;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode\AreaCode;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode\AreaCodeAware;
 use PhoneBurner\SaltLite\Iterator\Arrayable;
 
 /**

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Iterator;
 
-use PhoneBurner\SaltLite\Iterator\Arrayable;
-
 /**
  * @template TKey of array-key
  * @template TValue

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Http\Middleware;
 
-use PhoneBurner\SaltLite\Http\Middleware\MiddlewareQueue;
-use PhoneBurner\SaltLite\Http\Middleware\MiddlewareStack;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 

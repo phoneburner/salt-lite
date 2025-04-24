@@ -6,9 +6,6 @@ namespace PhoneBurner\SaltLite\Mailer;
 
 use PhoneBurner\SaltLite\Attribute\Usage\Contract;
 use PhoneBurner\SaltLite\Domain\Email\EmailAddress;
-use PhoneBurner\SaltLite\Mailer\Attachment;
-use PhoneBurner\SaltLite\Mailer\Mailable;
-use PhoneBurner\SaltLite\Mailer\Priority;
 
 #[Contract]
 interface MailableMessage extends Mailable

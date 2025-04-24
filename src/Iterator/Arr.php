@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Iterator;
 
-use PhoneBurner\SaltLite\Iterator\Arrayable;
-use PhoneBurner\SaltLite\Iterator\Iter;
 use PhoneBurner\SaltLite\Trait\HasNonInstantiableBehavior;
 use PhoneBurner\SaltLite\Type\Func;
 

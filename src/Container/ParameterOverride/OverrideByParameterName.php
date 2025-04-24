@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Container\ParameterOverride;
 
-use PhoneBurner\SaltLite\Container\ParameterOverride\OverrideType;
-use PhoneBurner\SaltLite\Container\ParameterOverride\ParameterOverride;
-
 final readonly class OverrideByParameterName implements ParameterOverride
 {
     public OverrideType $type;

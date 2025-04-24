@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Http\Middleware;
 
-use PhoneBurner\SaltLite\Http\Middleware\ErrorMessage;
 use PhoneBurner\SaltLite\Http\Middleware\Exception\InvalidMiddlewareConfiguration;
-use PhoneBurner\SaltLite\Http\Middleware\TerminableMiddleware;
 use PhoneBurner\SaltLite\Type\Type;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;

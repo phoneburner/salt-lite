@@ -7,7 +7,6 @@ namespace PhoneBurner\SaltLite\Cryptography\KeyManagement;
 use PhoneBurner\SaltLite\Collections\Map\GenericMapCollection;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\EncryptionKeyPair;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\SignatureKeyPair;
-use PhoneBurner\SaltLite\Cryptography\KeyManagement\KeyDerivation;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SharedKey;
 
 /**

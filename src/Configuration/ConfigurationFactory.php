@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Configuration;
 
 use PhoneBurner\SaltLite\App\Environment;
-use PhoneBurner\SaltLite\Configuration\ImmutableConfiguration;
 use PhoneBurner\SaltLite\Serialization\VarExport;
 
 use function PhoneBurner\SaltLite\ghost;

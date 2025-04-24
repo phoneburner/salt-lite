@@ -4,13 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Http\Middleware;
 
-use PhoneBurner\SaltLite\Http\Middleware\ErrorMessage;
 use PhoneBurner\SaltLite\Http\Middleware\Exception\InvalidMiddlewareConfiguration;
-use PhoneBurner\SaltLite\Http\Middleware\LazyMiddleware;
-use PhoneBurner\SaltLite\Http\Middleware\MiddlewareQueue;
-use PhoneBurner\SaltLite\Http\Middleware\MiddlewareRequestHandlerFactory;
-use PhoneBurner\SaltLite\Http\Middleware\MiddlewareStack;
-use PhoneBurner\SaltLite\Http\Middleware\MutableMiddlewareRequestHandler;
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Server\MiddlewareInterface;

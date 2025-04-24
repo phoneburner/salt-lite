@@ -6,7 +6,6 @@ namespace PhoneBurner\SaltLite\Http\Cookie;
 
 use PhoneBurner\SaltLite\Clock\Clock;
 use PhoneBurner\SaltLite\Clock\SystemClock;
-use PhoneBurner\SaltLite\Http\Cookie\SameSite;
 use PhoneBurner\SaltLite\Http\Domain\HttpHeader;
 use PhoneBurner\SaltLite\Math\Math;
 use PhoneBurner\SaltLite\Time\TimeConstant;

@@ -8,8 +8,6 @@ use PhoneBurner\SaltLite\Http\Event\FallbackHandlerHandlingComplete;
 use PhoneBurner\SaltLite\Http\Event\FallbackHandlerHandlingStart;
 use PhoneBurner\SaltLite\Http\Event\MiddlewareProcessingComplete;
 use PhoneBurner\SaltLite\Http\Event\MiddlewareProcessingStart;
-use PhoneBurner\SaltLite\Http\Middleware\MutableMiddlewareRequestHandler;
-use PhoneBurner\SaltLite\Http\Middleware\TerminableMiddleware;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

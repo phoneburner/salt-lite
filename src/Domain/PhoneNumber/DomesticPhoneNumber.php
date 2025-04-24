@@ -7,11 +7,7 @@ namespace PhoneBurner\SaltLite\Domain\PhoneNumber;
 use PhoneBurner\SaltLite\Attribute\Usage\Contract;
 use PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode\AreaCode;
 use PhoneBurner\SaltLite\Domain\PhoneNumber\AreaCode\AreaCodeAware;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\E164;
 use PhoneBurner\SaltLite\Domain\PhoneNumber\Exception\InvalidPhoneNumber;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\NullablePhoneNumber;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\PhoneNumber;
-use PhoneBurner\SaltLite\Domain\PhoneNumber\PhoneNumberFormat;
 
 /**
  * Value object representing a *valid* 10-digit NANP phone number.

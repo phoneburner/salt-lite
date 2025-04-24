@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Configuration\Struct;
 
 use PhoneBurner\SaltLite\Configuration\ConfigStruct;
-use PhoneBurner\SaltLite\Configuration\Struct\ConfigStructArrayAccess;
-use PhoneBurner\SaltLite\Configuration\Struct\ConfigStructSerialization;
 use PhoneBurner\SaltLite\Type\Cast\NonEmptyNullableCast;
 
 /**

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Mailer;
 
-use PhoneBurner\SaltLite\Mailer\MessageBodyPart;
-
 readonly class MessageBody
 {
     public function __construct(

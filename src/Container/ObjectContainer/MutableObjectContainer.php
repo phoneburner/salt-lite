@@ -10,7 +10,6 @@ use PhoneBurner\SaltLite\Collections\Map\HasMutableContainerArrayAccessBehavior;
 use PhoneBurner\SaltLite\Collections\MapCollection;
 use PhoneBurner\SaltLite\Container\Exception\NotFound;
 use PhoneBurner\SaltLite\Container\MutableContainer;
-use PhoneBurner\SaltLite\Container\ObjectContainer\ObjectContainer;
 use PhoneBurner\SaltLite\Container\ServiceContainer\HasInvokingContainerBehavior;
 use PhoneBurner\SaltLite\Iterator\Arrayable;
 use Psr\Container\ContainerExceptionInterface;

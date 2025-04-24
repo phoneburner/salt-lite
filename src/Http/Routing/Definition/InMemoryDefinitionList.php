@@ -5,10 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Http\Routing\Definition;
 
 use Generator;
-use PhoneBurner\SaltLite\Http\Routing\Definition\Definition;
-use PhoneBurner\SaltLite\Http\Routing\Definition\DefinitionList;
-use PhoneBurner\SaltLite\Http\Routing\Definition\RouteDefinition;
-use PhoneBurner\SaltLite\Http\Routing\Definition\RouteGroupDefinition;
 use PhoneBurner\SaltLite\Http\Routing\Route;
 use UnexpectedValueException;
 

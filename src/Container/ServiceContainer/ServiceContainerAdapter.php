@@ -13,8 +13,6 @@ use PhoneBurner\SaltLite\Container\Exception\NotFound;
 use PhoneBurner\SaltLite\Container\Exception\ResolutionFailure;
 use PhoneBurner\SaltLite\Container\ParameterOverride\OverrideCollection;
 use PhoneBurner\SaltLite\Container\ServiceContainer;
-use PhoneBurner\SaltLite\Container\ServiceContainer\HasInvokingContainerBehavior;
-use PhoneBurner\SaltLite\Container\ServiceContainer\ReflectionMethodAutoResolver;
 use PhoneBurner\SaltLite\Container\ServiceFactory;
 use PhoneBurner\SaltLite\Container\ServiceFactory\BindingServiceFactory;
 use PhoneBurner\SaltLite\Container\ServiceFactory\CallableServiceFactory;

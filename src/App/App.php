@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\App;
 
-use PhoneBurner\SaltLite\App\Environment;
 use PhoneBurner\SaltLite\Configuration\Configuration;
 use PhoneBurner\SaltLite\Container\InvokingContainer;
 use PhoneBurner\SaltLite\Container\MutableContainer;

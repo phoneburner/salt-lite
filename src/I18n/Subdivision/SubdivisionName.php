@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\I18n\Subdivision;
 
 use PhoneBurner\SaltLite\I18n\IsoLocale;
-use PhoneBurner\SaltLite\I18n\Subdivision\SubdivisionCode;
 use ReflectionClass;
 use UnexpectedValueException;
 

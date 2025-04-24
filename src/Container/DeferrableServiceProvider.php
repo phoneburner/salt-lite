@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Container;
 
 use PhoneBurner\SaltLite\Attribute\Usage\Contract;
-use PhoneBurner\SaltLite\Container\ServiceProvider;
 
 #[Contract]
 interface DeferrableServiceProvider extends ServiceProvider

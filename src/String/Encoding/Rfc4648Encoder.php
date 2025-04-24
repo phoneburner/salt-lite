@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\String\Encoding;
 
-use PhoneBurner\SaltLite\String\Encoding\Encoding;
-
 interface Rfc4648Encoder
 {
     public static function encode(Encoding $encoding, string $value, bool $prefix = false): string;

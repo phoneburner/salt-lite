@@ -8,12 +8,14 @@ use PhoneBurner\SaltLite\I18n\IsoLocale;
 use PhoneBurner\SaltLite\I18n\Region\Region;
 use PhoneBurner\SaltLite\I18n\Region\RegionAware;
 use PhoneBurner\SaltLite\I18n\Region\RegionName;
-use PhoneBurner\SaltLite\I18n\Subdivision\SubdivisionCode; // For subdivision string test
+use PhoneBurner\SaltLite\I18n\Subdivision\SubdivisionCode;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
+
+// For subdivision string test
 
 #[CoversClass(Region::class)]
 final class RegionTest extends TestCase
