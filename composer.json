@@ -1,6 +1,6 @@
 {
   "name": "phoneburner/salt-lite",
-  "description": "Salt-Lite Components Library",
+  "description": "SaltLite Components Library",
   "type": "library",
   "license": "MIT",
   "authors": [
