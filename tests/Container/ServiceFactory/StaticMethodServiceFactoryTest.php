@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Tests\Container\ServiceFactory;
 
 use PhoneBurner\SaltLite\Container\ServiceFactory\StaticMethodServiceFactory;
-use PhoneBurner\SaltLite\Tests\Fixtures\ServiceFactoryTestClass;
+use PhoneBurner\SaltLite\Tests\Fixtures\StaticServiceFactoryTestClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -21,22 +21,42 @@ final class StaticMethodServiceFactoryTest extends TestCase
     }
 
     #[Test]
-    public function invokesDefaultMakeMethod(): void
+    public function invokesDefaultMakeMethodOnClass(): void
     {
-        $factory = new StaticMethodServiceFactory(ServiceFactoryTestClass::class);
-        $result = $factory($this->container, ServiceFactoryTestClass::class);
+        $factory = new StaticMethodServiceFactory(StaticServiceFactoryTestClass::class);
+        $result = $factory($this->container, StaticServiceFactoryTestClass::class);
 
-        $this->assertInstanceOf(ServiceFactoryTestClass::class, $result);
-        $this->assertSame('from make', $result->getValue());
+        self::assertInstanceOf(StaticServiceFactoryTestClass::class, $result);
+        self::assertSame('from make', $result->getValue());
     }
 
     #[Test]
-    public function invokesSpecifiedMethod(): void
+    public function invokesSpecifiedMethodOnClass(): void
     {
-        $factory = new StaticMethodServiceFactory(ServiceFactoryTestClass::class, 'create');
-        $result = $factory($this->container, ServiceFactoryTestClass::class);
+        $factory = new StaticMethodServiceFactory(StaticServiceFactoryTestClass::class, 'create');
+        $result = $factory($this->container, StaticServiceFactoryTestClass::class);
 
-        $this->assertInstanceOf(ServiceFactoryTestClass::class, $result);
-        $this->assertSame('from create', $result->getValue());
+        self::assertInstanceOf(StaticServiceFactoryTestClass::class, $result);
+        self::assertSame('from create', $result->getValue());
+    }
+
+    #[Test]
+    public function invokesDefaultMakeMethodOnObject(): void
+    {
+        $factory = new StaticMethodServiceFactory(new StaticServiceFactoryTestClass());
+        $result = $factory($this->container, StaticServiceFactoryTestClass::class);
+
+        self::assertInstanceOf(StaticServiceFactoryTestClass::class, $result);
+        self::assertSame('from make', $result->getValue());
+    }
+
+    #[Test]
+    public function invokesSpecifiedMethodOnObject(): void
+    {
+        $factory = new StaticMethodServiceFactory(new StaticServiceFactoryTestClass(), 'create');
+        $result = $factory($this->container, StaticServiceFactoryTestClass::class);
+
+        self::assertInstanceOf(StaticServiceFactoryTestClass::class, $result);
+        self::assertSame('from create', $result->getValue());
     }
 }

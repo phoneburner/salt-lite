@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhoneBurner\SaltLite\Tests\Configuration\Struct;
+namespace PhoneBurner\SaltLite\Tests\Fixtures;
 
 use PhoneBurner\SaltLite\Configuration\Struct\ApiKeyConfigStruct;
 

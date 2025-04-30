@@ -6,7 +6,7 @@ namespace PhoneBurner\SaltLite\Tests\Container\ServiceFactory;
 
 use PhoneBurner\SaltLite\App\App;
 use PhoneBurner\SaltLite\Container\ServiceFactory\NewInstanceServiceFactory;
-use PhoneBurner\SaltLite\Tests\Fixtures\ServiceFactoryTestClass;
+use PhoneBurner\SaltLite\Tests\Fixtures\StaticServiceFactoryTestClass;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -23,22 +23,11 @@ final class NewInstanceServiceFactoryTest extends TestCase
     #[Test]
     public function createsNewInstance(): void
     {
-        $factory = new NewInstanceServiceFactory(ServiceFactoryTestClass::class);
+        $factory = NewInstanceServiceFactory::singleton();
 
-        $result = $factory($this->app, ServiceFactoryTestClass::class);
+        $result = $factory($this->app, StaticServiceFactoryTestClass::class);
 
-        $this->assertInstanceOf(ServiceFactoryTestClass::class, $result);
-        $this->assertSame('default', $result->getValue());
-    }
-
-    #[Test]
-    public function createsNewInstanceWithConstructorArgs(): void
-    {
-        $factory = new NewInstanceServiceFactory(ServiceFactoryTestClass::class, ['test value']);
-
-        $result = $factory($this->app, ServiceFactoryTestClass::class);
-
-        $this->assertInstanceOf(ServiceFactoryTestClass::class, $result);
-        $this->assertSame('test value', $result->getValue());
+        self::assertInstanceOf(StaticServiceFactoryTestClass::class, $result);
+        self::assertSame('default', $result->getValue());
     }
 }

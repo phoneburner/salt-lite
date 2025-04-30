@@ -16,9 +16,6 @@ final class NotResolvableTest extends TestCase
         $class = 'Some\\Class\\Name';
         $exception = new NotResolvable($class);
 
-        $this->assertSame(
-            $class . ' Must Be Set Explicitly in the Container',
-            $exception->getMessage(),
-        );
+        self::assertSame($class . ' Must Be Set Explicitly in the Container', $exception->getMessage());
     }
 }

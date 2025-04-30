@@ -106,14 +106,14 @@ final class MultipleRecipientMessageBoxTest extends TestCase
         $json = $message_box->jsonSerialize();
         $data = Json::decode($json);
 
-        $this->assertSame(1, $data['v']);
-        $this->assertSame('X25519Aegis256', $data['alg']);
-        $this->assertSame($this->sender_key->export(), $data['pub']);
-        $this->assertCount(1, $data['k']);
-        $this->assertSame($this->recipient_key->export(), $data['k'][0]['pub']);
-        $this->assertSame($this->ciphertext->export(), $data['k'][0]['box']);
-        $this->assertSame('Aegis256', $data['m']['alg']);
-        $this->assertSame($this->nonce->export(), $data['m']['n']);
+        self::assertSame(1, $data['v']);
+        self::assertSame('X25519Aegis256', $data['alg']);
+        self::assertSame($this->sender_key->export(), $data['pub']);
+        self::assertCount(1, $data['k']);
+        self::assertSame($this->recipient_key->export(), $data['k'][0]['pub']);
+        self::assertSame($this->ciphertext->export(), $data['k'][0]['box']);
+        self::assertSame('Aegis256', $data['m']['alg']);
+        self::assertSame($this->nonce->export(), $data['m']['n']);
     }
 
     #[Test]

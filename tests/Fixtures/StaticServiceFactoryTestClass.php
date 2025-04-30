@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Tests\Fixtures;
 
-final readonly class ServiceFactoryTestClass
+final readonly class StaticServiceFactoryTestClass
 {
     public function __construct(
         private string $value = 'default',
     ) {
     }
 
-    public function make(): self
+    public static function make(): self
     {
         return new self('from make');
     }
 
-    public function create(): self
+    public static function create(): self
     {
         return new self('from create');
     }

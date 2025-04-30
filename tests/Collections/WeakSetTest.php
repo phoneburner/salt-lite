@@ -16,11 +16,11 @@ final class WeakSetTest extends TestCase
         $set = new WeakSet();
         $obj = new \stdClass();
 
-        $this->assertFalse($set->has($obj));
+        self::assertFalse($set->has($obj));
 
         $set->add($obj);
 
-        $this->assertTrue($set->has($obj));
+        self::assertTrue($set->has($obj));
     }
 
     #[Test]
@@ -30,10 +30,10 @@ final class WeakSetTest extends TestCase
         $obj = new \stdClass();
 
         $set->add($obj);
-        $this->assertTrue($set->has($obj));
+        self::assertTrue($set->has($obj));
 
         $set->remove($obj);
-        $this->assertFalse($set->has($obj));
+        self::assertFalse($set->has($obj));
     }
 
     #[Test]
@@ -41,24 +41,24 @@ final class WeakSetTest extends TestCase
     {
         $set = new WeakSet();
 
-        $this->assertCount(0, $set);
+        self::assertCount(0, $set);
 
         $obj1 = new \stdClass();
         $obj2 = new \stdClass();
 
         $set->add($obj1);
         $set->add($obj1);
-        $this->assertCount(1, $set);
+        self::assertCount(1, $set);
 
         $set->add($obj2);
-        $this->assertCount(2, $set);
+        self::assertCount(2, $set);
 
         $set->remove($obj1);
-        $this->assertCount(1, $set);
+        self::assertCount(1, $set);
 
         unset($obj1, $obj2);
 
-        $this->assertCount(0, $set);
+        self::assertCount(0, $set);
     }
 
     #[Test]
@@ -71,13 +71,13 @@ final class WeakSetTest extends TestCase
         $set->add($obj1);
         $set->add($obj2);
 
-        $this->assertCount(2, $set);
+        self::assertCount(2, $set);
 
         $set->clear();
 
-        $this->assertCount(0, $set);
-        $this->assertFalse($set->has($obj1));
-        $this->assertFalse($set->has($obj2));
+        self::assertCount(0, $set);
+        self::assertFalse($set->has($obj1));
+        self::assertFalse($set->has($obj2));
     }
 
     #[Test]
@@ -92,9 +92,9 @@ final class WeakSetTest extends TestCase
 
         $all = $set->all();
 
-        $this->assertCount(2, $all);
-        $this->assertContains($obj1, $all);
-        $this->assertContains($obj2, $all);
+        self::assertCount(2, $all);
+        self::assertContains($obj1, $all);
+        self::assertContains($obj2, $all);
     }
 
     #[Test]
@@ -112,9 +112,9 @@ final class WeakSetTest extends TestCase
             $items[] = $item;
         }
 
-        $this->assertCount(2, $items);
-        $this->assertContains($obj1, $items);
-        $this->assertContains($obj2, $items);
+        self::assertCount(2, $items);
+        self::assertContains($obj1, $items);
+        self::assertContains($obj2, $items);
     }
 
     #[Test]
@@ -132,7 +132,7 @@ final class WeakSetTest extends TestCase
         // Trigger garbage collection
         \gc_collect_cycles();
 
-        $this->assertCount(0, $set);
+        self::assertCount(0, $set);
     }
 
     #[Test]
@@ -144,7 +144,7 @@ final class WeakSetTest extends TestCase
         $set->add($obj);
         $set->add($obj);
 
-        $this->assertCount(1, $set);
+        self::assertCount(1, $set);
     }
 
     #[Test]
@@ -156,6 +156,6 @@ final class WeakSetTest extends TestCase
         // This should not throw an exception
         $set->remove($obj);
 
-        $this->assertFalse($set->has($obj));
+        self::assertFalse($set->has($obj));
     }
 }

@@ -8,16 +8,19 @@ use PhoneBurner\SaltLite\App\App;
 use PhoneBurner\SaltLite\App\Context;
 use PhoneBurner\SaltLite\App\Environment;
 use PhoneBurner\SaltLite\Configuration\Configuration;
+use PhoneBurner\SaltLite\Configuration\ImmutableConfiguration;
 use PhoneBurner\SaltLite\Container\ParameterOverride\OverrideCollection;
 use PhoneBurner\SaltLite\Container\ServiceContainer;
+
+use const PhoneBurner\SaltLite\UNIT_TEST_ROOT;
 
 class MockApp implements App
 {
     public function __construct(
-        public ServiceContainer $services,
-        public Context $context,
-        public Environment $environment,
-        public Configuration $config,
+        public ServiceContainer $services = new MockContainer(),
+        public Context $context = Context::Test,
+        public Environment $environment = new MockEnvironment(UNIT_TEST_ROOT),
+        public Configuration $config = new ImmutableConfiguration([]),
     ) {
     }
 

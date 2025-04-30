@@ -15,7 +15,9 @@ use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPrivateMethodRector;
 use Rector\DeadCode\Rector\ClassMethod\RemoveUnusedPromotedPropertyRector;
 use Rector\DeadCode\Rector\Property\RemoveUnusedPrivatePropertyRector;
 use Rector\Php74\Rector\Closure\ClosureToArrowFunctionRector;
+use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
+use Rector\TypeDeclaration\Rector\Class_\TypedPropertyFromCreateMockAssignRector;
 
 return RectorConfig::configure()
     ->withImportNames(importShortClasses: false)
@@ -40,7 +42,9 @@ return RectorConfig::configure()
         carbon: false,
         rectorPreset: true,
         phpunitCodeQuality: true,
-    )->withSkip([
+    )->withRules([
+        PreferPHPUnitSelfCallRector::class,
+    ])->withSkip([
         ClosureToArrowFunctionRector::class,
         FlipTypeControlToUseExclusiveTypeRector::class,
         PreferPHPUnitThisCallRector::class,
@@ -50,6 +54,9 @@ return RectorConfig::configure()
         NewlineAfterStatementRector::class,
         NewlineBeforeNewAssignSetRector::class,
         CatchExceptionNameMatchingTypeRector::class,
+
+        // Temporarily disabled due to buggy upstream implementation
+        TypedPropertyFromCreateMockAssignRector::class,
 
         // intentionally dead code used for testing
         RemoveUnusedPrivatePropertyRector::class => [
