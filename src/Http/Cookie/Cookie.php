@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Http\Cookie;
 
-use PhoneBurner\SaltLite\Clock\Clock;
-use PhoneBurner\SaltLite\Clock\SystemClock;
 use PhoneBurner\SaltLite\Http\Domain\HttpHeader;
 use PhoneBurner\SaltLite\Math\Math;
+use PhoneBurner\SaltLite\Time\Clock\Clock;
+use PhoneBurner\SaltLite\Time\Clock\SystemClock;
 use PhoneBurner\SaltLite\Time\TimeConstant;
 use PhoneBurner\SaltLite\Time\Ttl;
 use Psr\Http\Message\ResponseInterface;

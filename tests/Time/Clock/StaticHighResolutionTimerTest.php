@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PhoneBurner\SaltLite\Tests\Clock;
+namespace PhoneBurner\SaltLite\Tests\Time\Clock;
 
-use PhoneBurner\SaltLite\Clock\StaticHighResolutionTimer;
+use PhoneBurner\SaltLite\Time\Clock\StaticHighResolutionTimer;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 

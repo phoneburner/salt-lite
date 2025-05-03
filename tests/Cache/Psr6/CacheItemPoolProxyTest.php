@@ -7,7 +7,7 @@ namespace PhoneBurner\SaltLite\Tests\Cache\Psr6;
 use PhoneBurner\SaltLite\Cache\CacheKey;
 use PhoneBurner\SaltLite\Cache\Psr6\CacheItemPoolProxy;
 use PhoneBurner\SaltLite\Cache\Psr6\InMemoryCachePool;
-use PhoneBurner\SaltLite\Clock\StaticClock;
+use PhoneBurner\SaltLite\Time\Clock\StaticClock;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

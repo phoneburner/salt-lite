@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace PhoneBurner\SaltLite\Tests\Clock;
+namespace PhoneBurner\SaltLite\Tests\Time\Clock;
 
 use Carbon\CarbonImmutable;
-use PhoneBurner\SaltLite\Clock\StaticClock;
+use PhoneBurner\SaltLite\Time\Clock\StaticClock;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 

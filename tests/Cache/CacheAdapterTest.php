@@ -10,7 +10,7 @@ use PhoneBurner\SaltLite\Cache\CacheAdapter;
 use PhoneBurner\SaltLite\Cache\CacheKey;
 use PhoneBurner\SaltLite\Cache\Exception\CacheWriteFailed;
 use PhoneBurner\SaltLite\Cache\Psr6\InMemoryCachePool;
-use PhoneBurner\SaltLite\Clock\StaticClock;
+use PhoneBurner\SaltLite\Time\Clock\StaticClock;
 use PhoneBurner\SaltLite\Time\Ttl;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Cache\Psr6;
 
 use PhoneBurner\SaltLite\Cache\CacheKey;
-use PhoneBurner\SaltLite\Clock\Clock;
-use PhoneBurner\SaltLite\Clock\SystemClock;
+use PhoneBurner\SaltLite\Time\Clock\Clock;
+use PhoneBurner\SaltLite\Time\Clock\SystemClock;
 use Psr\Cache\CacheItemInterface;
 
 class CacheItem implements CacheItemInterface

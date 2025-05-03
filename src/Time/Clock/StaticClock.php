@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhoneBurner\SaltLite\Clock;
+namespace PhoneBurner\SaltLite\Time\Clock;
 
 use Carbon\CarbonImmutable;
 
