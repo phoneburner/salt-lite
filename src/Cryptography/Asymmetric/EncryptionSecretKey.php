@@ -16,4 +16,9 @@ final class EncryptionSecretKey extends FixedLengthSensitiveBinaryString impleme
     use BinaryStringProhibitsSerialization;
 
     public const int LENGTH = \SODIUM_CRYPTO_KX_SECRETKEYBYTES; // 256-bit string
+
+    public function secret(): static
+    {
+        return $this;
+    }
 }

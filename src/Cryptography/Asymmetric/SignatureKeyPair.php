@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Cryptography\Asymmetric;
 
 use PhoneBurner\SaltLite\Cryptography\Exception\InvalidKeyPair;
-use PhoneBurner\SaltLite\Cryptography\Exception\InvalidKeySeed;
 use PhoneBurner\SaltLite\Cryptography\Util;
-use PhoneBurner\SaltLite\Exception\UnreachableCode;
 use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringExportBehavior;
 use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringImportBehavior;
@@ -25,9 +23,8 @@ final readonly class SignatureKeyPair implements KeyPair
 
     public const int LENGTH = \SODIUM_CRYPTO_SIGN_KEYPAIRBYTES;
 
-    public const int SEED_LENGTH = \SODIUM_CRYPTO_SIGN_SEEDBYTES;
-
     public SignatureSecretKey $secret;
+
     public SignaturePublicKey $public;
 
     public function __construct(#[\SensitiveParameter] BinaryString|string $bytes)
@@ -48,20 +45,16 @@ final readonly class SignatureKeyPair implements KeyPair
 
     /**
      * Important: Unlike the EncryptionKeyPair, the seed for the SignatureKeyPair
-     * is used as first 256-bits of the 512-bit secret key. Therefore, using a
-     * key derivation function to create the seed from a master key would be a
-     * good idea.
+     * is used as the first 256-bits of the 512-bit secret key. Therefore, using a
+     * key derivation function to create the seed from a primary key would be a
+     * *really* good idea.
      */
-    public static function fromSeed(#[\SensitiveParameter] BinaryString $seed): static
+    public static function fromSeed(#[\SensitiveParameter] SignatureKeyPairSeed $seed): static
     {
-        if ($seed->length() !== self::SEED_LENGTH) {
-            throw InvalidKeySeed::length(self::SEED_LENGTH);
-        }
-
-        return new self(\sodium_crypto_sign_seed_keypair($seed->bytes() ?: throw new UnreachableCode()));
+        return new self(\sodium_crypto_sign_seed_keypair($seed->bytes()));
     }
 
-    public static function fromSecretKey(SignatureSecretKey $secret_key): self
+    public static function fromSecretKey(#[\SensitiveParameter] SignatureSecretKey $secret_key): self
     {
         return new self(\sodium_crypto_sign_keypair_from_secretkey_and_publickey(
             $secret_key->bytes(),

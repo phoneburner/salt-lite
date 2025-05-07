@@ -27,9 +27,8 @@ final readonly class EncryptionKeyPair implements KeyPair
 
     public const int LENGTH = \SODIUM_CRYPTO_KX_KEYPAIRBYTES;
 
-    public const int SEED_LENGTH = \SODIUM_CRYPTO_KX_SEEDBYTES;
-
     public EncryptionSecretKey $secret;
+
     public EncryptionPublicKey $public;
 
     public function __construct(#[\SensitiveParameter] BinaryString|string $bytes)
@@ -55,17 +54,14 @@ final readonly class EncryptionKeyPair implements KeyPair
      * as the older \sodium_crypto_box_seed_keypair function, which uses SHA-512/256
      * as the hash function.
      */
-    public static function fromSeed(#[\SensitiveParameter] BinaryString $seed): static
+    public static function fromSeed(#[\SensitiveParameter] EncryptionKeyPairSeed $seed): self
     {
-        if ($seed->length() !== \SODIUM_CRYPTO_KX_SEEDBYTES) {
-            throw new \UnexpectedValueException('Key Pair seed must be ' . \SODIUM_CRYPTO_KX_SEEDBYTES . ' bytes');
-        }
-
         return new self(\sodium_crypto_kx_seed_keypair($seed->bytes()));
     }
 
-    public static function fromSecretKey(SignatureSecretKey|EncryptionSecretKey $secret_key): self
-    {
+    public static function fromSecretKey(
+        #[\SensitiveParameter] SignatureSecretKey|EncryptionSecretKey $secret_key,
+    ): self {
         if ($secret_key instanceof SignatureSecretKey) {
             $secret_key = new EncryptionSecretKey(\sodium_crypto_sign_ed25519_sk_to_curve25519($secret_key->bytes()));
         }

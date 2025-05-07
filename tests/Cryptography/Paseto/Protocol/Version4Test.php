@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Tests\Cryptography\Paseto\Protocol;
 
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\SignatureKeyPair;
+use PhoneBurner\SaltLite\Cryptography\Asymmetric\SignatureKeyPairSeed;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\SignaturePublicKey;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\SignatureSecretKey;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Claims\PasetoMessage;
@@ -12,7 +13,6 @@ use PhoneBurner\SaltLite\Cryptography\Paseto\Exception\PasetoCryptoException;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Paseto;
 use PhoneBurner\SaltLite\Cryptography\Paseto\PasetoVersion;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Protocol\Version4;
-use PhoneBurner\SaltLite\Cryptography\String\VariableLengthSensitiveBinaryString;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SharedKey;
 use PhoneBurner\SaltLite\Filesystem\File;
 use PhoneBurner\SaltLite\Serialization\Json;
@@ -56,7 +56,7 @@ final class Version4Test extends TestCase
         $secret_key = SignatureSecretKey::import($test_vector['secret-key'], Encoding::Hex);
         $public_key = SignaturePublicKey::import($test_vector['public-key'], Encoding::Hex);
 
-        $key_pair_seed = VariableLengthSensitiveBinaryString::import($test_vector['secret-key-seed'], Encoding::Hex);
+        $key_pair_seed = SignatureKeyPairSeed::import($test_vector['secret-key-seed'], Encoding::Hex);
         $key_pair = SignatureKeyPair::fromSeed($key_pair_seed);
 
         self::assertEquals($secret_key, $key_pair->secret);
@@ -99,7 +99,7 @@ final class Version4Test extends TestCase
         $secret_key = SignatureSecretKey::import($test_vector['secret-key'], Encoding::Hex);
         $public_key = SignaturePublicKey::import($test_vector['public-key'], Encoding::Hex);
 
-        $key_pair_seed = VariableLengthSensitiveBinaryString::import($test_vector['secret-key-seed'], Encoding::Hex);
+        $key_pair_seed = SignatureKeyPairSeed::import($test_vector['secret-key-seed'], Encoding::Hex);
         $key_pair = SignatureKeyPair::fromSeed($key_pair_seed);
 
         self::assertEquals($secret_key, $key_pair->secret);

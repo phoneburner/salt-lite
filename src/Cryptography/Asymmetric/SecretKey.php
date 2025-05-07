@@ -8,4 +8,5 @@ use PhoneBurner\SaltLite\Cryptography\KeyManagement\Key;
 
 interface SecretKey extends Key
 {
+    public function secret(): static;
 }

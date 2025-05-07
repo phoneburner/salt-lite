@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Cryptography\KeyManagement;
 
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\EncryptionKeyPair;
+use PhoneBurner\SaltLite\Cryptography\Asymmetric\EncryptionKeyPairSeed;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\SignatureKeyPair;
+use PhoneBurner\SaltLite\Cryptography\Asymmetric\SignatureKeyPairSeed;
 use PhoneBurner\SaltLite\Cryptography\Exception\CryptoLogicException;
-use PhoneBurner\SaltLite\Cryptography\String\VariableLengthSensitiveBinaryString;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SharedKey;
 use PhoneBurner\SaltLite\Cryptography\Util;
 use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
@@ -43,7 +44,7 @@ final readonly class KeyDerivation
     public static function encryption(BinaryString|string $key, string $hkdf_info = ''): EncryptionKeyPair
     {
         return EncryptionKeyPair::fromSeed(
-            new VariableLengthSensitiveBinaryString(self::hkdf($key, EncryptionKeyPair::SEED_LENGTH, $hkdf_info)),
+            new EncryptionKeyPairSeed(self::hkdf($key, EncryptionKeyPairSeed::LENGTH, $hkdf_info)),
         );
     }
 
@@ -61,7 +62,7 @@ final readonly class KeyDerivation
     public static function signature(BinaryString|string $key, string $hkdf_info = ''): SignatureKeyPair
     {
         return SignatureKeyPair::fromSeed(
-            new VariableLengthSensitiveBinaryString(self::hkdf($key, SignatureKeyPair::SEED_LENGTH, $hkdf_info)),
+            new SignatureKeyPairSeed(self::hkdf($key, SignatureKeyPairSeed::LENGTH, $hkdf_info)),
         );
     }
 

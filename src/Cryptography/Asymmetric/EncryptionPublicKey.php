@@ -13,4 +13,9 @@ use PhoneBurner\SaltLite\Cryptography\String\FixedLengthSensitiveBinaryString;
 final class EncryptionPublicKey extends FixedLengthSensitiveBinaryString implements PublicKey
 {
     public const int LENGTH = \SODIUM_CRYPTO_KX_PUBLICKEYBYTES; // 256-bit string
+
+    public function public(): static
+    {
+        return $this;
+    }
 }

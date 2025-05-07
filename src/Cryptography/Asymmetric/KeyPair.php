@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Cryptography\Asymmetric;
 
 use PhoneBurner\SaltLite\Cryptography\KeyManagement\Key;
-use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 
 interface KeyPair extends Key
 {
@@ -14,6 +13,4 @@ interface KeyPair extends Key
     public function public(): PublicKey;
 
     public static function generate(): static;
-
-    public static function fromSeed(BinaryString $seed): static;
 }

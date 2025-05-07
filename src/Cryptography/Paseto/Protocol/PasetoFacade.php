@@ -6,11 +6,11 @@ namespace PhoneBurner\SaltLite\Cryptography\Paseto\Protocol;
 
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\SignatureKeyPair;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\SignaturePublicKey;
-use PhoneBurner\SaltLite\Cryptography\ConstantTime;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Claims\PasetoFooterClaims;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Claims\PasetoMessage;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Claims\PasetoPayloadClaims;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Exception\PasetoLogicException;
+use PhoneBurner\SaltLite\Cryptography\Paseto\Paserk;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Paseto;
 use PhoneBurner\SaltLite\Cryptography\Paseto\PasetoVersion;
 use PhoneBurner\SaltLite\Cryptography\Paseto\PasetoWithClaims;
@@ -50,16 +50,9 @@ final class PasetoFacade
         PasetoFooterClaims $footer = new PasetoFooterClaims(),
         string $additional_data = '',
     ): PasetoWithClaims {
-        /**
-         * Add an identifier for the keypair to the footer, so that the recipient can
-         * verify the signature using the correct public key, using the PASERK format.
-         *
-         * @link https://github.com/paseto-standard/paserk/blob/master/types/lid.md
-         */
-        $paserk = 'k4.local.' . $key->export(Paseto::ENCODING);
-        $kid = 'k4.lid.' . ConstantTime::encode(Paseto::ENCODING, \sodium_crypto_generichash('k4.lid.' . $paserk, length: 33));
-        $footer = new PasetoFooterClaims($kid, other: $footer->other);
-
+        // Inject a PASERK LID for the public key into the footer so that the
+        // recipient can determine which key to use for decryption.
+        $footer = new PasetoFooterClaims(Paserk::lid($key), other: $footer->other);
         return new PasetoWithClaims(
             Version4::encrypt($key, PasetoMessage::make($payload, $footer), $additional_data),
             $payload,
@@ -82,16 +75,9 @@ final class PasetoFacade
         PasetoFooterClaims $footer = new PasetoFooterClaims(),
         string $additional_data = '',
     ): PasetoWithClaims {
-        /**
-         * Add an identifier for the keypair to the footer, so that the recipient can
-         * verify the signature using the correct public key, using the PASERK format.
-         *
-         * @link https://github.com/paseto-standard/paserk/blob/master/types/pid.md
-         */
-        $paserk = 'k4.public.' . $key_pair->public->export(Paseto::ENCODING);
-        $kid = 'k4.pid.' . ConstantTime::encode(Paseto::ENCODING, \sodium_crypto_generichash('k4.pid.' . $paserk, length: 33));
-        $footer = new PasetoFooterClaims($kid, other: $footer->other);
-
+        // Inject a PASERK PID for the public key into the footer so that the
+        // recipient can determine which key to use for verification.
+        $footer = new PasetoFooterClaims(Paserk::pid($key_pair), other: $footer->other);
         return new PasetoWithClaims(
             Version4::sign($key_pair, PasetoMessage::make($payload, $footer), $additional_data),
             $payload,

@@ -8,7 +8,4 @@ enum PasetoPurpose: string
 {
     case Local = 'local';
     case Public = 'public';
-
-    public const string LOCAL = 'local';
-    public const string PUBLIC = 'public';
 }

@@ -16,4 +16,9 @@ final class SignatureSecretKey extends FixedLengthSensitiveBinaryString implemen
     use BinaryStringProhibitsSerialization;
 
     public const int LENGTH = \SODIUM_CRYPTO_SIGN_SECRETKEYBYTES; // 512-bit string
+
+    public function secret(): static
+    {
+        return $this;
+    }
 }
