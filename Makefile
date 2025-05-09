@@ -125,9 +125,6 @@ shell: build
 	@docker compose run --rm -it php vendor/bin/psysh
 
 # Run the PHP development server to serve the HTML test coverage report on port 8000.
-# Note that this isn't run in the usual Docker image with Docker Compose, but in a separate
-# container to so that the main compose service configuration can be defined with "network_mode: none",
-# which helps reduce network collision conflicts with other containers.
 .PHONY: serve-coverage
 serve-coverage: build
-	@docker run --rm --publish 8000:80 -v ${PWD}:/app php:cli php -S 0.0.0.0:80 -t /app/build/phpunit
+	@docker compose run --rm --publish 8000:80 php php -S 0.0.0.0:80 -t /app/build/phpunit

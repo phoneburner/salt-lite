@@ -16,4 +16,3 @@ services:
       COMPOSER_AUTH: "{\"github-oauth\": {\"github.com\":\"${GITHUB_TOKEN}\"}}"
     extra_hosts:
       - host.docker.internal:host-gateway
-    network_mode: none
