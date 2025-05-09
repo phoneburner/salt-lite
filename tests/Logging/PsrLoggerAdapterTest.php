@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Tests\Logging;
 
+use PhoneBurner\SaltLite\Iterator\Arr;
 use PhoneBurner\SaltLite\Logging\LogEntry;
 use PhoneBurner\SaltLite\Logging\Loggable;
 use PhoneBurner\SaltLite\Logging\LogLevel;
 use PhoneBurner\SaltLite\Logging\PsrLoggerAdapter;
 use PhoneBurner\SaltLite\Tests\Fixtures\MockLogger;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LogLevel as Psr3LogLevel;
 
 final class PsrLoggerAdapterTest extends TestCase
 {
@@ -56,6 +59,78 @@ final class PsrLoggerAdapterTest extends TestCase
         self::assertSame('warning', $logs[0]['level']);
         self::assertSame('Test with enum', $logs[0]['message']);
         self::assertSame(['context' => true], $logs[0]['context']);
+    }
+
+    #[Test]
+    #[DataProvider('providesLevelValues')]
+    public function itCanOverrideTheLogLevel(LogLevel|string $level): void
+    {
+        foreach (LogLevel::cases() as $log_level_override) {
+            $test_logger = new MockLogger();
+            $adapter = new PsrLoggerAdapter($test_logger, $log_level_override);
+            $adapter->log($level, 'Test message 1', ['data' => ['nested' => true]]);
+
+            $logs = $test_logger->getLogs();
+            self::assertCount(1, $logs);
+            self::assertSame($log_level_override->value, $logs[0]['level']);
+            self::assertSame('Test message 1', $logs[0]['message']);
+            self::assertSame(['data' => ['nested' => true]], $logs[0]['context']);
+        }
+    }
+
+    public static function providesLevelValues(): \Generator
+    {
+        yield from \array_map(Arr::wrap(...), LogLevel::cases());
+        yield from [
+            [Psr3LogLevel::EMERGENCY],
+            [Psr3LogLevel::ALERT],
+            [Psr3LogLevel::CRITICAL],
+            [Psr3LogLevel::ERROR],
+            [Psr3LogLevel::WARNING],
+            [Psr3LogLevel::NOTICE],
+            [Psr3LogLevel::INFO],
+            [Psr3LogLevel::DEBUG],
+        ];
+    }
+
+    #[Test]
+    public function itCanPrefixTheMessage(): void
+    {
+        $this->adapter = new PsrLoggerAdapter($this->test_logger, null, 'Prefix: ');
+        $this->adapter->log('info', 'Test message 1', ['key' => 'value']);
+
+        $logs = $this->test_logger->getLogs();
+        self::assertCount(1, $logs);
+        self::assertSame('info', $logs[0]['level']);
+        self::assertSame('Prefix: Test message 1', $logs[0]['message']);
+        self::assertSame(['key' => 'value'], $logs[0]['context']);
+    }
+
+    #[Test]
+    public function itCanOverrideContext(): void
+    {
+        $this->adapter = new PsrLoggerAdapter($this->test_logger, null, '', ['override' => 'value']);
+        $this->adapter->log('info', 'Test message 1', ['key' => 'value']);
+        $this->adapter->log('info', 'Test message 2', ['key' => 'value', 'override' => 'other']);
+
+        $logs = $this->test_logger->getLogs();
+        self::assertCount(2, $logs);
+        self::assertSame('info', $logs[0]['level']);
+        self::assertSame('Test message 1', $logs[0]['message']);
+        self::assertSame(['key' => 'value', 'override' => 'value'], $logs[0]['context']);
+        self::assertSame('info', $logs[1]['level']);
+        self::assertSame('Test message 2', $logs[1]['message']);
+        self::assertSame(['key' => 'value', 'override' => 'value'], $logs[1]['context']);
+    }
+
+    public function itCanResetInnerLogger(): void
+    {
+        $this->adapter->log('info', 'Test message 1');
+        $this->adapter->log('error', 'Test message 2');
+        self::assertCount(2, $this->test_logger->getLogs());
+
+        $this->adapter->reset();
+        self::assertCount(0, $this->test_logger->getLogs());
     }
 
     #[Test]
