@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Tests\Fixtures;
 
+use PhoneBurner\SaltLite\Container\ResettableService;
 use Psr\Log\LoggerInterface;
 
 /**
  * Simple test logger to capture logs for verification
  */
-class MockLogger implements LoggerInterface
+class MockLogger implements LoggerInterface, ResettableService
 {
     /**
      * @var array<array{level: mixed, message: string|\Stringable, context: array}>
@@ -71,5 +72,10 @@ class MockLogger implements LoggerInterface
     public function getLogs(): array
     {
         return $this->logs;
+    }
+
+    public function reset(): void
+    {
+        $this->logs = [];
     }
 }

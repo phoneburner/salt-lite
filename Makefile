@@ -77,11 +77,15 @@ bash: build
 lint: build
 	@$(app) composer run-script lint
 
-.PHONY: test
+# Run tests, aliased to "phpunit" for consistency with other tooling targets.
+.PHONY: test phpunit
+phpunit: test
 test: build
 	@$(app) composer run-script test
 
-.PHONY: test-coverage
+# Generate HTML PHPUnit test coverage report, aliased to "phpunit-coverage" for consistency with other tooling targets.
+.PHONY: test-coverage test-coverage
+phpunit-coverage: test-coverage
 test-coverage: build
 	@$(app) composer run-script test-coverage
 
@@ -105,20 +109,22 @@ rector: build
 rector-dry-run: build
 	@$(app) composer run-script rector-dry-run
 
+# Runs all the code quality checks: lint, phpstan, phpcs, and rector-dry-run".
 .PHONY: ci
 ci: build
 	@$(app) composer run-script ci
 
-.PHONY: pre-ci
-pre-ci: build
-	@$(app) composer run-script phpcbf || true
-	@$(app) composer run-script rector || true
-	@$(app) composer run-script ci
+# Runs the automated fixer tools, then run the code quality checks in one go, aliased to "preci".
+.PHONY: pre-ci preci
+preci: pre-ci
+pre-ci: build phpcbf rector ci
 
+# Run the PsySH REPL shell
 .PHONY: shell
 shell: build
 	@docker compose run --rm -it php vendor/bin/psysh
 
+# Run the PHP development server to serve the HTML test coverage report on port 8000.
 .PHONY: serve-coverage
-serve-coverage:
+serve-coverage: build
 	@docker compose run --rm --publish 8000:80 php php -S 0.0.0.0:80 -t /app/build/phpunit
