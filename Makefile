@@ -58,7 +58,7 @@ vendor: build
 
 .PHONY: clean
 clean:
-	$(app) -rf ./build ./vendor html/phpunit
+	$(app) -rf ./build ./vendor
 	$(app) find /var/www/storage/ -type f -not -name .gitignore -delete
 
 .PHONY: up
@@ -84,10 +84,15 @@ test: build
 	@$(app) composer run-script test
 
 # Generate HTML PHPUnit test coverage report, aliased to "phpunit-coverage" for consistency with other tooling targets.
-.PHONY: test-coverage test-coverage
+.PHONY: test-coverage phpunit-coverage
 phpunit-coverage: test-coverage
 test-coverage: build
 	@$(app) composer run-script test-coverage
+
+# Run the PHP development server to serve the HTML test coverage report on port 8000.
+.PHONY: serve-coverage
+serve-coverage:
+	@docker compose run --rm --publish 8000:80 php php -S 0.0.0.0:80 -t /app/build/phpunit
 
 .PHONY: phpcs
 phpcs: build
@@ -123,8 +128,3 @@ pre-ci: build phpcbf rector ci
 .PHONY: shell
 shell: build
 	@docker compose run --rm -it php vendor/bin/psysh
-
-# Run the PHP development server to serve the HTML test coverage report on port 8000.
-.PHONY: serve-coverage
-serve-coverage: build
-	@docker compose run --rm --publish 8000:80 php php -S 0.0.0.0:80 -t /app/build/phpunit
