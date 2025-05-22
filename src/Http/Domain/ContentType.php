@@ -68,6 +68,7 @@ final class ContentType
     public const string ICO = 'image/x-icon';
     public const string YAML = 'application/yaml';
     public const string ICS = 'text/calendar';
+    public const string EVENT_STREAM = 'text/event-stream';
 
     private const array EXTENSION_MAP = [
         'php' => self::PHP,

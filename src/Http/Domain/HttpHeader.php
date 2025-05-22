@@ -127,6 +127,7 @@ class HttpHeader
     public const string WANT_REPR_DIGEST = 'Want-Repr-Digest';
     public const string WARNING = 'Warning';
     public const string WWW_AUTHENTICATE = 'WWW-Authenticate';
+    public const string X_ACCEL_BUFFERING = 'X-Accel-Buffering';
     public const string X_CONTENT_TYPE_OPTIONS = 'X-Content-Type-Options';
     public const string X_FRAME_OPTIONS = 'X-Frame-Options';
     public const string X_RATELIMIT_LIMIT = 'X-RateLimit-Limit';
