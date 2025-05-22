@@ -69,7 +69,34 @@ final class IteratorStreamTest extends TestCase
         $stream->rewind();
         self::assertSame(0, $stream->tell());
         self::assertFalse($stream->eof());
-        self::assertSame('foobarbaz', $stream->read());
+        self::assertSame('foo', $stream->read());
+        self::assertSame('bar', $stream->read());
+        self::assertSame('baz', $stream->read());
+    }
+
+    #[Test]
+    public function readRespectsLengthParam(): void
+    {
+        $iterator = new \ArrayIterator(['foo', 'bar', 'baz']);
+        $stream = new IteratorStream($iterator);
+
+        self::assertSame('fo', $stream->read(2));
+        self::assertSame('o', $stream->read(2));
+        self::assertSame('b', $stream->read(1));
+        self::assertSame('a', $stream->read(1));
+        self::assertSame('r', $stream->read(1));
+        self::assertSame('baz', $stream->getContents());
+    }
+
+    #[Test]
+    public function readRespectsLengthParam2(): void
+    {
+        $stream = new IteratorStream((fn(): \Generator => yield from ['foo', 'bar', 'baz'])());
+
+        self::assertSame('foo', $stream->read(1000));
+        self::assertSame('b', $stream->read(1));
+        self::assertSame('ar', $stream->read(2));
+        self::assertSame('baz', $stream->read(10));
     }
 
     #[Test]
