@@ -9,7 +9,13 @@ use Psr\Http\Message\StreamInterface;
 
 /**
  * A StreamInterface implementation that reads from an array or Traversable
- * instance to produce the stream data. Also, is an iterator itself.
+ * instance to produce the stream data. The instance is also an iterator itself. Note
+ * that `getIterator()` returns a StreamIterator, not the underlying iterable.
+ *
+ * Unlike a typical PHP "foreach" operation, which calls next() immediately *after*
+ * current() to move the iterator ahead, read operations with this class increment
+ * the iterator with rewind()/next() first. This is intended to avoid blocking behavior
+ * in next() from affecting returning the bytes retrieved from current().
  *
  * @implements \IteratorAggregate<string>
  */
@@ -21,6 +27,8 @@ class IteratorStream implements StreamInterface, \Stringable, \IteratorAggregate
      * @var \Iterator<string>
      */
     private readonly \Iterator $iterator;
+
+    private int $counter = 0;
 
     private int|null $position = null;
 
@@ -102,6 +110,7 @@ class IteratorStream implements StreamInterface, \Stringable, \IteratorAggregate
         $this->iterator->rewind();
         $this->buffer = '';
         $this->position = 0;
+        $this->counter = 0;
     }
 
     #[\Override]
@@ -129,6 +138,16 @@ class IteratorStream implements StreamInterface, \Stringable, \IteratorAggregate
     #[\Override]
     public function read(int $length = self::CHUNK_BYTES): string
     {
+        // If a previous call to `read()` retrieved more bytes from the iterator
+        // than the requested length, do not move the iterator forward until the
+        // buffer is drained.
+        if ($this->buffer !== '') {
+            $bytes = \substr($this->buffer, 0, $length);
+            $this->position += \strlen($bytes);
+            $this->buffer = \substr($this->buffer, $length);
+            return $bytes;
+        }
+
         // IteratorIterator instances must be rewound before use, otherwise the
         // current value of the inner Traversable will not be returned when the
         // IteratorIterator::current() method is called, but we want to do this
@@ -138,13 +157,13 @@ class IteratorStream implements StreamInterface, \Stringable, \IteratorAggregate
             $this->rewind();
         }
 
-        while ($this->iterator->valid() && \strlen($this->buffer) <= $length) {
-            $this->buffer .= $this->iterator->current();
+        if ($this->counter !== 0) {
             $this->iterator->next();
         }
 
+        $this->buffer .= $this->iterator->current();
+        ++$this->counter;
         $bytes = \substr($this->buffer, 0, $length);
-
         $this->position += \strlen($bytes);
         $this->buffer = \substr($this->buffer, $length);
 
