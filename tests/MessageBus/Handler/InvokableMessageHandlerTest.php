@@ -26,7 +26,7 @@ final class InvokableMessageHandlerTest extends TestCase
         $handler = new InvokableMessageHandler($container, $event_dispatcher);
 
         $dispatched_events = [];
-        $event_dispatcher->method('dispatch')->willReturnCallback(static function ($event) use (&$dispatched_events) {
+        $event_dispatcher->method('dispatch')->willReturnCallback(static function (object $event) use (&$dispatched_events): object {
                 $dispatched_events[] = $event;
                 return $event;
         });
@@ -55,7 +55,7 @@ final class InvokableMessageHandlerTest extends TestCase
 
         $dispatched_events = [];
         $event_dispatcher->method('dispatch')
-            ->willReturnCallback(function ($event) use (&$dispatched_events) {
+            ->willReturnCallback(function (object $event) use (&$dispatched_events): object {
                 $dispatched_events[] = $event;
                 return $event;
             });
