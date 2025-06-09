@@ -32,8 +32,9 @@ class VariableLengthSensitiveBinaryString implements ImportableBinaryString
      */
     public function __destruct()
     {
+        /** @phpstan-ignore isset.initializedProperty */
         if (isset($this->bytes)) {
-            /** @phpstan-ignore-next-line */
+            /** @phpstan-ignore assign.propertyType */
             \sodium_memzero($this->bytes);
         }
     }
@@ -45,6 +46,7 @@ class VariableLengthSensitiveBinaryString implements ImportableBinaryString
      */
     public function bytes(): string
     {
+        /** @phpstan-ignore nullCoalesce.initializedProperty () */
         return $this->bytes ?? throw CryptoLogicException::unreachable();
     }
 

@@ -48,6 +48,8 @@ final class LazyMiddleware implements TerminableMiddleware
             $next_middleware->setFallbackRequestHandler($this->fallback_request_handler);
         }
 
+        \assert($next_middleware instanceof MiddlewareInterface);
+
         return $next_middleware->process($request, $handler);
     }
 }

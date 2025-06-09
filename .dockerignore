@@ -1,13 +1,45 @@
+# Ignore IDE, AI, & GitHub Directories
+/.cursor
+/.idea
+/.junie
+/.phpstorm.meta.php
+/.run
+/.vscode
+
+# Ignore GitHub Actions and CI/CD Directories
+/.github
+
+# Ignore Build, Test and Vendor Directories
+/build
+/vendor
+/tests
+
+# Ignore environment files, except for the default distribution file
 .env
-.idea
-.cursor
-.github
-build
-caddy
-public
-resources
-storage
-vendor
+.env.*
+*.private.env.json
+!.env.dist
+
+# Ignore boilerplate and development tooling files
+*.http
+.editorconfig
+.gitattributes
+.gitignore
+.prettierignore
+Dockerfile
+Makefile
+README.md
+behat.yml
 docker-compose.override.yml
-phpunit.xml
+docker-compose.yml
+http-client.env.json
+phpcs.xml
+phpstan-baseline.*.neon
+phpstan-baseline.*.php
+phpstan-baseline.neon
+phpstan-baseline.php
+phpstan.dist.neon
 phpstan.neon
+phpunit.dist.xml
+phpunit.xml
+rector.php

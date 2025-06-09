@@ -20,18 +20,17 @@
     "sort-packages": true,
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true,
-      "phpstan/extension-installer": true,
-      "sllh/composer-lint": true
+      "phpstan/extension-installer": true
     }
   },
   "repositories": [
     {
       "type": "github",
-      "url": "https://github.com/PhoneBurnerOpenSource/composer-replacements"
+      "url": "https://github.com/phoneburner/composer-replacements"
     },
     {
       "type": "github",
-      "url": "https://github.com/PhoneBurnerOpenSource/php-coding-standard"
+      "url": "https://github.com/phoneburner/php-coding-standard"
     },
     {
       "type": "github",
@@ -39,11 +38,11 @@
     },
     {
       "type": "github",
-      "url": "https://github.com/PhoneBurnerOpenSource/http-tortilla"
+      "url": "https://github.com/phoneburner/http-tortilla"
     },
     {
       "type": "github",
-      "url": "https://github.com/PhoneBurnerOpenSource/link-tortilla"
+      "url": "https://github.com/phoneburner/link-tortilla"
     }
   ],
   "autoload": {
@@ -103,34 +102,34 @@
     "symfony/var-exporter": "^7.2.3"
   },
   "require-dev": {
-    "phoneburner/coding-standard": "dev-main",
-    "phoneburner/composer-replacements": "dev-main",
-    "phoneburner/salt-lite-phpstan": "dev-main",
+    "phoneburner/coding-standard": "^1.0.0",
+    "phoneburner/composer-replacements": "^1.0.0",
+    "phoneburner/salt-lite-phpstan": "^0.1.0",
     "php-parallel-lint/php-parallel-lint": "^1.4",
-    "phpunit/phpunit": "^12.1.4",
+    "phpunit/phpunit": "^12.2.1",
     "psy/psysh": "^0.12.8",
-    "rector/rector": "^2.0.15",
+    "rector/rector": "^2.0.17",
     "roave/security-advisories": "dev-latest",
-    "symfony/var-dumper": "^7.2.6"
+    "symfony/var-dumper": "^7.3.0"
   },
   "scripts": {
     "lint": "@php vendor/bin/parallel-lint -j $(nproc --ignore=2) --show-deprecated --exclude vendor --exclude build .",
     "phpcbf": "@php vendor/bin/phpcbf --parallel=$(nproc --ignore=2) --report=full",
     "phpcs": "@php vendor/bin/phpcs --parallel=$(nproc --ignore=2) --report=full",
     "phpstan": "@php vendor/bin/phpstan analyze --memory-limit=-1 --verbose",
-    "test": [
+    "phpunit": [
       "@putenv XDEBUG_MODE=off",
       "@php vendor/bin/phpunit"
     ],
-    "test-coverage": [
+    "phpunit-coverage": [
       "@putenv XDEBUG_MODE=coverage",
       "@php vendor/bin/phpunit --coverage-html=build/phpunit"
     ],
-    "test-parallel": [
-      "@php vendor/bin/paratest"
-    ],
     "rector": "@php vendor/bin/rector process",
     "rector-dry-run": "@php vendor/bin/rector process --dry-run",
+    "test": [
+      "@phpunit"
+    ],
     "ci": [
       "@lint",
       "@phpcs",
@@ -142,6 +141,11 @@
   "extra": {
     "branch-alias": {
       "dev-main": "1.0.x-dev"
+    },
+    "phpstan/extension-installer": {
+      "ignore": [
+        "phoneburner/salt-lite-phpstan"
+      ]
     }
   }
 }

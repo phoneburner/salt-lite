@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Http;
 
+use PhoneBurner\SaltLite\Type\Type;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
@@ -25,7 +26,10 @@ class RequestHandlerFactory
     {
         return match (true) {
             $request_handler instanceof RequestHandlerInterface => $request_handler,
-            \is_a($request_handler, RequestHandlerInterface::class, true) => $this->container->get($request_handler),
+            \is_a($request_handler, RequestHandlerInterface::class, true) => Type::of(
+                RequestHandlerInterface::class,
+                $this->container->get($request_handler),
+            ),
             default => throw new \InvalidArgumentException(self::TYPE_ERROR),
         };
     }

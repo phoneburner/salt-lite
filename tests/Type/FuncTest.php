@@ -82,8 +82,8 @@ final class FuncTest extends TestCase
 
     private static function makeMockObject(int $i): object
     {
-        return new class ($i) {
-            public function __construct(private readonly int $i)
+        return new readonly class ($i) {
+            public function __construct(private int $i)
             {
             }
 

@@ -58,11 +58,11 @@ final class IterTest extends TestCase
      */
     public static function makeIteratorAggregate(array $array): \IteratorAggregate
     {
-        return new class ($array) implements \IteratorAggregate {
+        return new readonly class ($array) implements \IteratorAggregate {
             /**
              * @param array<mixed> $array
              */
-            public function __construct(private readonly array $array)
+            public function __construct(private array $array)
             {
             }
 
@@ -83,12 +83,12 @@ final class IterTest extends TestCase
      */
     public static function makeIterableArrayable(array $arrayable_array, array $iterator_array): object
     {
-        return new class ($arrayable_array, $iterator_array) implements Arrayable, \IteratorAggregate {
+        return new readonly class ($arrayable_array, $iterator_array) implements Arrayable, \IteratorAggregate {
             /**
              * @param array<mixed> $arrayable_array
              * @param array<mixed> $iterator_array
              */
-            public function __construct(private readonly array $arrayable_array, private readonly array $iterator_array)
+            public function __construct(private array $arrayable_array, private array $iterator_array)
             {
             }
 
@@ -116,11 +116,11 @@ final class IterTest extends TestCase
      */
     public static function makeArrayable(array $array): Arrayable
     {
-        return new class ($array) implements Arrayable {
+        return new readonly class ($array) implements Arrayable {
             /**
              * @param array<mixed> $array
              */
-            public function __construct(private readonly array $array)
+            public function __construct(private array $array)
             {
             }
 
@@ -136,22 +136,17 @@ final class IterTest extends TestCase
 
     #[Test]
     #[DataProvider('providesFirstLastTestCases')]
-    public function firstReturnsFirstElement(iterable $input, mixed $expected_first): void
+    public function firstAndLastReturnsExpectedElements(iterable $input, mixed $first, mixed $last): void
     {
-        self::assertSame($expected_first, Iter::first($input));
-    }
-
-    #[Test]
-    #[DataProvider('providesFirstLastTestCases')]
-    public function lastReturnsLastElement(iterable $input, mixed $_, mixed $expected_last): void
-    {
-        self::assertSame($expected_last, Iter::last($input));
+        self::assertSame($first, Iter::first($input));
+        self::assertSame($last, Iter::last($input));
     }
 
     public static function providesFirstLastTestCases(): \Generator
     {
         yield 'empty array' => [[], null, null];
         yield 'simple array' => [[1, 2, 3], 1, 3];
+        yield 'single_value_array' => [['apple'], 'apple', 'apple'];
         yield 'associative array' => [['a' => 'apple', 'b' => 'banana'], 'apple', 'banana'];
         yield 'generator' => [(static fn() => yield from [10, 20, 30])(), 10, 30];
         yield 'iterator' => [new \ArrayIterator(['x', 'y', 'z']), 'x', 'z'];

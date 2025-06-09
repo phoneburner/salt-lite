@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Cryptography\Asymmetric;
 
 use PhoneBurner\SaltLite\Cryptography\String\FixedLengthSensitiveBinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringImportBehavior;
 use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringProhibitsSerialization;
 
 /**
@@ -14,6 +15,7 @@ use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringProhibitsSeriali
 final class EncryptionSecretKey extends FixedLengthSensitiveBinaryString implements SecretKey
 {
     use BinaryStringProhibitsSerialization;
+    use BinaryStringImportBehavior;
 
     public const int LENGTH = \SODIUM_CRYPTO_KX_SECRETKEYBYTES; // 256-bit string
 

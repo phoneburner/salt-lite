@@ -53,8 +53,7 @@ final class MethodServiceFactoryTest extends TestCase
         $factory = new MethodServiceFactory(StaticServiceFactoryTestClass::class);
         $this->container->method('get')->with(StaticServiceFactoryTestClass::class)->willReturn(null);
 
-        $this->expectException(\TypeError::class);
-        $this->expectExceptionMessage('method_exists(): Argument #1 ($object_or_class) must be of type object|string, null given');
+        $this->expectException(\AssertionError::class);
         $factory($this->container, StaticServiceFactoryTestClass::class);
     }
 
@@ -90,8 +89,7 @@ final class MethodServiceFactoryTest extends TestCase
         $factory = new MethodServiceFactory(ServiceFactoryTestClass::class);
         $this->container->method('get')->with(ServiceFactoryTestClass::class)->willReturn(null);
 
-        $this->expectException(\TypeError::class);
-        $this->expectExceptionMessage('method_exists(): Argument #1 ($object_or_class) must be of type object|string, null given');
+        $this->expectException(\AssertionError::class);
         $factory($this->container, ServiceFactoryTestClass::class);
     }
 }

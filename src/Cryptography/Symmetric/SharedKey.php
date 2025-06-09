@@ -7,6 +7,7 @@ namespace PhoneBurner\SaltLite\Cryptography\Symmetric;
 use PhoneBurner\SaltLite\Cryptography\KeyManagement\Key;
 use PhoneBurner\SaltLite\Cryptography\String\FixedLengthSensitiveBinaryString;
 use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringFromRandomBytes;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringImportBehavior;
 use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringProhibitsSerialization;
 
 /**
@@ -19,6 +20,7 @@ final class SharedKey extends FixedLengthSensitiveBinaryString implements Key
 {
     use BinaryStringProhibitsSerialization;
     use BinaryStringFromRandomBytes;
+    use BinaryStringImportBehavior;
 
     public const int LENGTH = \SODIUM_CRYPTO_STREAM_XCHACHA20_KEYBYTES;
 }

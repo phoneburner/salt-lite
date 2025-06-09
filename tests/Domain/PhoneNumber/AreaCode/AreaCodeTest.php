@@ -93,8 +93,8 @@ final class AreaCodeTest extends TestCase
     #[Test]
     public function canHydrateFromAreaCodeAware(int $npa): void
     {
-        $test = new class ($npa) implements AreaCodeAware {
-            public function __construct(private readonly int $npa)
+        $test = new readonly class ($npa) implements AreaCodeAware {
+            public function __construct(private int $npa)
             {
             }
 

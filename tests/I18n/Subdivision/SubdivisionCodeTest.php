@@ -49,7 +49,7 @@ final class SubdivisionCodeTest extends TestCase
             self::assertIsString($key);
             self::assertInstanceOf(SubdivisionCode::class, $code);
             // Assert constant value matches the object's value property
-            self::assertSame(\constant(SubdivisionCode::class . '::' . $key), $code->value);
+            self::assertSame(SubdivisionCode::{$key}, $code->value);
         }
 
         // Spot check a few

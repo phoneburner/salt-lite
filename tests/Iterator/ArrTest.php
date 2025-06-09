@@ -12,6 +12,7 @@ use PhoneBurner\SaltLite\Iterator\Arr;
 use PhoneBurner\SaltLite\Iterator\Arrayable;
 use PhoneBurner\SaltLite\Iterator\NullableArrayAccess;
 use PhoneBurner\SaltLite\String\Str;
+use PhoneBurner\SaltLite\Tests\Fixtures\DotAccessTestStruct;
 use PhoneBurner\SaltLite\Tests\Fixtures\NestedObject;
 use PhoneBurner\SaltLite\Tests\Fixtures\NestingObject;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -155,13 +156,13 @@ final class ArrTest extends TestCase
 
     #[DataProvider('providesGetAndHasTestCases')]
     #[Test]
-    public function hasTraversesArrayByDotNotation(string $needle, bool $exists): void
+    public function hasTraversesArrayByDotNotation(DotAccessTestStruct $struct): void
     {
         $array = $this->makeTestHaystack();
         $array_access = self::makeArrayAccess($array);
 
-        self::assertSame($exists, Arr::has($needle, $array));
-        self::assertSame($exists, Arr::has($needle, $array_access));
+        self::assertSame($struct->exists, Arr::has($struct->needle, $array));
+        self::assertSame($struct->exists, Arr::has($struct->needle, $array_access));
     }
 
     #[Test]
@@ -174,17 +175,13 @@ final class ArrTest extends TestCase
 
     #[DataProvider('providesGetAndHasTestCases')]
     #[Test]
-    public function getTraversesArrayByDotNotation(
-        string $needle,
-        bool $exists,
-        mixed $expected,
-        mixed $default = null,
-    ): void {
+    public function getTraversesArrayByDotNotation(DotAccessTestStruct $struct): void
+    {
         $array = $this->makeTestHaystack();
         $array_access = self::makeArrayAccess($array);
 
-        self::assertSame($expected, Arr::get($needle, $array, $default));
-        self::assertSame($expected, Arr::get($needle, $array_access, $default));
+        self::assertSame($struct->expected, Arr::get($struct->needle, $array, $struct->default));
+        self::assertSame($struct->expected, Arr::get($struct->needle, $array_access, $struct->default));
     }
 
     #[Test]
@@ -385,7 +382,9 @@ final class ArrTest extends TestCase
      */
     public static function providesGetAndHasTestCases(): Generator
     {
-        $t = static fn(string $needle, bool $exists, $expected, $default = null): array => \func_get_args();
+        $t = static fn(string $needle, bool $exists, mixed $expected, mixed $default = null): array => [
+            new DotAccessTestStruct($needle, $exists, $expected, $default),
+        ];
 
         yield 'exists' => $t('top_level_exists', true, 'foo');
         yield 'exists:default' => $t('top_level_exists', true, 'foo', 'bar');
@@ -486,11 +485,11 @@ final class ArrTest extends TestCase
         /**
          * @implements Arrayable<array-key, mixed>
          */
-        return new class ($array) implements Arrayable {
+        return new readonly class ($array) implements Arrayable {
             /**
              * @param array<mixed> $array
              */
-            public function __construct(private readonly array $array)
+            public function __construct(private array $array)
             {
             }
 
@@ -510,11 +509,11 @@ final class ArrTest extends TestCase
      */
     public static function makeIteratorAggregate(array $array): IteratorAggregate
     {
-        return new class ($array) implements IteratorAggregate {
+        return new readonly class ($array) implements IteratorAggregate {
             /**
              * @param array<mixed> $array
              */
-            public function __construct(private readonly array $array)
+            public function __construct(private array $array)
             {
             }
 
@@ -535,12 +534,12 @@ final class ArrTest extends TestCase
      */
     public static function makeIterableArrayable(array $arrayable_array, array $iterator_array): object
     {
-        return new class ($arrayable_array, $iterator_array) implements Arrayable, IteratorAggregate {
+        return new readonly class ($arrayable_array, $iterator_array) implements Arrayable, IteratorAggregate {
             /**
              * @param array<mixed> $arrayable_array
              * @param array<mixed> $iterator_array
              */
-            public function __construct(private readonly array $arrayable_array, private readonly array $iterator_array)
+            public function __construct(private array $arrayable_array, private array $iterator_array)
             {
             }
 

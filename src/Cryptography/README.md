@@ -1,6 +1,7 @@
 # Cryptography Utilities
 
 ### Defaults
+
 - Symmetric Encryption: XChaCha20+Blake2b (Split Encryption/Authentication Keys)
 - Asymmetric Encryption: ECDH-X25519+XChaCha20+Blake2b
 - Digital Signatures: Ed25519
@@ -11,15 +12,14 @@
 
 ## TL;DR:
 
-Use the `PhoneBurner\SaltLite\Cryptography\Natrium` facade to 
+Use the `PhoneBurner\SaltLite\Cryptography\Natrium` facade to
 access the cryptographic operations with the keys derived from the app key in
 configuration.
-
 
 ### Symmetric Encryption and Decryption
 
 ```php
-<?php 
+<?php
 
 use PhoneBurner\SaltLite\Cryptography\Symmetric\Symmetric;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SharedKey;
@@ -37,13 +37,13 @@ $plaintext = 'The quick brown fox jumps over the lazy dog';
 $ciphertext = new Symmetric()->encrypt($key, $plaintext);
 
 // Export the ciphertext to a base64url encoded string with constant time encoding
-$encoded = $ciphertext->export(Encoding::Base64Url); 
+$encoded = $ciphertext->export(Encoding::Base64Url);
 
 // Import a ciphertext from a hex/base64/base64url encoded string
 $ciphertext = Ciphertext::import($encoded);
 
 // Decrypt the ciphertext back into the original message
-$plaintext = new Symmetric()->decrypt($key, $ciphertext); 
+$plaintext = new Symmetric()->decrypt($key, $ciphertext);
 
 echo $plaintext; // "The quick brown fox jumps over the lazy dog"
 ```
@@ -51,7 +51,7 @@ echo $plaintext; // "The quick brown fox jumps over the lazy dog"
 ### Authenticated Asymmetric Encryption and Decryption
 
 ```php
-<?php 
+<?php
 
 use PhoneBurner\SaltLite\Cryptography\String\Ciphertext;
 use PhoneBurner\SaltLite\Cryptography\Asymmetric\EncryptionKeyPair;
@@ -76,7 +76,7 @@ $plaintext = 'The quick brown fox jumps over the lazy dog';
 $ciphertext = new Asymmetric()->encrypt($key_pair, $public_key, $plaintext);
 
 // Export the ciphertext to a base64url encoded string with constant time encoding
-$encoded = $ciphertext->export(Encoding::Base64Url); 
+$encoded = $ciphertext->export(Encoding::Base64Url);
 
 // Acting as the Recipient:
 
@@ -92,21 +92,20 @@ $public_key = EncryptionPublicKey::import('0uUCaNy-i-msECVV3yxC2CKkQEOgETBDjMQ-o
 $ciphertext = Ciphertext::import($encoded);
 
 // Decrypt the ciphertext back into the original message
-$plaintext = new Asymmetric()->decrypt($key_pair, $public_key, $ciphertext); 
+$plaintext = new Asymmetric()->decrypt($key_pair, $public_key, $ciphertext);
 
 echo $plaintext; // "The quick brown fox jumps over the lazy dog"
 ```
-
 
 ### Key Derivation (HKDF)
 
 A key derivation function (KDF) is used to derive keys from a master key, usually
 for a specific purpose or context.
 
-
 ### Supported Cryptographic Primitives
 
 #### Symmetric Encryption/Decryption
+
 - AEGIS-256
 - XChaCha20+Blake2b (with Split Encryption/Authentication Keys)
 - XChaCha20+Poly1305 IEFT
@@ -114,9 +113,11 @@ for a specific purpose or context.
 - XSalsa20+Poly1305
 
 #### Symmetric Authentication
+
 - BLAKE2b with 512-bit digest
 
 #### Supported Authenticated Asymmetric Encryption/Decryption
+
 - X25519+AEGIS-256
 - X25519+XChaCha20+Blake2b
 - X25519+XChaCha20+Poly1305 IEFT
@@ -124,10 +125,12 @@ for a specific purpose or context.
 - X25519+XSalsa20+Poly1305
 
 #### Anonymous Asymmetric Encryption/Decryption
+
 - X25519+AEGIS-256
 - X25519+XChaCha20+Blake2b
 - X25519+XChaCha20+Poly1305 IEFT
 - X25519+XSalsa20+Poly1305
 
 #### Public Key Digital Signatures
+
 - Ed25519

@@ -26,6 +26,8 @@ class DeferredServiceFactory implements ServiceFactory
 
     public function __invoke(App $app, string $id): object
     {
-        return $app->get($this->service_factory)($app, $id);
+        $callback = $app->get($this->service_factory);
+        \assert(\is_callable($callback), \sprintf("The service factory '%s' must be callable.", $this->service_factory));
+        return $callback($app, $id);
     }
 }

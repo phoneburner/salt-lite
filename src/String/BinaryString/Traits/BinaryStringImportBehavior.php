@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\String\BinaryString\Traits;
 
 use PhoneBurner\SaltLite\Cryptography\ConstantTime;
-use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
+use PhoneBurner\SaltLite\String\BinaryString\ImportableBinaryString;
 use PhoneBurner\SaltLite\String\Encoding\Encoding;
 
 /**
- * @phpstan-require-implements BinaryString
+ * @phpstan-require-implements ImportableBinaryString
  */
 trait BinaryStringImportBehavior
 {

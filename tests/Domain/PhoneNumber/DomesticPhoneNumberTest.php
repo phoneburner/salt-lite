@@ -38,7 +38,7 @@ final class DomesticPhoneNumberTest extends TestCase
         self::assertNull(DomesticPhoneNumber::tryFrom($test));
     }
 
-    #[DataProvider('e164DataProvider')]
+    #[DataProvider('e164StringDataProvider')]
     #[Test]
     public function tryFromReturnsSelf(string $test): void
     {
@@ -46,14 +46,14 @@ final class DomesticPhoneNumberTest extends TestCase
         self::assertSame($phone_number, DomesticPhoneNumber::tryFrom($phone_number));
     }
 
-    #[DataProvider('e164DataProvider')]
+    #[DataProvider('e164StringDataProvider')]
     #[Test]
     public function tryFromMakesValidPhoneNumbers(string $test): void
     {
         self::assertEquals(DomesticPhoneNumber::make($test), DomesticPhoneNumber::tryFrom($test));
     }
 
-    #[DataProvider('e164DataProvider')]
+    #[DataProvider('e164StringDataProvider')]
     #[Test]
     public function makeReturnsSelf(string $test): void
     {
@@ -61,13 +61,13 @@ final class DomesticPhoneNumberTest extends TestCase
         self::assertSame($phone_number, DomesticPhoneNumber::make($phone_number));
     }
 
-    #[DataProvider('e164DataProvider')]
+    #[DataProvider('e164StringDataProvider')]
     #[Test]
     public function makeCastsStringable(string $test): void
     {
         $phone_number = DomesticPhoneNumber::make($test);
-        self::assertEquals($phone_number, DomesticPhoneNumber::make(new class ($test) implements \Stringable {
-            public function __construct(private readonly string $phone_number)
+        self::assertEquals($phone_number, DomesticPhoneNumber::make(new readonly class ($test) implements \Stringable {
+            public function __construct(private string $phone_number)
             {
             }
 
@@ -78,13 +78,13 @@ final class DomesticPhoneNumberTest extends TestCase
         }));
     }
 
-    #[DataProvider('e164DataProvider')]
+    #[DataProvider('e164StringDataProvider')]
     #[Test]
     public function makeReusesValidE164(string $test): void
     {
         $e164 = E164::make($test);
-        self::assertSame($e164, DomesticPhoneNumber::make(new class ($e164) implements PhoneNumber {
-            public function __construct(private readonly E164 $e164)
+        self::assertSame($e164, DomesticPhoneNumber::make(new readonly class ($e164) implements PhoneNumber {
+            public function __construct(private E164 $e164)
             {
             }
 
@@ -198,6 +198,24 @@ final class DomesticPhoneNumberTest extends TestCase
         yield ["(314) 555-1234", 314];
         yield ["(314)-555-1234", 314];
         yield ["(314)-555-1234 ext.", 314];
+    }
+
+    /**
+     * @return \Generator<array{string}>
+     */
+    public static function e164StringDataProvider(): \Generator
+    {
+        yield from [
+            ['+13145551234'],
+            ['3145551234'],
+            ['13145551234'],
+            ['1-314-555-1234'],
+            ["3145551234\n"],
+            ["13145551234\n"],
+            ["(314) 555-1234"],
+            ["(314)-555-1234"],
+            ["(314)-555-1234 ext."],
+        ];
     }
 
     /**

@@ -201,8 +201,8 @@ final class IteratorStreamTest extends TestCase
                 yield from $values;
             })(), $expected];
 
-            yield $name . 'IteratorAggregate' => [new class ($values) implements \IteratorAggregate {
-                public function __construct(private readonly array $values)
+            yield $name . 'IteratorAggregate' => [new readonly class ($values) implements \IteratorAggregate {
+                public function __construct(private array $values)
                 {
                 }
 

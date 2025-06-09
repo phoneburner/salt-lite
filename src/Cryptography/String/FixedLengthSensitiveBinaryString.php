@@ -11,12 +11,10 @@ use PhoneBurner\SaltLite\Cryptography\Util;
 use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 use PhoneBurner\SaltLite\String\BinaryString\ImportableBinaryString;
 use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringExportBehavior;
-use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringImportBehavior;
 
 abstract class FixedLengthSensitiveBinaryString implements ImportableBinaryString
 {
     use BinaryStringExportBehavior;
-    use BinaryStringImportBehavior;
 
     /**
      * Defaults to 256-bit string, but can be overridden in child classes
@@ -42,8 +40,9 @@ abstract class FixedLengthSensitiveBinaryString implements ImportableBinaryStrin
      */
     public function __destruct()
     {
+        /** @phpstan-ignore isset.initializedProperty */
         if (isset($this->bytes)) {
-            /** @phpstan-ignore-next-line */
+            /** @phpstan-ignore assign.propertyType */
             \sodium_memzero($this->bytes);
         }
     }
@@ -57,6 +56,7 @@ abstract class FixedLengthSensitiveBinaryString implements ImportableBinaryStrin
      */
     public function bytes(): string
     {
+        /** @phpstan-ignore nullCoalesce.initializedProperty () */
         return $this->bytes ?: throw CryptoLogicException::unreachable();
     }
 

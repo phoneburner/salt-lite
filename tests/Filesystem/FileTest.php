@@ -49,8 +49,8 @@ final class FileTest extends TestCase
     #[Test]
     public function readAcceptsStringable(): void
     {
-        $stringable = new class ($this->test_file_path) implements \Stringable {
-            public function __construct(private readonly string $path)
+        $stringable = new readonly class ($this->test_file_path) implements \Stringable {
+            public function __construct(private string $path)
             {
             }
 
@@ -91,8 +91,8 @@ final class FileTest extends TestCase
     #[Test]
     public function writeAcceptsStringable(): void
     {
-        $stringable = new class ($this->test_file_path) implements \Stringable {
-            public function __construct(private readonly string $path)
+        $stringable = new readonly class ($this->test_file_path) implements \Stringable {
+            public function __construct(private string $path)
             {
             }
 

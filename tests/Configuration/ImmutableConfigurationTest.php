@@ -88,9 +88,9 @@ final class ImmutableConfigurationTest extends TestCase
         yield 'foo' => ['foo', true, ['bar' => "Hello, World!", 'baz' => ['foo' => 1234, 'bar' => true, 'baz' => false, 'qux' => null]]];
         yield 'foo.bar' => ['foo.bar', true, "Hello, World!"];
         yield 'foo.baz' => ['foo.baz', true, ['foo' => 1234, 'bar' => true, 'baz' => false, 'qux' => null]];
-        yield 'foo.baz.foo' => ['foo.baz.foo', true, 1234, 'error'];
-        yield 'foo.baz.bar' => ['foo.baz.bar', true, true, 'error'];
-        yield 'foo.baz.baz' => ['foo.baz.baz', true, false, 'error'];
+        yield 'foo.baz.foo' => ['foo.baz.foo', true, 1234];
+        yield 'foo.baz.bar' => ['foo.baz.bar', true, true];
+        yield 'foo.baz.baz' => ['foo.baz.baz', true, false];
         yield 'foo.baz.qux' => ['foo.baz.qux', false, null];
         yield 'foo.baz.not' => ['foo.baz.not', false, null];
         yield 'foo.baz.not.nope' => ['foo.baz.not.nope', false, null];

@@ -8,6 +8,7 @@ use Generator;
 use InvalidArgumentException;
 use PhoneBurner\SaltLite\Domain\IpAddress\IpAddress;
 use PhoneBurner\SaltLite\Domain\IpAddress\IpAddressType;
+use PhoneBurner\SaltLite\Tests\Fixtures\IpAddressTestStruct;
 use PhoneBurner\SaltLite\Uuid\Uuid;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -17,43 +18,43 @@ final class IpAddressTest extends TestCase
 {
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function marshallReturnsValueFromTrueIp(string $address, IpAddressType $type): void
+    public function marshallReturnsValueFromTrueIp(IpAddressTestStruct $address): void
     {
         $data = [
-            'HTTP_TRUE_CLIENT_IP' => $address,
+            'HTTP_TRUE_CLIENT_IP' => $address->value,
         ];
         $sut = IpAddress::marshall($data);
-        self::assertSame($address, (string)$sut);
-        self::assertSame($address, $sut?->value);
-        self::assertSame($type, $sut->type);
+        self::assertSame($address->value, (string)$sut);
+        self::assertSame($address->value, $sut?->value);
+        self::assertSame($address->type, $sut->type);
         self::assertEquals(\unserialize(\serialize($sut)), $sut);
     }
 
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function marshallReturnsValueFromForwardedId(string $address, IpAddressType $type): void
+    public function marshallReturnsValueFromForwardedId(IpAddressTestStruct $address): void
     {
         $data = [
-            'HTTP_TRUE_CLIENT_IP' => $address . ', 127.0.0.1',
+            'HTTP_TRUE_CLIENT_IP' => $address->value . ', 127.0.0.1',
         ];
         $sut = IpAddress::marshall($data);
-        self::assertSame($address, (string)$sut);
-        self::assertSame($address, $sut?->value);
-        self::assertSame($type, $sut->type);
+        self::assertSame($address->value, (string)$sut);
+        self::assertSame($address->value, $sut?->value);
+        self::assertSame($address->type, $sut->type);
         self::assertEquals(\unserialize(\serialize($sut)), $sut);
     }
 
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function marshallReturnsValueFromRemoteIp(string $address, IpAddressType $type): void
+    public function marshallReturnsValueFromRemoteIp(IpAddressTestStruct $address): void
     {
         $data = [
-            'REMOTE_ADDR' => $address,
+            'REMOTE_ADDR' => $address->value,
         ];
         $sut = IpAddress::marshall($data);
-        self::assertSame($address, (string)$sut);
-        self::assertSame($address, $sut?->value);
-        self::assertSame($type, $sut->type);
+        self::assertSame($address->value, (string)$sut);
+        self::assertSame($address->value, $sut?->value);
+        self::assertSame($address->type, $sut->type);
         self::assertEquals(\unserialize(\serialize($sut)), $sut);
     }
 
@@ -66,12 +67,12 @@ final class IpAddressTest extends TestCase
 
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function makeReturnsValue(string $address, IpAddressType $type): void
+    public function makeReturnsValue(IpAddressTestStruct $address): void
     {
-        $sut = IpAddress::make($address);
-        self::assertSame($address, (string)$sut);
-        self::assertSame($address, $sut->value);
-        self::assertSame($type, $sut->type);
+        $sut = IpAddress::make($address->value);
+        self::assertSame($address->value, (string)$sut);
+        self::assertSame($address->value, $sut->value);
+        self::assertSame($address->type, $sut->type);
         self::assertEquals(\unserialize(\serialize($sut)), $sut);
     }
 
@@ -85,29 +86,29 @@ final class IpAddressTest extends TestCase
 
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function tryFromReturnsValueFromString(string $address, IpAddressType $type): void
+    public function tryFromReturnsValueFromString(IpAddressTestStruct $address): void
     {
-        $sut = IpAddress::tryFrom($address);
+        $sut = IpAddress::tryFrom($address->value);
         self::assertNotNull($sut);
-        self::assertSame($address, (string)$sut);
-        self::assertSame($address, $sut->value);
-        self::assertSame($type, $sut->type);
+        self::assertSame($address->value, (string)$sut);
+        self::assertSame($address->value, $sut->value);
+        self::assertSame($address->type, $sut->type);
         self::assertEquals(\unserialize(\serialize($sut)), $sut);
     }
 
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function tryFromReturnsValueFromSelf(string $address): void
+    public function tryFromReturnsValueFromSelf(IpAddressTestStruct $address): void
     {
-        $address = IpAddress::make($address);
+        $address = IpAddress::make($address->value);
         self::assertSame($address, IpAddress::tryFrom($address));
     }
 
     #[DataProvider('provideValidAddresses')]
     #[Test]
-    public function tryFromReturnsValueFromStringable(string $address): void
+    public function tryFromReturnsValueFromStringable(IpAddressTestStruct $address): void
     {
-        $value = IpAddress::tryFrom(new readonly class ($address) implements \Stringable {
+        $value = IpAddress::tryFrom(new readonly class ($address->value) implements \Stringable {
             public function __construct(private string $address)
             {
             }
@@ -119,7 +120,7 @@ final class IpAddressTest extends TestCase
         });
 
         self::assertNotNull($value);
-        self::assertSame($address, (string)$value);
+        self::assertSame($address->value, (string)$value);
     }
 
     #[DataProvider('provideInvalidAddresses')]
@@ -158,7 +159,7 @@ final class IpAddressTest extends TestCase
             ['::0', IpAddressType::IPv6],
             ] as [$address, $type]
         ) {
-            yield $address => [$address, $type];
+            yield $address => [new IpAddressTestStruct($address, $type)];
         }
     }
 
