@@ -48,7 +48,7 @@ final readonly class AreaCode implements
 
         $this->npa = $npa;
         $this->status = AreaCodeStatus::mask($metadata);
-        $this->purpose = AreaCodePurpose::tryFrom($metadata >> 8 & 0xFF) ?? AreaCodePurpose::GeneralPurpose;
+        $this->purpose = AreaCodePurpose::from($metadata >> 8 & 0xFF);
         $this->time_zones = $metadata & AreaCodeStatus::ASSIGNABLE
             ? TimeZoneFactory::collect(...AreaCodeData::TIME_ZONE_MAP[$metadata >> 16 & 0xFF])
             : TimeZoneFactory::collect();
@@ -79,7 +79,7 @@ final readonly class AreaCode implements
 
     public static function all(): AreaCodeCollection
     {
-        return new AreaCodeCollection(...\array_map([self::class, 'make'], \range(200, 999)));
+        return new AreaCodeCollection(...\array_map(self::make(...), \range(200, 999)));
     }
 
     public static function active(): AreaCodeCollection
