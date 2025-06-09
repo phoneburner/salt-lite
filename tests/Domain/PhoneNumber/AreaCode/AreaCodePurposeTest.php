@@ -13,6 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 final class AreaCodePurposeTest extends TestCase
 {
+    #[Test]
+    public function allAreaCodesHaveAPurpose(): void
+    {
+        foreach (AreaCode::all() as $area_code) {
+            self::assertInstanceOf(AreaCodePurpose::class, AreaCodePurpose::lookup($area_code));
+        }
+    }
+
     #[DataProvider('providesLookupTestCases')]
     #[Test]
     public function lookupReturnsExpectedEnumValue(AreaCode $area_code, AreaCodePurpose $expected): void
