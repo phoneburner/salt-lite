@@ -2,7 +2,7 @@
 
 Name TBD
 
-In contrast to "collections", which are _lists_ of items, a "map" is 
+In contrast to "collections", which are _lists_ of items, a "map" is
 a key to value _mapping_ of items, like an associative array. Some behaviors
 are common to both collections and maps, such as iteration, filtering, and
 transforming. However, there are some behaviors that are optimized when using a

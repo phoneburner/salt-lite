@@ -6,6 +6,7 @@ namespace PhoneBurner\SaltLite\Http\Session;
 
 use PhoneBurner\SaltLite\Cryptography\String\FixedLengthSensitiveBinaryString;
 use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringFromRandomBytes;
+use PhoneBurner\SaltLite\String\BinaryString\Traits\BinaryStringImportBehavior;
 use PhoneBurner\SaltLite\String\Encoding\Encoding;
 
 /**
@@ -17,6 +18,7 @@ use PhoneBurner\SaltLite\String\Encoding\Encoding;
 final class CsrfToken extends FixedLengthSensitiveBinaryString
 {
     use BinaryStringFromRandomBytes;
+    use BinaryStringImportBehavior;
 
     public const int LENGTH = 32; // 256-bit string
 

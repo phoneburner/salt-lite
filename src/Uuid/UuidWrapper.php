@@ -84,138 +84,142 @@ trait UuidWrapper
         return $this->uuid()->toString();
     }
 
-    /**
-     * @deprecated
-     */
+    #[\Deprecated]
     public function getNumberConverter(): NumberConverterInterface
     {
         return $this->uuid()->getNumberConverter();
     }
 
-    /**
-     * @deprecated
-     */
+    #[\Deprecated]
     public function getFieldsHex(): array
     {
         return $this->uuid()->getFieldsHex();
     }
 
-    /**
-     * @deprecated
-     */
+    #[\Deprecated]
     public function getClockSeqHiAndReservedHex(): string
     {
         return $this->uuid()->getClockSeqHiAndReservedHex();
     }
 
-    /**
-     * @deprecated
-     */
+    #[\Deprecated]
     public function getClockSeqLowHex(): string
     {
         return $this->uuid()->getClockSeqLowHex();
     }
 
     /**
-     * @deprecated
      * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function getClockSequenceHex(): string
     {
         return $this->uuid()->getClockSequenceHex();
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function getDateTime(): DateTimeInterface
     {
         return $this->uuid()->getDateTime();
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function getLeastSignificantBitsHex(): string
     {
         return $this->uuid()->getLeastSignificantBitsHex();
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function getMostSignificantBitsHex(): string
     {
         return $this->uuid()->getMostSignificantBitsHex();
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function getNodeHex(): string
     {
         return $this->uuid()->getNodeHex();
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function getTimeHiAndVersionHex(): string
     {
         return $this->uuid()->getTimeHiAndVersionHex();
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function getTimeLowHex(): string
     {
         return $this->uuid()->getTimeLowHex();
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function getTimeMidHex(): string
     {
         return $this->uuid()->getTimeMidHex();
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function getTimestampHex(): string
     {
         return $this->uuid()->getTimestampHex();
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function getVariant(): int|null
     {
         return $this->uuid()->getVariant();
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function getVersion(): int|null
     {
         return $this->uuid()->getVersion();
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function serialize(): never
     {
         throw new \LogicException('Serializes with __serialize Magic Method');
     }
 
     /**
-     * @deprecated
+     * @codeCoverageIgnore
      */
+    #[\Deprecated]
     public function unserialize($data): never
     {
         throw new \LogicException('Deserializes with __unserialize Magic Method');

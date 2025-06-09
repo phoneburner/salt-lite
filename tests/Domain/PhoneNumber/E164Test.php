@@ -23,8 +23,8 @@ final class E164Test extends TestCase
         self::assertSame($expected, (string)$e164);
         self::assertSame(E164::make($e164), $e164);
 
-        self::assertEquals($e164, E164::make(new class ($test) implements \Stringable {
-            public function __construct(private readonly string $phone_number)
+        self::assertEquals($e164, E164::make(new readonly class ($test) implements \Stringable {
+            public function __construct(private string $phone_number)
             {
             }
 
@@ -34,8 +34,8 @@ final class E164Test extends TestCase
             }
         }));
 
-        self::assertSame($e164, E164::make(new class ($e164) implements PhoneNumber {
-            public function __construct(private readonly E164 $e164)
+        self::assertSame($e164, E164::make(new readonly class ($e164) implements PhoneNumber {
+            public function __construct(private E164 $e164)
             {
             }
 
@@ -67,8 +67,8 @@ final class E164Test extends TestCase
         self::assertSame($expected, (string)$e164);
         self::assertSame(E164::tryFrom($e164), $e164);
 
-        self::assertEquals($e164, E164::tryFrom(new class ($test) implements \Stringable {
-            public function __construct(private readonly string $phone_number)
+        self::assertEquals($e164, E164::tryFrom(new readonly class ($test) implements \Stringable {
+            public function __construct(private string $phone_number)
             {
             }
 
@@ -78,8 +78,8 @@ final class E164Test extends TestCase
             }
         }));
 
-        self::assertSame($e164, E164::tryFrom(new class ($e164) implements PhoneNumber {
-            public function __construct(private readonly E164 $e164)
+        self::assertSame($e164, E164::tryFrom(new readonly class ($e164) implements PhoneNumber {
+            public function __construct(private E164 $e164)
             {
             }
 

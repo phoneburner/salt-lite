@@ -161,7 +161,11 @@ class IteratorStream implements StreamInterface, \Stringable, \IteratorAggregate
             $this->iterator->next();
         }
 
-        $this->buffer .= $this->iterator->current();
+        $current = $this->iterator->current();
+        $this->buffer .= \is_scalar($current) || $current === null ? (string)$current : throw new \RuntimeException(
+            'IteratorStream can only read from an iterable of strings',
+        );
+
         ++$this->counter;
         $bytes = \substr($this->buffer, 0, $length);
         $this->position += \strlen($bytes);

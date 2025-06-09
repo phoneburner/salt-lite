@@ -49,9 +49,9 @@ final class RegionTest extends TestCase
             Region::CA,
         ];
         yield 'Stringable object (Region code)' => [
-            new class ('GB') implements \Stringable
+            new readonly class ('GB') implements \Stringable
             {
-                public function __construct(private readonly string $v)
+                public function __construct(private string $v)
                 {
                 }
 
@@ -63,9 +63,9 @@ final class RegionTest extends TestCase
             Region::GB,
         ];
         yield 'Stringable object (Subdivision code)' => [
-            new class (SubdivisionCode::US_NY) implements \Stringable
+            new readonly class (SubdivisionCode::US_NY) implements \Stringable
             {
-                public function __construct(private readonly string $v)
+                public function __construct(private string $v)
                 {
                 }
 

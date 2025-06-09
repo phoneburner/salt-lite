@@ -63,8 +63,8 @@ final class UuidStringTest extends TestCase
         $uuid = Uuid::random();
         $uuid_string = $uuid->toString();
 
-        $stringable = new class ($uuid_string) implements \Stringable {
-            public function __construct(private readonly string $uuid)
+        $stringable = new readonly class ($uuid_string) implements \Stringable {
+            public function __construct(private string $uuid)
             {
             }
 

@@ -15,10 +15,10 @@ final readonly class Type
      * @param class-string<T> $type
      * @return T&object
      */
-    public static function of(string $type, object $value): object
+    public static function of(string $type, mixed $value): object
     {
         return $value instanceof $type ? $value : throw new \UnexpectedValueException(
-            \sprintf('Expected an instance of %s, but got %s', $type, $value::class),
+            \sprintf('Expected an instance of %s, but got %s', $type, \get_debug_type($value)),
         );
     }
 

@@ -19,13 +19,13 @@ final class MapWrapperTest extends TestCase
         /**
          * @var MapCollection<mixed> $map
          */
-        $map = new class ($data) implements MapCollection {
+        $map = new readonly class ($data) implements MapCollection {
             /**
              * @use MapWrapper<mixed>
              */
             use MapWrapper;
 
-            private readonly KeyValueStore $map;
+            private KeyValueStore $map;
 
             public function __construct(array $data = [])
             {

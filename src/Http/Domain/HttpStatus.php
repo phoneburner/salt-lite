@@ -130,10 +130,9 @@ class HttpStatus
     public const int NOT_MODIFIED = 304;
 
     /**
-     * This status code has been deprecated in RFC 7231 due to security concerns
+     * Note: this status code has been deprecated in RFC 7231 due to security concerns
      * regarding in-band configuration of a proxy.
      *
-     * @deprecated
      * @link https://datatracker.ietf.org/doc/html/rfc7231#section-6.4.5
      */
     public const int USE_PROXY = 305;

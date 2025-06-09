@@ -6,9 +6,9 @@ throw in your application, that are also instances of `Psr\Http\Message\Response
 These exceptions wrap simple plain text responses, but can be transformed in
 middleware to more complex, request-specific responses. That is, the same
 exception/response can be used to generate an HTML response for a browser, or a
-JSON response for an API client. 
+JSON response for an API client.
 
-By default, the transformed JSON response is formatted an 
+By default, the transformed JSON response is formatted an
 [RFC 7807 Problem Details](https://datatracker.ietf.org/doc/html/rfc7807) response.
 Additional attributes can be included when instantiating the exception.
 

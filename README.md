@@ -11,10 +11,11 @@ Salt framework, avoiding the pitfalls of bringing in a full-fledged third-party
 framework and trying to adapt that to our needs.
 
 This package contains framework-agnostic components for the SaltLite project, which
-are intended to be compatible with both the [SaltLite Framework](https://github.com/phoneburner/salt-lite-framework) and the original 
+are intended to be compatible with both the [SaltLite Framework](https://github.com/phoneburner/salt-lite-framework) and the original
 Salt project, providing a consistent and reliable foundation for building applications.
 
 ### Design & Dependencies
+
 The components are designed to be modular and reusable, and could potentially be
 split into their own packages in the future via subtree splitting. We separate
 these components from the SaltLite framework to reduce the number of dependencies,

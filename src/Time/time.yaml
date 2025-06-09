@@ -3,7 +3,7 @@ info:
   title: Time Components
   description: Reusable Open API Components Related to Time Domain Objects
   version: 1.0.0
-paths: { }
+paths: {}
 components:
   schemas:
     DateTime:

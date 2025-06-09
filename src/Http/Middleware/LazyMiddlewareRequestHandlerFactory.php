@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PhoneBurner\SaltLite\Http\Middleware;
 
 use PhoneBurner\SaltLite\Http\Middleware\Exception\InvalidMiddlewareConfiguration;
+use PhoneBurner\SaltLite\Type\Type;
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -18,6 +19,9 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 final readonly class LazyMiddlewareRequestHandlerFactory implements MiddlewareRequestHandlerFactory
 {
+    /**
+     * @var \Closure(MiddlewareInterface): MiddlewareInterface
+     */
     private \Closure $proxy_factory;
 
     public function __construct(
@@ -28,9 +32,8 @@ final readonly class LazyMiddlewareRequestHandlerFactory implements MiddlewareRe
         // we need to call the `initializeLazyObject` method on the reflector of
         // the object to return the initialized object. If the object is not lazy,
         // this is a no-op.
-        $this->proxy_factory = static fn(object $object): object => new \ReflectionClass($object)->initializeLazyObject(
-            $container->get($object::class),
-        );
+        $this->proxy_factory = static fn(MiddlewareInterface $object): MiddlewareInterface => new \ReflectionClass($object)
+            ->initializeLazyObject(Type::of(MiddlewareInterface::class, $container->get($object::class)),);
     }
 
     /**

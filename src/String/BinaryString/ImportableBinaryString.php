@@ -8,6 +8,8 @@ use PhoneBurner\SaltLite\String\Encoding\Encoding;
 
 interface ImportableBinaryString extends BinaryString
 {
+    public function __construct(#[\SensitiveParameter] BinaryString|string $bytes);
+
     /**
      * Create a new instance of the binary string from a hex-encoded string, or
      * a string encoded with one of the four base64 variants supported by
