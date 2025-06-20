@@ -9,12 +9,12 @@ use PhoneBurner\SaltLite\Uuid\Uuid;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Rfc4122\FieldsInterface;
 use Ramsey\Uuid\Rfc4122\NilUuid;
 use Ramsey\Uuid\UuidInterface;
 use stdClass;
 use Stringable;
-use Throwable;
 
 final class UuidTest extends TestCase
 {
@@ -86,6 +86,13 @@ final class UuidTest extends TestCase
     }
 
     #[Test]
+    public function parseReturnsSameUuidInterfaceInstance(): void
+    {
+        $uuid = Uuid::random();
+        self::assertSame($uuid, Uuid::parse($uuid));
+    }
+
+    #[Test]
     public function instanceCastsStringsToUuidInterface(): void
     {
         $uuid = Uuid::random();
@@ -108,20 +115,62 @@ final class UuidTest extends TestCase
         self::assertTrue($uuid->equals(Uuid::instance($uuid_stringable)));
     }
 
-    #[DataProvider('provideUncastableUuidValues')]
     #[Test]
-    public function instanceThrowsExceptionIfCannotCastToUuidInterface(mixed $value): void
+    public function parseCastsStringsToUuidInterface(): void
     {
-        $this->expectException(Throwable::class);
-        /** @phpstan-ignore argument.type (intentional defect) */
+        $uuid = Uuid::random();
+
+        $uuid_upper_string = \strtoupper($uuid->toString());
+        $uuid_lower_string = \strtolower($uuid->toString());
+        $uuid_stringable = new readonly class ($uuid) implements Stringable {
+            public function __construct(private UuidInterface $uuid)
+            {
+            }
+
+            public function __toString(): string
+            {
+                return (string)$this->uuid;
+            }
+        };
+
+        self::assertTrue($uuid->equals(Uuid::parse($uuid_upper_string)));
+        self::assertTrue($uuid->equals(Uuid::parse($uuid_lower_string)));
+        self::assertTrue($uuid->equals(Uuid::parse($uuid_stringable)));
+    }
+
+    #[DataProvider('provideUncastableUuidValuesOfExpectedType')]
+    #[Test]
+    public function instanceThrowsExceptionIfCannotCastToUuidInterface(\Stringable|string $value): void
+    {
+        $this->expectException(InvalidUuidStringException::class);
         Uuid::instance($value);
     }
 
-    public static function provideUncastableUuidValues(): Generator
+    #[Test]
+    #[DataProvider('provideUncastableUuidValuesOfExpectedType')]
+    #[DataProvider('provideUncastableUuidValuesOfWrongType')]
+    public function parseReturnsNullIfCannotCastToUuidInterface(mixed $value): void
     {
-        yield [''];
-        yield [new stdClass()];
-        yield [1234567890];
-        yield ['Z0000000-0000-0000-0000-000000000000'];
+        self::assertNull(Uuid::parse($value));
+    }
+
+    public static function provideUncastableUuidValuesOfWrongType(): Generator
+    {
+        yield 'null' => [null];
+        yield 'object' => [new stdClass()];
+        yield 'integer' => [1234567890];
+    }
+
+    public static function provideUncastableUuidValuesOfExpectedType(): Generator
+    {
+        yield 'empty_string' => [''];
+        yield 'not-uuid-0' => ['Z0000000-0000-0000-0000-000000000000'];
+        yield 'not-uuid-1' => ['00000000-0000-0000-0000-00000000000Z'];
+        yield 'stringable' => [new class implements Stringable {
+            public function __toString(): string
+            {
+                return 'not-a-uuid';
+            }
+        }];
     }
 }
