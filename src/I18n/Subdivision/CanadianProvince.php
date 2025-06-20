@@ -62,6 +62,40 @@ enum CanadianProvince: string implements RegionAware
     #[SubdivisionCode(SubdivisionCode::CA_YT)]
     case YT = 'YT';
 
+    public static function instance(mixed $province): self
+    {
+        return self::parse($province) ?? throw new \UnexpectedValueException(
+            \sprintf('Invalid CA Province: %s', \is_string($province) ? $province : \get_debug_type($province)),
+        );
+    }
+
+    public static function parse(mixed $province): self|null
+    {
+        if ($province === null || $province instanceof self) {
+            return $province;
+        }
+
+        if (! \is_string($province) && ! $province instanceof \Stringable) {
+            return null;
+        }
+
+        static $map = (static function () {
+            $map = [];
+            foreach (self::cases() as $province) {
+                $map[$province->value] = $province;
+                $map[\strtoupper($province->label()->value)] = $province;
+                $map[$province->code()->value] = $province;
+            }
+            $map['PEI'] = self::PE;
+            $map['NEWFOUNDLAND'] = self::NL;
+            $map['LABRADOR'] = self::NL;
+            $map['NEWFOUNDLAND/LABRADOR'] = self::NL;
+            return $map;
+        })();
+
+        return $map[\strtoupper(\str_replace(["'", '.', ','], '', \trim((string)$province)))] ?? null;
+    }
+
     public function label(): SubdivisionName
     {
         static $cache = new \SplObjectStorage();
