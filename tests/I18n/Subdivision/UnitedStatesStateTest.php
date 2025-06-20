@@ -10,6 +10,7 @@ use PhoneBurner\SaltLite\I18n\Subdivision\SubdivisionCode;
 use PhoneBurner\SaltLite\I18n\Subdivision\SubdivisionName;
 use PhoneBurner\SaltLite\I18n\Subdivision\UnitedStatesState;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
@@ -58,5 +59,68 @@ final class UnitedStatesStateTest extends TestCase
             self::assertInstanceOf(SubdivisionCode::class, $case->code());
             self::assertSame(Region::US, $case->getRegion());
         }
+    }
+
+    #[Test]
+    #[DataProvider('validParsableValuesDataProvider')]
+    public function instanceReturnsExpectedValue(mixed $value, UnitedStatesState $state): void
+    {
+        self::assertSame($state, UnitedStatesState::instance($value));
+    }
+
+    #[Test]
+    #[DataProvider('invalidParsableValuesDataProvider')]
+    public function instanceThrowsExpectedExceptionForInvalidInput(mixed $value): void
+    {
+        $this->expectException(\UnexpectedValueException::class);
+        UnitedStatesState::instance($value);
+    }
+
+    #[Test]
+    #[DataProvider('validParsableValuesDataProvider')]
+    public function parseReturnsExpectedValueForValidInput(mixed $value, UnitedStatesState $state): void
+    {
+        self::assertSame($state, UnitedStatesState::parse($value));
+    }
+
+    #[Test]
+    #[DataProvider('invalidParsableValuesDataProvider')]
+    public function parseReturnsExpectedValueForInvalidInput(mixed $value): void
+    {
+        self::assertNull(UnitedStatesState::parse($value));
+    }
+
+    public static function validParsableValuesDataProvider(): \Generator
+    {
+        foreach (UnitedStatesState::cases() as $state) {
+            yield [$state, $state];
+            yield [$state->value, $state];
+            yield [$state->code()->value, $state];
+            yield [\strtolower($state->code()->value), $state];
+            yield [$state->label()->value, $state];
+            yield [\strtoupper($state->label()->value), $state];
+            yield [\strtolower($state->label()->value), $state];
+        }
+
+        yield from [
+            ['washington', UnitedStatesState::WA],
+            ['Washington DC', UnitedStatesState::DC],
+            ['Washington, DC', UnitedStatesState::DC],
+            ['washington d.c.', UnitedStatesState::DC],
+            ['Washington, D.C.', UnitedStatesState::DC],
+        ];
+    }
+
+    public static function invalidParsableValuesDataProvider(): \Iterator
+    {
+        yield [null];
+        yield [''];
+        yield ['Invalid State'];
+        yield ['XX'];
+        yield [123];
+        yield [new \stdClass()];
+        yield [SubdivisionCode::CA_ON];
+        yield ["British Columbia"];
+        yield ['Newfoundland'];
     }
 }

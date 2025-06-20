@@ -241,6 +241,37 @@ enum UnitedStatesState: string implements RegionAware
     #[SubdivisionCode(SubdivisionCode::US_VI)]
     case VI = 'VI';
 
+    public static function instance(mixed $state): self
+    {
+        return self::parse($state) ?? throw new \UnexpectedValueException(
+            \sprintf('Invalid US State: %s', \is_string($state) ? $state : \get_debug_type($state)),
+        );
+    }
+
+    public static function parse(mixed $state): self|null
+    {
+        if ($state === null || $state instanceof self) {
+            return $state;
+        }
+
+        if (! \is_string($state) && ! $state instanceof \Stringable) {
+            return null;
+        }
+
+        static $map = (static function () {
+            $map = [];
+            foreach (self::cases() as $state) {
+                $map[$state->value] = $state;
+                $map[\strtoupper($state->label()->value)] = $state;
+                $map[$state->code()->value] = $state;
+            }
+            $map[\strtoupper('WASHINGTON DC')] = self::DC;
+            return $map;
+        })();
+
+        return $map[\strtoupper(\str_replace(["'", '.', ','], '', \trim((string)$state)))] ?? null;
+    }
+
     public function label(): SubdivisionName
     {
         static $cache = new \SplObjectStorage();
