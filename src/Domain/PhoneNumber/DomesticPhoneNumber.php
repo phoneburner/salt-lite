@@ -27,7 +27,7 @@ final readonly class DomesticPhoneNumber implements
             throw new InvalidPhoneNumber('Not a Valid Domestic Number: ' . $e164);
         }
 
-        $this->area_code = AreaCode::make(\substr((string)$this->e164, 2, 3));
+        $this->area_code = AreaCode::make($this->npa());
     }
 
     public static function make(NullablePhoneNumber|\Stringable|string|int $phone_number): self
@@ -79,7 +79,7 @@ final readonly class DomesticPhoneNumber implements
      */
     public function npa(): string
     {
-        return (string)$this->area_code->npa;
+        return \substr((string)$this->e164, 2, 3);
     }
 
     /**
@@ -112,7 +112,7 @@ final readonly class DomesticPhoneNumber implements
 
     public function __serialize(): array
     {
-        return ['phone_number' => $this->format(PhoneNumberFormat::E164)];
+        return ['phone_number' => (string)$this->e164];
     }
 
     /**
@@ -120,8 +120,6 @@ final readonly class DomesticPhoneNumber implements
      */
     public function __unserialize(array $data): void
     {
-        $phone_number = self::make($data['phone_number']);
-        $this->e164 = $phone_number->e164;
-        $this->area_code = $phone_number->area_code;
+        $this->__construct(E164::make($data['phone_number']));
     }
 }
