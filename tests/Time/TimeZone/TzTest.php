@@ -50,4 +50,17 @@ final class TzTest extends TestCase
         yield 'London' => [Tz::London];
         yield 'Tokyo' => [Tz::Tokyo];
     }
+
+    #[Test]
+    public function allIdentifiersAreSupported(): void
+    {
+        $identifiers = DateTimeZone::listIdentifiers();
+        foreach ($identifiers as $identifier) {
+            self::assertInstanceOf(Tz::class, Tz::from($identifier), \sprintf("Identifier '%s' should be a Tz case.", $identifier));
+        }
+
+        foreach (Tz::cases() as $tz) {
+            self::assertContains($tz->value, $identifiers, \sprintf("Tz case '%s' not in DateTimeZone identifiers.", $tz->name));
+        }
+    }
 }

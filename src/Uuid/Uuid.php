@@ -66,6 +66,19 @@ final readonly class Uuid
         return $uuid instanceof UuidInterface ? $uuid : self::factory()->fromString((string)$uuid);
     }
 
+    public static function parse(mixed $uuid): UuidInterface|null
+    {
+        try {
+            return match (true) {
+                $uuid instanceof UuidInterface => $uuid,
+                \is_string($uuid), $uuid instanceof \Stringable => self::instance($uuid),
+                default => null,
+            };
+        } catch (\Throwable) {
+            return null;
+        }
+    }
+
     public static function factory(): UuidFactory
     {
         static $factory = new UuidFactory();

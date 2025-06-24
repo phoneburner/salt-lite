@@ -69,13 +69,4 @@ final class TimeZoneFactoryTest extends TestCase
             new \DateTimeZone(Tz::LosAngeles->value),
         ));
     }
-
-    #[Test]
-    public function defaultReturnsExpectedMemoizedTimezone(): void
-    {
-        $default = TimeZoneFactory::default();
-        self::assertSame($default, TimeZoneFactory::default());
-        self::assertSame(Tz::Chicago->value, $default->getName());
-        self::assertSame(Tz::Chicago->value, TimeZoneFactory::default()->getName());
-    }
 }

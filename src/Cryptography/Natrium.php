@@ -20,12 +20,12 @@ use PhoneBurner\SaltLite\Cryptography\Paseto\Claims\PasetoPayloadClaims;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Paseto;
 use PhoneBurner\SaltLite\Cryptography\Paseto\PasetoWithClaims;
 use PhoneBurner\SaltLite\Cryptography\Paseto\Protocol\PasetoFacade;
-use PhoneBurner\SaltLite\Cryptography\Random\Random;
 use PhoneBurner\SaltLite\Cryptography\String\Ciphertext;
 use PhoneBurner\SaltLite\Cryptography\String\MessageSignature;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\EncryptedMessage;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\SharedKey;
 use PhoneBurner\SaltLite\Cryptography\Symmetric\Symmetric;
+use PhoneBurner\SaltLite\Random\Randomizer;
 use PhoneBurner\SaltLite\String\BinaryString\BinaryString;
 use PhoneBurner\SaltLite\Time\Clock\Clock;
 use PhoneBurner\SaltLite\Time\Clock\SystemClock;
@@ -54,7 +54,7 @@ readonly class Natrium
     public Symmetric $symmetric;
     public Asymmetric $asymmetric;
     public PasetoFacade $paseto;
-    public Random $random;
+    public Randomizer $random;
 
     public function __construct(
         public KeyChain $keys,
@@ -64,7 +64,7 @@ readonly class Natrium
         $this->symmetric = new Symmetric();
         $this->asymmetric = new Asymmetric();
         $this->paseto = new PasetoFacade();
-        $this->random = new Random();
+        $this->random = new Randomizer();
     }
 
     public function hash(\Stringable|BinaryString|string $plaintext): Hash

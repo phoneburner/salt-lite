@@ -51,6 +51,7 @@ enum Tz: string
     case Chicago = 'America/Chicago';
     case Chihuahua = 'America/Chihuahua';
     case CiudadJuarez = 'America/Ciudad_Juarez';
+    case Coyhaique = 'America/Coyhaique';
     case CostaRica = 'America/Costa_Rica';
     case Creston = 'America/Creston';
     case Cuiaba = 'America/Cuiaba';
@@ -291,7 +292,6 @@ enum Tz: string
     case Bishkek = 'Asia/Bishkek';
     case Brunei = 'Asia/Brunei';
     case Chita = 'Asia/Chita';
-    case Choibalsan = 'Asia/Choibalsan';
     case Colombo = 'Asia/Colombo';
     case Damascus = 'Asia/Damascus';
     case Dhaka = 'Asia/Dhaka';

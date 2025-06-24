@@ -8,6 +8,8 @@ use DateTimeZone;
 
 class TimeZoneFactory
 {
+    public const string INVALID_TIME_ZONE_NAME = 'Etc/Unknown';
+
     /**
      * @var array<string, DateTimeZone>
      */
@@ -17,11 +19,6 @@ class TimeZoneFactory
      * @var array<string, TimeZoneCollection>
      */
     private static array $collection_cache = [];
-
-    public static function default(): DateTimeZone
-    {
-        return self::$timezone_cache[Tz::Chicago->value] ??= new DateTimeZone(Tz::Chicago->value);
-    }
 
     public static function utc(): DateTimeZone
     {
@@ -42,6 +39,7 @@ class TimeZoneFactory
         try {
             return match (true) {
                 $time_zone instanceof DateTimeZone, $time_zone === null => $time_zone,
+                $time_zone === self::INVALID_TIME_ZONE_NAME => null,
                 $time_zone instanceof Tz, \is_string($time_zone) => self::make($time_zone),
                 default => null,
             };

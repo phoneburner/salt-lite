@@ -117,8 +117,8 @@ down:
 bash: build/docker/docker-compose.json
 	$(docker-app) bash
 
-.PHONY: shell
-shell: build/.install
+.PHONY: shell psysh
+shell psysh: build/.install
 	docker compose up --detach
 	$(docker-app) vendor/bin/psysh
 
@@ -132,7 +132,7 @@ ci: lint phpcs phpstan phpunit prettier-check rector-dry-run
 
 .NOTPARALLEL: pre-ci preci
 .PHONY: pre-ci preci
-pre-ci preci: phpcbf prettier-write rector ci
+pre-ci preci: prettier-write rector phpcbf ci
 
 # Run the PHP development server to serve the HTML test coverage report on port 8000.
 .PHONY: serve-coverage

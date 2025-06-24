@@ -4,51 +4,44 @@ declare(strict_types=1);
 
 namespace PhoneBurner\SaltLite\Time\TimeZone;
 
-use Carbon\CarbonImmutable;
-use Countable;
-use DateTimeInterface;
-use DateTimeZone;
-use Generator;
-use IteratorAggregate;
 use PhoneBurner\SaltLite\Serialization\PhpSerializable;
-use UnderflowException;
 
 /**
- * @implements IteratorAggregate<DateTimeZone>
- * @implements PhpSerializable<array<DateTimeZone>>
+ * @implements \IteratorAggregate<\DateTimeZone>
+ * @implements PhpSerializable<array<\DateTimeZone>>
  */
 final readonly class TimeZoneCollection implements
-    IteratorAggregate,
-    Countable,
     TimeZoneCollectionAware,
     PhpSerializable,
+    \IteratorAggregate,
+    \Countable,
     \Stringable
 {
     /**
-     * @var array<DateTimeZone>
+     * @var array<\DateTimeZone>
      */
     private array $time_zones;
 
-    private function __construct(DateTimeZone ...$time_zones)
+    private function __construct(\DateTimeZone ...$time_zones)
     {
         $this->time_zones = \array_values(\array_unique($time_zones, \SORT_REGULAR));
     }
 
-    public static function make(DateTimeZone ...$time_zones): self
+    public static function make(\DateTimeZone ...$time_zones): self
     {
         return new self(...$time_zones);
     }
 
-    public function first(): DateTimeZone
+    public function first(): \DateTimeZone
     {
         if ($this->time_zones === []) {
-            throw new UnderflowException('TimeZoneCollection is Empty');
+            throw new \UnderflowException('TimeZoneCollection is Empty');
         }
 
         return $this->time_zones[\array_key_first($this->time_zones)];
     }
 
-    public function getMinOffsetTimeZone(DateTimeInterface $datetime): DateTimeZone|null
+    public function getMinOffsetTimeZone(\DateTimeInterface $datetime = new \DateTimeImmutable()): \DateTimeZone|null
     {
         if ($this->time_zones === []) {
             return null;
@@ -59,7 +52,7 @@ final readonly class TimeZoneCollection implements
         return $time_zones[\array_key_first($time_zones)] ?? null;
     }
 
-    public function getMaxOffsetTimeZone(DateTimeInterface $datetime): DateTimeZone|null
+    public function getMaxOffsetTimeZone(\DateTimeInterface $datetime = new \DateTimeImmutable()): \DateTimeZone|null
     {
         if ($this->time_zones === []) {
             return null;
@@ -70,25 +63,27 @@ final readonly class TimeZoneCollection implements
         return $time_zones[\array_key_last($time_zones)] ?? null;
     }
 
-    public function getEarliestLocalTime(DateTimeInterface $datetime): CarbonImmutable|null
-    {
+    public function getEarliestLocalTime(
+        \DateTimeInterface $datetime = new \DateTimeImmutable(),
+    ): \DateTimeImmutable|null {
         if ($this->time_zones === []) {
             return null;
         }
 
-        $datetime = CarbonImmutable::instance($datetime);
+        $datetime = $datetime instanceof \DateTimeImmutable ? $datetime : \DateTimeImmutable::createFromInterface($datetime);
         $time_zones = self::sortByLocalTime($this->time_zones, $datetime);
 
         return $datetime->setTimezone(\reset($time_zones));
     }
 
-    public function getLatestLocalTime(DateTimeInterface $datetime): CarbonImmutable|null
-    {
+    public function getLatestLocalTime(
+        \DateTimeInterface $datetime = new \DateTimeImmutable(),
+    ): \DateTimeImmutable|null {
         if ($this->time_zones === []) {
             return null;
         }
 
-        $datetime = CarbonImmutable::instance($datetime);
+        $datetime = $datetime instanceof \DateTimeImmutable ? $datetime : \DateTimeImmutable::createFromInterface($datetime);
         $time_zones = self::sortByLocalTime($this->time_zones, $datetime);
 
         return $datetime->setTimezone(\end($time_zones));
@@ -101,10 +96,10 @@ final readonly class TimeZoneCollection implements
     }
 
     /**
-     * @phpstan-assert-if-true DateTimeZone $this->getMinOffsetTimeZone()
-     * @phpstan-assert-if-true DateTimeZone $this->getMaxOffsetTimeZone()
-     * @phpstan-assert-if-true CarbonImmutable $this->getEarliestLocalTime()
-     * @phpstan-assert-if-true CarbonImmutable $this->getLatestLocalTime()
+     * @phpstan-assert-if-true \DateTimeZone $this->getMinOffsetTimeZone()
+     * @phpstan-assert-if-true \DateTimeZone $this->getMaxOffsetTimeZone()
+     * @phpstan-assert-if-true \DateTimeImmutable $this->getEarliestLocalTime()
+     * @phpstan-assert-if-true \DateTimeImmutable $this->getLatestLocalTime()
      */
     #[\Override]
     public function count(): int
@@ -113,10 +108,10 @@ final readonly class TimeZoneCollection implements
     }
 
     /**
-     * @return Generator<DateTimeZone>
+     * @return \Generator<\DateTimeZone>
      */
     #[\Override]
-    public function getIterator(): Generator
+    public function getIterator(): \Generator
     {
         yield from $this->time_zones;
     }
@@ -128,7 +123,7 @@ final readonly class TimeZoneCollection implements
             return '';
         }
 
-        $time_zones = \array_map(static fn(DateTimeZone $tz): string => $tz->getName(), $this->time_zones);
+        $time_zones = \array_map(static fn(\DateTimeZone $tz): string => $tz->getName(), $this->time_zones);
         \sort($time_zones);
         return \implode('&', $time_zones);
     }
@@ -146,16 +141,16 @@ final readonly class TimeZoneCollection implements
     }
 
     /**
-     * @param non-empty-array<DateTimeZone> $time_zones
-     * @return non-empty-array<DateTimeZone>
+     * @param non-empty-array<\DateTimeZone> $time_zones
+     * @return non-empty-array<\DateTimeZone>
      */
-    private static function sortByUtcOffset(array $time_zones, DateTimeInterface $datetime): array
+    private static function sortByUtcOffset(array $time_zones, \DateTimeInterface $datetime): array
     {
         if (\count($time_zones) === 1) {
             return $time_zones;
         }
 
-        \usort($time_zones, static function (DateTimeZone $a, DateTimeZone $b) use ($datetime): int {
+        \usort($time_zones, static function (\DateTimeZone $a, \DateTimeZone $b) use ($datetime): int {
             return $a->getOffset($datetime) <=> $b->getOffset($datetime);
         });
 
@@ -163,8 +158,8 @@ final readonly class TimeZoneCollection implements
     }
 
     /**
-     * Note: sorting by local time is not the same as sorting by offset, because
-     * compared offsets can be positive and negative, resulting in out of order
+     * Note: "sorting by local time" is different from "sorting by offset", because
+     * compared offsets can be positive and negative, resulting in out-of-order
      * local times.
      *
      * @param non-empty-array<\DateTimeZone> $time_zones
