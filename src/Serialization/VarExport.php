@@ -14,15 +14,15 @@ use Symfony\Component\VarExporter\VarExporter;
  */
 class VarExport
 {
-    const string FILE_EXPORT_TEMPLATE = <<<'PHP'
+    public const string FILE_EXPORT_TEMPLATE = <<<'PHP'
             <?php
-            
+
             /**
              * %s (%s)
              */
-            
+
             declare(strict_types=1);
-            
+
             return %s;
 
             PHP;

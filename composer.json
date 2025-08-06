@@ -26,23 +26,7 @@
   "repositories": [
     {
       "type": "github",
-      "url": "https://github.com/phoneburner/composer-replacements"
-    },
-    {
-      "type": "github",
-      "url": "https://github.com/phoneburner/php-coding-standard"
-    },
-    {
-      "type": "github",
       "url": "https://github.com/phoneburner/salt-lite-phpstan"
-    },
-    {
-      "type": "github",
-      "url": "https://github.com/phoneburner/http-tortilla"
-    },
-    {
-      "type": "github",
-      "url": "https://github.com/phoneburner/link-tortilla"
     }
   ],
   "autoload": {
@@ -84,8 +68,8 @@
     "crell/attributeutils": "^1.2",
     "laminas/laminas-diactoros": "^3.5.0",
     "nesbot/carbon": "^2.73.0 || ^3.8.4",
-    "phoneburner/http-tortilla": "dev-develop",
-    "phoneburner/link-tortilla": "dev-main",
+    "phoneburner/http-tortilla": "^2.0",
+    "phoneburner/link-tortilla": "^1.0",
     "psr/cache": "^3.0.0",
     "psr/clock": "^1.0.0",
     "psr/container": "^1.1.2 || ^2.0.2",

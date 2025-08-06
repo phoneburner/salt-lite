@@ -17,6 +17,14 @@ parameters:
         - identifier: method.internalClass
           path: 'tests/'
 
+      # Temporarily ignoring these errors
+        - identifier: possiblyImpure.methodCall
+          path: src/Uuid/UuidWrapper.php
+
+      # Possible PHPStan Bug:
+        - identifier: deadCode.unreachable
+          path: tests/Iterator/ArrTest.php
+
     treatPhpDocTypesAsCertain: false
 
     # Strict Analysis

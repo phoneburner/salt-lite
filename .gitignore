@@ -18,6 +18,7 @@
 
 /build/
 /vendor/
+.local
 
 # Ignore boilerplate and development tooling files
 docker-compose.override.yml
