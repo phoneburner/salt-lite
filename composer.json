@@ -3,16 +3,7 @@
   "description": "SaltLite Components Library",
   "type": "library",
   "license": "MIT",
-  "authors": [
-    {
-      "name": "Tim Lytle",
-      "email": "tim@phoneburner.com"
-    },
-    {
-      "name": "Andy Snell",
-      "email": "andy@phoneburner.com"
-    }
-  ],
+  "authors": [],
   "config": {
     "platform": {
       "php": "8.4"
